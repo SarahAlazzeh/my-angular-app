@@ -1,0 +1,72 @@
+<div class="nav1">
+  <div>
+    <img src="" alt="" class="logo">
+    <h1 class="logiTitle">Sarah's Bakery</h1>
+  </div>
+  <ul>
+    <li routerLink="home"  ><a>Home</a></li>
+    <li routerLink="/shop" routerLinkActive="active" ><a>Shop</a></li>
+    <li routerLink="/recipe"><a>Recipes</a></li>
+    <li routerLink="about"><a>About</a></li>
+    <li routerLink="contact"><a>Contact Us</a></li>
+    <li routerLink="/share"><a>Share Your Recipes</a></li>
+  </ul>
+
+  <div class="navIcon">
+    <button><a routerLink="cart">Cart</a></button>
+    <button><a routerLink="">Fav</a></button>
+  </div>
+</div>
+
+<div class="nav2">
+  <input type="search"
+  placeholder="Search for treats..."
+  class="search"
+  [(ngModel)]="inputSearch"
+  >
+  <div>
+    @for (pcodaut of products |searchPipe: inputSearch; track $index) {
+      <div class="container">
+      <div class="productGrid">
+        <div class="productCard">
+          <img [src]="products.img" alt="">
+          <div class="productInfo">
+            <h3 class="productTitle">{{products.title}}</h3>
+            <div class="productMeta">
+              <span class="productPrice"> {{products.price | currency : "JD" : "code"}}</span>
+              <span class="productQuantity">{{products.quantity }}</span>
+            </div>
+            <div class="productActions">
+              <!-- <button (click)=""></button> -->
+              <button  class="btn btnPrimary" > <a >Add To Cart</a> </button>
+<!-- (click)="addToCart()" -->
+              <!-- <button class="btn btnPrimary" ><a ></a></button> -->
+              <button class="btn  btnSecondary"><a>Show Recipe</a></button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    }@empty {
+      <h3>Prouduct Not found {{inputSearch}}</h3>
+    }
+  </div>
+  <div class="options">
+    <select name="option" class="modes"  >
+      <option value="">Theme</option>
+      <option value="dark">dark mode</option>
+      <option value="light">light mode</option>
+    </select>
+    <select name="option" class="language">
+      <option value="">Language</option>
+      <option value=""> عربي</option>
+      <option value="">english</option>
+    </select>
+
+  </div>
+  <!-- <a>logout</a> -->
+  <div class="user">
+    <img src="" alt="">
+  </div>
+</div>
+

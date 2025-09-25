@@ -1,0 +1,72 @@
+h2{
+  color: #4a2c40;
+  justify-self: center;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+h2::after{
+  content: "";
+  color: #4a2c40;
+  margin-top: 10px;
+  display: flex;
+  justify-self: center;
+  width: 90px;
+  border-bottom: #4a2c40 4px solid;
+  border-radius: 20px;
+}
+.container{
+  display: grid;
+  grid-template-columns: 1fr;
+  justify-items: center;
+
+}
+
+div input{
+  width: 250px;
+  margin: 10px;
+  padding: 10px 10px;
+  border-radius: 10px;
+  border: .2px solid #ff9aa2;
+  outline: none;
+  transition: all 0.3s ease;
+}
+
+div input:focus{
+  border: 1px solid #c44569;
+  box-shadow: 0 4px 12px #ff9aa2;
+}
+
+div label{
+  font-weight: 600;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #c44569;
+  font-size: larger;
+  padding: 10px 2px;
+}
+
+.upload{
+  display: flex;
+  flex-direction: row;
+  /* grid-template-columns: 1fr 1fr; */
+}
+
+.upload input[type=file]{
+  border: none;
+  padding: 6px 0px;
+}
+
+.btn{
+  /* flex: 1; */
+  padding: 10px;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition);
+  display: flex;
+  justify-self: center;
+  gap: 8px;
+  background-color: palegreen;
+  color: black;
+  border: .2px solid palegreen;
+}

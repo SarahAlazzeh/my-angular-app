@@ -1,0 +1,30 @@
+<h2>Added New Item</h2>
+<br>
+<div class="container">
+  <!-- <div class="upload">
+    <label for="id">Write Id Of New Item :</label>
+    <input type="text" class="id" placeholder="Id" name="id">
+  </div> -->
+  <div class="upload">
+    <label for="image">Upload Image Of New Item : </label>
+    <input type="file" [(ngModel)]="newImg" class="imgUpload" placeholder="image" name="image">
+  </div>
+  <div class="upload">
+    <label for="title">Write Title Of New Item :</label>
+    <input type="text" [(ngModel)]="newTitle" class="titleUpload" name="title" placeholder="Title">
+  </div>
+  <div class="upload">
+    <label for="title">Write Price Of New Item :</label>
+    <input type="text" [(ngModel)]="newPrice" class="priceUpload" name="price" placeholder="Price">
+  </div>
+  <div class="upload">
+    <label for="quantity">Write quantity Of New Item :</label>
+    <input type="text" [(ngModel)]="newQuantity" class="quantityUpload" name="quantity" placeholder="Quantity">
+  </div>
+</div>
+
+<br>
+<button class="btn" (click)="addProduct()">Add New Item</button>
+<!-- (click)="onClicked" -->
+<br>
+

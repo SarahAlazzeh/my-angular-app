@@ -1,0 +1,161 @@
+:root {
+  --primary: #ff9aa2;
+  --secondary: #ffcecf;
+  --accent: #c44569;
+  --dark: #4a2c40;
+  --light: #fff8f8;
+  --text: #333;
+  --shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  --transition: all 0.3s ease;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #ffcecf;
+  color: #333;
+  line-height: 1.6;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.center{
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 30px;
+  padding: 0 10px;
+}
+
+.container {
+  width: 100%;
+  gap: 40px;
+  padding: 0px 20px;
+}
+
+.productGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 30px;
+  /* padding: 0 10px; */
+}
+
+.productCard {
+  background: white;
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.product-card:hover {
+  transform: translatey(-10px);
+  box-shadow: 0 12px 20px rgba(0, 0, 0, 0.15);
+}
+
+.pageTitle {
+  margin-top: 20px;
+  margin-bottom: 30px;
+  font-weight: bold;
+  font-size: 2.5rem;
+  margin-bottom: 10px;
+}
+
+img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  display: block;
+}
+
+.productInfo {
+  padding: 40px;
+}
+
+.productTitle{
+  font-size: 1.3rem;
+  color: #4a2c40;
+  margin-bottom: 10px;
+}
+
+.productMeta{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.productprice{
+  font-weight: bolder;
+  color: #c44569;
+}
+
+.productQuantity{
+  color: #707070;
+  font-weight: 400;
+  font-size: .9rem;
+}
+
+.productActions{
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.btn{
+  flex: 1;
+  padding: 10px;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+
+.btnPrimary{
+  background-color: #c44569;
+  color: white;
+  transition: all 0.3s ease;
+}
+
+.btnPrimary:hover{
+  background-color: #a03956;
+}
+
+.btnSecondary{
+  background-color: #f7dfe0;
+  color: #c44569;
+  transition: all 0.3s ease;
+}
+
+.btnSecondary:hover{
+    background-color: #ecbebe;
+}
+
+/* .btn-i{
+    text-decoration: none;
+    color: #c44569;
+} */
+
+/* .product-badge{
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: #c44569;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: bold;
+    z-index: 2;
+} */
