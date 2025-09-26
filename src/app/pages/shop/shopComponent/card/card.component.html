@@ -1,6 +1,6 @@
 <div class="center">
 
-  @for (product of products; track $index) {
+  @for (product of products|searchPipe :sInput ; track $index) {
     <div class="container">
       <div class="productGrid">
         <div class="productCard">
@@ -23,5 +23,6 @@
       </div>
     </div>
 
-  }
+  }@empty {
+      <h3>Prouduct Not found {{sInput}}</h3>}
 </div>

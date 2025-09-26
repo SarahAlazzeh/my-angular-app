@@ -1,6 +1,6 @@
-<shop-navbar></shop-navbar>
-<h1 class="pageTitle">Our Delicious Treats</h1>
-<shop-card></shop-card>
+<shop-navbar (sendSearchInput)="reciveFromNav($event)"></shop-navbar>
+<h1 class="pageTitle" >Our Delicious Treats</h1>
+<shop-card [search]="searchNav"></shop-card>
 <!-- <div class="card">
   @if (showCard===true){
     <shop-card></shop-card>

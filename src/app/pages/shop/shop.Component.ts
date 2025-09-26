@@ -17,6 +17,10 @@ import { FootershopComponent } from "./ss/footer/footer.component";
 export class ShopComponent{
   showCard : boolean = false;
   productList = products;
+  searchNav: string= "";
+  reciveFromNav(msg: string){
+    this.searchNav = msg;
+  }
 
   onProductAdded(newProduct: any) {
     this.productList.push(newProduct); // نضيف الكارد

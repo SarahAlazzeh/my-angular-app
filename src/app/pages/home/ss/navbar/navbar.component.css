@@ -98,7 +98,7 @@ ul li a:active {
 
 .search {
   position: relative;
-  width: 300px;
+  width: 250px;
   border-radius: 30px;
   width: 100%;
   border: 2px solid #ffcecf;
@@ -142,7 +142,7 @@ select:focus {
 .user{
   margin-left: 20px;
   border-radius: 50%;
-  width: 80px;
+  width: 40px;
   height: 40px;
   border: 2px solid #ffcecf;
 }
