@@ -1,0 +1,11 @@
+<app-navbar [enableSearch]="true" [activeRoute]="'shop'" (sendSearchInput)="reciveFromNav($event)"></app-navbar>
+<h1 class="pageTitle">{{ 'shop.title' | translate }}</h1>
+<app-product-card [search]="searchNav"></app-product-card>
+<!-- <div class="card">
+  @if (showCard===true){
+    <app-product-card></app-product-card>
+  }
+</div> -->
+<br>
+<app-add-product (productAdded)="onProductAdded($event)"></app-add-product>
+<app-footer></app-footer>

@@ -1,0 +1,30 @@
+<h2>{{ 'shop.addProduct' | translate }}</h2>
+<br>
+<div class="container">
+  <!-- <div class="upload">
+    <label for="id">Write Id Of New Item :</label>
+    <input type="text" class="id" placeholder="Id" name="id">
+  </div> -->
+  <div class="upload">
+    <label for="image">{{ 'shop.product.image' | translate }} : </label>
+    <input type="file" [(ngModel)]="newImg" class="imgUpload" placeholder="image" name="image">
+  </div>
+  <div class="upload">
+    <label for="title">{{ 'shop.product.name' | translate }} :</label>
+    <input type="text" [(ngModel)]="newTitle" class="titleUpload" name="title" [placeholder]="'shop.product.name' | translate">
+  </div>
+  <div class="upload">
+    <label for="title">{{ 'shop.product.price' | translate }} :</label>
+    <input type="text" [(ngModel)]="newPrice" class="priceUpload" name="price" [placeholder]="'shop.product.price' | translate">
+  </div>
+  <div class="upload">
+    <label for="quantity">{{ 'shop.product.quantity' | translate }} :</label>
+    <input type="text" [(ngModel)]="newQuantity" class="quantityUpload" name="quantity" [placeholder]="'shop.product.quantity' | translate">
+  </div>
+</div>
+
+<br>
+<button class="btn" (click)="addProduct()">{{ 'shop.addProduct' | translate }}</button>
+<!-- (click)="onClicked" -->
+<br>
+

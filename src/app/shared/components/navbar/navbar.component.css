@@ -1,0 +1,348 @@
+:host {
+  background: #ffcecf;
+}
+
+.navbar {
+  background: linear-gradient(135deg, #ff9aa2, #ffb7c5);
+  padding: 15px 30px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+}
+
+.navbar-left {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  flex-shrink: 0;
+}
+
+.logo {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  border: #fff8f8 2px solid;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.logiTitle {
+  color: #fff8f8;
+  font-family: 'Brush Script MT', cursive;
+  font-size: 1.8rem;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
+  white-space: nowrap;
+}
+
+.navbar-center {
+  display: flex;
+  gap: 15px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  flex: 1;
+  justify-content: center;
+}
+
+.navbar-center li {
+  list-style: none;
+}
+
+.navbar-center li a {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-weight: 600;
+  font-size: 1rem;
+  text-decoration: none;
+  border-radius: 20px;
+  padding: 8px 12px;
+  color: #fff8f8;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+}
+
+.navbar-center li a:hover,
+.navbar-center li a:active {
+  background: rgba(255, 255, 255, 0.2);
+  cursor: pointer;
+}
+
+.active {
+  background-color: rgba(255, 255, 255, 0.3) !important;
+}
+
+.navbar-right {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  flex-shrink: 0;
+}
+
+.search {
+  width: 200px;
+  border-radius: 20px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  padding: 8px 12px;
+  background: rgba(255, 255, 255, 0.9);
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
+}
+
+.search:focus {
+  border: 2px solid #fff8f8;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  outline: none;
+  background: #fff;
+}
+
+.options {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* Toggle Buttons */
+.toggle-btn {
+  background: rgba(255, 255, 255, 0.9);
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-radius: 15px;
+  padding: 8px 12px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 40px;
+  height: 40px;
+  font-size: 0.9rem;
+  color: #4a2c40;
+}
+
+.toggle-btn:hover {
+  background: #fff;
+  border-color: #fff8f8;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.toggle-btn.active {
+  background: #c44569;
+  border-color: #c44569;
+  color: white;
+}
+
+.toggle-btn.active:hover {
+  background: #a03956;
+  border-color: #a03956;
+}
+
+.theme-toggle .material-icons {
+  font-size: 1.2rem;
+  transition: all 0.3s ease;
+}
+
+.language-toggle {
+  font-weight: 600;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.language-text {
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
+}
+
+.toggle-btn:hover .material-icons,
+.toggle-btn:hover .language-text {
+  transform: scale(1.1);
+}
+
+/* Dark theme support for toggle buttons */
+:host-context(.dark-theme) .toggle-btn {
+  background: rgba(45, 55, 72, 0.9);
+  border-color: rgba(255, 255, 255, 0.2);
+  color: #e2e8f0;
+}
+
+:host-context(.dark-theme) .toggle-btn:hover {
+  background: #4a5568;
+  border-color: #90cdf4;
+}
+
+:host-context(.dark-theme) .toggle-btn.active {
+  background: #667eea;
+  border-color: #667eea;
+  color: white;
+}
+
+:host-context(.dark-theme) .toggle-btn.active:hover {
+  background: #5a67d8;
+  border-color: #5a67d8;
+}
+
+/* Legacy select styles (kept for compatibility) */
+select {
+  border-radius: 15px;
+  width: 80px;
+  background: rgba(255, 255, 255, 0.9);
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  padding: 6px 8px;
+  font-size: 0.8rem;
+}
+
+select:focus {
+    outline: none;
+    border: 2px solid #fff8f8;
+    background: #fff;
+}
+
+.options button {
+  background-color: transparent;
+  border: 0;
+  transition: all 0.3s ease;
+}
+
+.options a {
+  color: #fff8f8;
+  text-decoration: none;
+  font-size: 1rem;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  transition: all 0.3s ease;
+  padding: 6px 10px;
+  border-radius: 15px;
+}
+
+.options button:hover {
+    transform: translateY(-2px);
+}
+
+.options a:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+/* Icon button styles */
+.icon-btn {
+  background-color: transparent;
+  border: 0;
+  transition: all 0.3s ease;
+  padding: 8px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.icon-btn:hover {
+  transform: translateY(-2px);
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.icon-btn a {
+  color: #fff8f8;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+}
+
+.icon-btn a:hover {
+  background: none;
+}
+
+/* Material Icons */
+.material-icons {
+  font-family: 'Material Icons';
+  font-weight: normal;
+  font-style: normal;
+  font-size: 1.2rem;
+  line-height: 1;
+  letter-spacing: normal;
+  text-transform: none;
+  display: inline-block;
+  white-space: nowrap;
+  word-wrap: normal;
+  direction: ltr;
+  -webkit-font-feature-settings: 'liga';
+  font-feature-settings: 'liga';
+  -webkit-font-smoothing: antialiased;
+  transition: all 0.3s ease;
+}
+
+.icon-btn:hover .material-icons {
+  transform: scale(1.1);
+}
+
+.user{
+  border-radius: 50%;
+  width: 35px;
+  height: 35px;
+  border: 2px solid rgba(255, 255, 255, 0.5);
+}
+
+/* Responsive adjustments */
+@media (max-width: 1200px) {
+  .search {
+    width: 150px;
+  }
+  
+  .logiTitle {
+    font-size: 1.5rem;
+  }
+}
+
+@media (max-width: 992px) {
+  .navbar-center {
+    gap: 10px;
+  }
+  
+  .navbar-center li a {
+    font-size: 0.9rem;
+    padding: 6px 10px;
+  }
+  
+  .search {
+    width: 120px;
+  }
+  
+  select {
+    width: 70px;
+    font-size: 0.7rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .navbar {
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  
+  .navbar-center {
+    order: 3;
+    width: 100%;
+    justify-content: center;
+    margin-top: 10px;
+  }
+  
+  .search {
+    width: 100px;
+  }
+  
+  .toggle-btn {
+    min-width: 35px;
+    height: 35px;
+    padding: 6px 8px;
+  }
+  
+  .theme-toggle .material-icons {
+    font-size: 1rem;
+  }
+  
+  .language-text {
+    font-size: 0.8rem;
+  }
+}

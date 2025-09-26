@@ -1,0 +1,28 @@
+<div class="center">
+
+  @for (product of products|searchPipe :sInput ; track $index) {
+    <div class="container">
+      <div class="productGrid">
+        <div class="productCard">
+          <img [src]="product.img" alt="">
+          <div class="productInfo">
+            <h3 class="productTitle">{{product.title}}</h3>
+            <div class="productMeta">
+              <span class="productPrice"> {{product.price | currency : "JD" : "code"}}</span>
+              <span class="productQuantity">{{product.quantity }}</span>
+            </div>
+            <div class="productActions">
+              <!-- <button (click)=""></button> -->
+              <button (click)="addToCart()" class="btn btnPrimary" > <a >{{ 'shop.product.addToCart' | translate }}</a> </button>
+
+              <!-- <button class="btn btnPrimary" ><a ></a></button> -->
+              <button class="btn  btnSecondary"><a>{{ 'shop.product.viewDetails' | translate }}</a></button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  }@empty {
+      <h3>{{ 'common.error' | translate }} - {{sInput}}</h3>}
+</div>

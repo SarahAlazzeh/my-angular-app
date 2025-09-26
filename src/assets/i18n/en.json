@@ -1,0 +1,123 @@
+{
+  "nav": {
+    "home": "Home",
+    "shop": "Shop",
+    "recipes": "Recipes",
+    "about": "About",
+    "contact": "Contact Us",
+    "share": "Share Your Recipes",
+    "cart": "Shopping Cart",
+    "favorites": "Favorites",
+    "search": {
+      "placeholder": "Search for treats..."
+    }
+  },
+  "theme": {
+    "toggle": "Switch to {{mode}} Mode",
+    "light": "Light",
+    "dark": "Dark"
+  },
+  "language": {
+    "toggle": "Switch to {{language}}",
+    "english": "English",
+    "arabic": "Arabic"
+  },
+  "home": {
+    "title": "Welcome to Sarah's Bakery",
+    "subtitle": "Delicious treats made with love",
+    "featured": "Featured Products",
+    "viewAll": "View All Products",
+    "description": "Discover our amazing collection of freshly baked goods, from traditional bread to decadent desserts."
+  },
+  "shop": {
+    "title": "Our Delicious Treats",
+    "addProduct": "Add New Product",
+    "product": {
+      "name": "Product Name",
+      "price": "Price",
+      "quantity": "Quantity",
+      "image": "Image URL",
+      "addToCart": "Add to Cart",
+      "viewDetails": "View Details"
+    },
+    "filters": {
+      "all": "All Products",
+      "bread": "Bread",
+      "desserts": "Desserts",
+      "cakes": "Cakes",
+      "cookies": "Cookies"
+    }
+  },
+  "cart": {
+    "title": "Shopping Cart",
+    "empty": "Your cart is empty",
+    "total": "Total",
+    "checkout": "Checkout",
+    "continueShopping": "Continue Shopping",
+    "remove": "Remove",
+    "quantity": "Quantity"
+  },
+  "recipe": {
+    "title": "Our Recipes",
+    "subtitle": "Learn to bake like a pro",
+    "viewRecipe": "View Recipe",
+    "ingredients": "Ingredients",
+    "instructions": "Instructions",
+    "prepTime": "Prep Time",
+    "cookTime": "Cook Time",
+    "servings": "Servings"
+  },
+  "shareRecipe": {
+    "title": "Share Your Recipe",
+    "subtitle": "Share your favorite recipe with our community",
+    "form": {
+      "title": "Recipe Title",
+      "description": "Description",
+      "ingredients": "Ingredients (one per line)",
+      "instructions": "Instructions",
+      "prepTime": "Preparation Time (minutes)",
+      "cookTime": "Cooking Time (minutes)",
+      "servings": "Number of Servings",
+      "image": "Recipe Image URL",
+      "submit": "Submit Recipe",
+      "cancel": "Cancel"
+    }
+  },
+  "footer": {
+    "about": "About Us",
+    "contact": "Contact",
+    "follow": "Follow Us",
+    "newsletter": "Newsletter",
+    "subscribe": "Subscribe",
+    "email": "Email Address",
+    "copyright": "© 2024 Sarah's Bakery. All rights reserved.",
+    "links": {
+      "title": "Quick Links",
+      "privacy": "Privacy Policy",
+      "terms": "Terms of Service",
+      "shipping": "Shipping Info",
+      "returns": "Returns"
+    }
+  },
+  "common": {
+    "loading": "Loading...",
+    "error": "An error occurred",
+    "success": "Success!",
+    "save": "Save",
+    "cancel": "Cancel",
+    "edit": "Edit",
+    "delete": "Delete",
+    "confirm": "Confirm",
+    "yes": "Yes",
+    "no": "No",
+    "close": "Close",
+    "back": "Back",
+    "next": "Next",
+    "previous": "Previous"
+  },
+  "notFound": {
+    "title": "Page Not Found",
+    "message": "Sorry, the page you are looking for does not exist.",
+    "goHome": "Go Home"
+  }
+}

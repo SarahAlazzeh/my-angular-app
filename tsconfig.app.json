@@ -4,8 +4,10 @@
   "extends": "./tsconfig.json",
   "compilerOptions": {
     "outDir": "./out-tsc/app",
+    "resolveJsonModule": true,
     "types": [
-      "node"
+      "node",
+      "@angular/localize"
     ]
   },
   "include": [
