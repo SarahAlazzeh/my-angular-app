@@ -1,0 +1,65 @@
+.select {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  padding: 5px 7.5px;
+  margin: 10px 0px 20px 20px;
+  width: 150px;
+  background-color: transparent;
+  border-radius: 20px;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  color: #8b6e6e;
+  font-size: large;
+  text-align: center;
+  transition: all .3s ease-in-out;
+  font-weight: 600;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  appearance: none; /* تشيل السهم الافتراضي */
+  -webkit-appearance: none;
+  -moz-appearance: none;
+}
+
+.select:focus{
+  transform: translateY(-15px)
+  scale(1.02);
+  color: #4a2c40;
+  font-weight: 700;
+  box-shadow: none;
+}
+
+.option{
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: transparent;
+  font-size: large;
+  font-weight: 500;
+  color: #c0a4a4;
+  cursor: pointer;
+}
+
+select option:hover{
+  cursor: pointer;
+  font-size: larger;
+}
+
+h1 {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  text-align: center;
+  color: #c44569;
+  padding-bottom: 40px;
+  margin-top: 20px;
+  margin-bottom: 30px;
+  font-weight: bold;
+  font-size: 2.5rem;
+  margin-bottom: 10px;
+}
+
+h1::after{
+  content: "";
+  color: #c44569;
+  margin-top: 10px;
+  display: flex;
+  justify-self: center;
+  width: 90px;
+  border-bottom: #c44569 4px solid;
+  border-radius: 20px;
+}

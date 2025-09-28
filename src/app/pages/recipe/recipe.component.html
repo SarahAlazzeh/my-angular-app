@@ -1,9 +1,10 @@
-<app-navbar [enableSearch]="false" [activeRoute]="'recipe'"></app-navbar>
+<app-navbar [enableSearch]="true" [activeRoute]="'recipe'"></app-navbar>
 <div class="recipe-container">
   <h1>{{ 'recipe.title' | translate }}</h1>
-  <p>{{ 'recipe.subtitle' | translate }}</p>
+  <!-- <p>{{ 'recipe.subtitle' | translate }}</p>
   <div class="recipe-content">
     <p>{{ 'common.loading' | translate }}</p>
   </div>
-</div>
+</div> -->
+<recipe-card></recipe-card>
 <app-footer></app-footer>

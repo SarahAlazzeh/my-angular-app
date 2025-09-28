@@ -82,7 +82,7 @@
 }
 
 .search {
-  width: 200px;
+  width: 170px;
   border-radius: 20px;
   border: 2px solid rgba(255, 255, 255, 0.3);
   padding: 8px 12px;
@@ -289,7 +289,7 @@ select:focus {
   .search {
     width: 150px;
   }
-  
+
   .logiTitle {
     font-size: 1.5rem;
   }
@@ -299,16 +299,16 @@ select:focus {
   .navbar-center {
     gap: 10px;
   }
-  
+
   .navbar-center li a {
     font-size: 0.9rem;
     padding: 6px 10px;
   }
-  
+
   .search {
     width: 120px;
   }
-  
+
   select {
     width: 70px;
     font-size: 0.7rem;
@@ -320,28 +320,28 @@ select:focus {
     flex-wrap: wrap;
     gap: 10px;
   }
-  
+
   .navbar-center {
     order: 3;
     width: 100%;
     justify-content: center;
     margin-top: 10px;
   }
-  
+
   .search {
     width: 100px;
   }
-  
+
   .toggle-btn {
     min-width: 35px;
     height: 35px;
     padding: 6px 8px;
   }
-  
+
   .theme-toggle .material-icons {
     font-size: 1rem;
   }
-  
+
   .language-text {
     font-size: 0.8rem;
   }

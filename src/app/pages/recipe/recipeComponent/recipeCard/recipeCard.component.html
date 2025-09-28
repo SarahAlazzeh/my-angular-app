@@ -1,0 +1,18 @@
+<section class="container">
+@for (product of recipeProducts |searchPipe: recipeSearch; track $index) {
+  <div class="product-card">
+    <img [src]="product.img" alt="" class="product-image">
+    <div class="product-info">
+      <h2>{{product.title}}</h2>
+      <div class="btn">
+          <button class="btn1" >
+            <a > <i class="material-icons btnFav" (click)="favClick()" >{{ favIcon }}</i> </a>
+          </button>
+        <button class="btn2">
+          <a  class="material-icons">menu_book</a>
+        </button>
+      </div>
+    </div>
+  </div>
+}
+</section>

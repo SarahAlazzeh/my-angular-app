@@ -31,7 +31,7 @@ export class AddProductComponent{
       img: this.newImg
     };
     this.productList.push(newItem);
-    this.productAdded.emit(newItem);
+    // this.productAdded.emit(newItem);
         //reset input
     this.newTitle = "";
     this.newPrice = 0;

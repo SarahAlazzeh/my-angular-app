@@ -3,7 +3,7 @@
     <img src="" alt="" class="logo">
     <h1 class="logiTitle">Sarah's Bakery</h1>
   </div>
-  
+
   <ul class="navbar-center">
     <li routerLink="/home" [routerLinkActive]="activeRoute === 'home' ? 'active' : ''"><a>{{ 'nav.home' | translate }}</a></li>
     <li routerLink="/shop" [routerLinkActive]="activeRoute === 'shop' ? 'active' : ''"><a>{{ 'nav.shop' | translate }}</a></li>
@@ -14,7 +14,7 @@
   </ul>
 
   <div class="navbar-right">
-    <input 
+    <input
       *ngIf="enableSearch"
       type="search"
       [placeholder]="'nav.search.placeholder' | translate"
@@ -24,21 +24,21 @@
     >
     <div class="options">
       <!-- Theme Toggle -->
-      <button class="toggle-btn theme-toggle" 
+      <button class="toggle-btn theme-toggle"
               [class.active]="currentTheme === 'dark'"
-              (click)="toggleTheme()" 
+              (click)="toggleTheme()"
               [title]="'theme.toggle' | translate: {mode: (currentTheme === 'light' ? ('theme.dark' | translate) : ('theme.light' | translate))}">
         <i class="material-icons">{{ currentTheme === 'light' ? 'dark_mode' : 'light_mode' }}</i>
       </button>
-      
+
       <!-- Language Toggle -->
-      <button class="toggle-btn language-toggle" 
+      <button class="toggle-btn language-toggle"
               [class.active]="currentLanguage === 'ar'"
-              (click)="toggleLanguage()" 
+              (click)="toggleLanguage()"
               [title]="'language.toggle' | translate: {language: (currentLanguage === 'en' ? ('language.arabic' | translate) : ('language.english' | translate))}">
         <span class="language-text">{{ currentLanguage === 'en' ? 'عربي' : 'EN' }}</span>
       </button>
-      
+
       <button class="icon-btn" [title]="'nav.cart' | translate"><a routerLink="cart"><i class="material-icons">shopping_cart</i></a></button>
       <button class="icon-btn" [title]="'nav.favorites' | translate"><a routerLink=""><i class="material-icons">favorite</i></a></button>
       <div>
