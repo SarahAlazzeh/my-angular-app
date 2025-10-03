@@ -109,7 +109,6 @@ img {
 }
 
 .btn{
-  flex: 1;
   padding: 10px;
   border: none;
   border-radius: 8px;
@@ -121,26 +120,80 @@ img {
   gap: 8px;
 }
 
+.btnSecondary{
+  background-color: #f7dfe0;
+  color: #c44569;
+  text-align: center;
+}
+
+.btnSecondary:hover{
+  background-color: #ecbebe;
+}
 
 .btnPrimary{
   background-color: #c44569;
   color: white;
+  width: 80px;
+  padding: 5px 0px;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
   transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  /* animation: greenk 1s ease-in-out 1 forwards; */
 }
 
 .btnPrimary:hover{
   background-color: #a03956;
 }
 
-.btnSecondary{
-  background-color: #f7dfe0;
-  color: #c44569;
-  transition: all 0.3s ease;
+.material-icons {
+  font-family: 'Material Icons';
+  font-weight: normal;
+  font-style: normal;
+  font-size: 1.4rem;
+  line-height: 1;
+  letter-spacing: normal;
+  padding: 5px 25px;
+  text-transform: none;
+  display: inline-block;
+  white-space: nowrap;
+  word-wrap: normal;
+  direction: ltr;
+  -webkit-font-feature-settings: 'liga';
+  font-feature-settings: 'liga';
+  -webkit-font-smoothing: antialiased;
+  /* transition: all 0.3s ease-in-out; */
+  /* animation: added .9s ease-in-out 1 forwards; */
 }
 
-.btnSecondary:hover{
-    background-color: #ecbebe;
+.cart-icon{
+  animation: added 1s ease-in-out 1 forwards;
 }
+
+.cart-btn{
+  animation: greenk .9s ease-out 1 forwards;
+}
+
+@keyframes greenk {
+  0%{ background-color: #c44569; }
+  10%{ background-color: rgb(40, 114, 40); }
+  40%{ background-color: rgb(40, 114, 40); }
+  80%{ background-color: rgb(40, 114, 40); }
+  100%{ background-color: #c44569; }
+}
+
+@keyframes added {
+  0%  { transform:translateX(0px); }
+  10% {transform: translateX(10px);}
+  30% { transform:translateX(20px); }
+  90%{ transform:translateX(70px);}
+  100%{transform: translateX(70px);}
+}
+
 
 /* .btn-i{
     text-decoration: none;

@@ -13,7 +13,9 @@
             </div>
             <div class="productActions">
               <!-- <button (click)=""></button> -->
-              <button (click)="addToCart()" class="btn btnPrimary" > <a >{{ 'shop.product.addToCart' | translate }}</a> </button>
+              <!-- {{ 'shop.product.addToCart' | translate }} -->
+              <button (click)="addToCart()" class=" btnPrimary" > <a >
+                <i class="material-icons" >add_shopping_cart</i> </a> </button>
 
               <!-- <button class="btn btnPrimary" ><a ></a></button> -->
               <button class="btn  btnSecondary"><a>{{ 'shop.product.viewDetails' | translate }}</a></button>

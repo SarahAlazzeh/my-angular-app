@@ -17,9 +17,17 @@ export class ProductCardComponent{
   products: Product[] = products;
   @Input() search : string = "";
   constructor(private el :ElementRef){}
+  // isAnimating: boolean = false;
   sInput: string = "";
   // @Input() data!: Iproduct;
   addToCart() : void {
-    this.el.nativeElement.style.background="red";
+    // this.isAnimating = false;
+    // setTimeout(() => {
+    //   this.isAnimating = true;
+    // }, 0);
+
+    // setTimeout(() => {
+    //   this.isAnimating = false;
+    // }, 1500);
   }
 }

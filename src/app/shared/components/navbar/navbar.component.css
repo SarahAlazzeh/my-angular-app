@@ -217,7 +217,7 @@ select:focus {
 }
 
 .options button:hover {
-    transform: translateY(-2px);
+  transform: translateY(-2px);
 }
 
 .options a:hover {
@@ -278,10 +278,14 @@ select:focus {
 }
 
 .user{
-  border-radius: 50%;
-  width: 35px;
-  height: 35px;
-  border: 2px solid rgba(255, 255, 255, 0.5);
+  font-size: 1.5rem;
+  border-radius: 5px;
+  width: 30px;
+  height: 25px;
+}
+
+.user:hover{
+  box-shadow: 0 4px 8px  rgba(100, 88, 88, 0.205);
 }
 
 /* Responsive adjustments */
