@@ -1,4 +1,4 @@
-<div class="navbar">
+<div class="navbar" >
   <div class="navbar-left">
     <img src="" alt="" class="logo">
     <h1 class="logiTitle">Sarah's Bakery</h1>
@@ -10,7 +10,7 @@
     <li routerLink="/recipe"><a>{{ 'nav.recipes' | translate }}</a></li>
     <li routerLink="about"><a>{{ 'nav.about' | translate }}</a></li>
     <li routerLink="contact"><a>{{ 'nav.contact' | translate }}</a></li>
-    <li routerLink="/share"><a>{{ 'nav.share' | translate }}</a></li>
+    <li routerLink="/sharerecipe"><a>{{ 'nav.share' | translate }}</a></li>
   </ul>
 
   <div class="navbar-right">
@@ -39,10 +39,11 @@
         <span class="language-text">{{ currentLanguage === 'en' ? 'عربي' : 'EN' }}</span>
       </button>
 
-      <button class="icon-btn" [title]="'nav.cart' | translate"><a routerLink="cart"><i class="material-icons">shopping_cart</i></a></button>
+      <button class="icon-btn" [title]="'nav.cart' | translate"><a routerLink="/cart"><i class="material-icons">shopping_cart</i></a></button>
       <button class="icon-btn" [title]="'nav.favorites' | translate"><a routerLink=""><i class="material-icons">favorite</i></a></button>
-      <button class="icon-btn" ><a routerLink=""><i class="material-icons user ">account_circle</i></a></button>
-      
+      <button class="icon-btn" (click)="signin()" ><a ><i class="material-icons user ">account_circle</i></a></button>
+      <app-loginswitch class="none" [ngClass]="{'active-sign': isActive}" ></app-loginswitch>
+
     </div>
   </div>
 </div>

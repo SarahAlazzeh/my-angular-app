@@ -3,11 +3,12 @@ import { NavbarComponent } from "../../shared/components/navbar/navbar.component
 import { FooterComponent } from "../../shared/components/footer/footer.component";
 import { TranslatePipe } from "../../shared/pipes/translate.pipe";
 import { RecipecardComponent } from "./recipeComponent/recipeCard/recipeCard.component";
+import { AddrecipeProductComponent } from "./recipeComponent/add-product/add-product.component";
 
 @Component({
   selector: 'app-recipe',
   standalone: true,
-  imports:[ NavbarComponent, FooterComponent, TranslatePipe, RecipecardComponent ],
+  imports:[ NavbarComponent, FooterComponent, TranslatePipe, RecipecardComponent, AddrecipeProductComponent ],
   templateUrl: './recipe.component.html',
   styleUrl: './recipe.component.css'
 })

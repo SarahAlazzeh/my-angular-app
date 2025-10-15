@@ -288,6 +288,20 @@ select:focus {
   box-shadow: 0 4px 8px  rgba(100, 88, 88, 0.205);
 }
 
+.none{
+  display: none;
+}
+
+.active-sign{
+  display: block;
+  position: absolute;
+  left: 850px;
+  top: 40px;
+  background-color: #f7cacd;
+  padding: 20px 50px;
+  border-radius: 20px;
+}
+
 /* Responsive adjustments */
 @media (max-width: 1200px) {
   .search {

@@ -130,6 +130,7 @@ a{
 .error-password,
 .error-phone{
   border-bottom: .2px solid red;
+  animation: color .3s ease-in-out forwards;
 }
 
 .success-password,
@@ -139,7 +140,7 @@ a{
 
 .error-icon{
   color: red;
-  font-size: 20px;
+  font-size: 15px;
 }
 
 .error-sentence{
@@ -147,6 +148,17 @@ a{
   font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   font-size: 12px;
   font-weight: 400;
+  transition: all 0.3s ease-in-out;
+  animation: error 0.3s ease-in-out forwards;
+}
+
+
+@keyframes error {
+  0% { transform: translateY(-2px); opacity: .5; }
+  100% { transform: translateY(0px); opacity: 1; }
+  /* 0%, 100% { transform: translateX(0); }
+  20%, 60% { transform: translateX(-4px); }
+  40%, 80% { transform: translateX(4px); } */
 }
 
 .done-icon{

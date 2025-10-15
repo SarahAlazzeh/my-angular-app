@@ -2,8 +2,76 @@
 <div class="share-recipe-container">
   <h1>{{ 'shareRecipe.title' | translate }}</h1>
   <p>{{ 'shareRecipe.subtitle' | translate }}</p>
-  <div class="share-recipe-content">
+  <!-- <div class="share-recipe-content">
     <p>{{ 'common.loading' | translate }}</p>
-  </div>
+  </div> -->
+  <form [formGroup]="recipe">
+    <div>
+      <label for="recipeName">Please write the name of the recipe:</label>
+      <input type="text" id="recipeName" placeholder="Name Of Recipe"
+      [ngClass]="{'error-box': recipe.get('name')?.invalid && recipe.get('name')?.touched}"
+      formControlName="name" >
+      @if (recipe.get('name')?.touched && recipe.get('name')?.getError('required')) {
+        <h4 class="error-sentence"> This box is required <span class="material-icons error-icon">error</span> </h4>
+      }
+    </div>
+    <div>
+      <label for="">Choose a type of recipe :</label>
+      <div class="recipe-type">
+        <div>
+          <label for="type1" [ngClass]="{'focuse': recipe.get('type')?.value === 'Cold Desserts'}">Cold Desserts</label>
+          <input type="radio" name="type" id="type1"  formControlName="type" value="Cold Desserts">
+        </div>
+        <div>
+          <label for="type2" [ngClass]="{'focuse': recipe.get('type')?.value === 'Baked Desserts'}">Baked Desserts</label>
+          <input type="radio" name="type" id="type2"  formControlName="type" value="Baked Desserts">
+        </div>
+        <div>
+          <label for="type3" [ngClass]="{'focuse': recipe.get('type')?.value === 'Pastries'}">Pastries</label>
+          <input type="radio" name="type" id="type3"  formControlName="type" value="Pastries">
+        </div>
+        <div>
+          <label for="type4" [ngClass]="{'focuse': recipe.get('type')?.value === 'cookies'}">Cookies</label>
+          <input type="radio" name="type" id="type4"  formControlName="type" value="cookies">
+        </div>
+        @if (recipe.get('type')?.touched && recipe.get('type')?.invalid){
+        <h4 class="error-sentence"> Please choose a recipe type </h4>
+        }
+      </div>
+      <!-- <input type="text" id=""> -->
+      </div>
+      <div>
+        <label for="ingredients">Tell us the ingredients in cups or grams: </label>
+        <textarea type="text" placeholder="Write The Ingredients 1- 2- ..." id="ingredients"
+        [ngClass]="{'error-box': recipe.get('ingredients')?.invalid && recipe.get('ingredients')?.touched}"
+        formControlName="ingredients" ></textarea>
+        @if (recipe.get('ingredients')?.touched && recipe.get('ingredients')?.getError('required')) {
+          <h4 class="error-sentence"> This box is required <span class="material-icons error-icon">error</span> </h4>
+        }
+      </div>
+      <div>
+        <label for="prepare"> Tell us how to make it step by step:</label>
+        <textarea type="text" placeholder=" Write the method of preparing the recipe " id="prepare"
+        [ngClass]="{'error-box': recipe.get('prepare')?.invalid && recipe.get('prepare')?.touched}"
+        formControlName="prepare" ></textarea>
+        @if (recipe.get('prepare')?.touched && recipe.get('prepare')?.getError('required')) {
+          <h4 class="error-sentence"> This box is required <span class="material-icons error-icon">error</span> </h4>
+        }
+      </div>
+      <div>
+        <label for="submit">You have a photo? We'd love to see it! (optional)</label>
+        <button  type="submit" class="submit-img">Upload Photo <i class="fa-solid fa-cloud-arrow-up"></i> </button>
+      </div>
+      <div>
+        <label for="email">Want us to contact you? Leave your email (optional):</label>
+        <input type="text" id="email" placeholder="xxxx@xxx.xxx">
+      </div>
+      <!-- <input type="text">
+      <input type="text"> -->
+    </form>
+    <div class="done">
+      <button type="submit" class="submit" [ngClass]="{'submit-valid': recipe.valid}"
+      [disabled]="recipe.valid" > Done </button>
+    </div>
 </div>
 <app-footer></app-footer>

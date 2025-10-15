@@ -4,7 +4,7 @@ import { FormControl, FormGroup, FormsModule, NgForm, ReactiveFormsModule, Valid
 import { NgClass } from "@angular/common";
 
 @Component({
-  selector: 'app-signin',
+  selector: 'app-signup',
   standalone: true,
   imports: [RouterLink, FormsModule, ReactiveFormsModule, NgClass],
   templateUrl: './sign-up.component.html',
