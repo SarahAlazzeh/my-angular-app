@@ -1,0 +1,144 @@
+.container{
+  display: grid;
+  grid-template-columns: 2fr repeat( 3, 1fr);
+  gap: 50px;
+  align-items: center;
+  justify-content: center;
+}
+
+.quantity{
+  width: 90px;
+  display: grid;
+  grid-template-columns: repeat( 3, 1fr);
+}
+
+.product-info{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.img{
+  width: 50px;
+  height: 100%;
+  border: .5px solid #c44569;
+  border-radius: 5px;
+  margin-right: 15px;
+  object-fit: cover;
+}
+
+.title h3{
+  color: #4a2c40;
+  font-weight: 650;
+  font-size: 1.3rem;
+}
+
+.title p{
+  font-size: .8rem;
+  color: #4a2c40;
+}
+
+.quantity{
+  height: 60%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  border-radius: 20px;
+  border: .2px solid #4a2c40;
+}
+
+button{
+  height: 40%;
+  background-color: transparent;
+  border: 0px;
+  cursor: pointer;
+  align-items: center;
+  /* transform: translateY(-1px); */
+}
+
+button i{
+  font-size: 1rem;
+  color: #4a2c40;
+  transition: all 0.2s ease-in-out;
+}
+
+button i:hover {
+  color: #683f5a;
+  transform: scale(1.1);
+}
+
+.total{
+  color: #4a2c40;
+}
+
+.delete-msg{
+  display: none;
+  gap: 10px;
+  align-items: center;
+  /* align-self: center; */
+  width: 280px;
+  margin: 0px 0px 20px 30px;
+  border-radius: 7px;
+  /* color: #c44569; */
+  background-color:rgba(255, 255, 255, 0.76);
+  padding: 20px 15px;
+  transition: all .3s ease-in;
+  animation: delete .3s ease-in;
+}
+
+.active{
+  display: flex;
+  /* transition: all .3s ease-in;
+  animation: delete .3s reverse; */
+}
+
+.msg{
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+}
+
+.delete-msg button i{
+  gap: 20px;
+  font-size: 1.5rem;
+}
+
+.delete-msg button .done{
+  color: rgb(58, 170, 58);
+  border-radius: 50%;
+  background-color: white;
+  font-size: 1.4rem;
+  border: 1px solid rgb(58, 170, 58);
+}
+
+.delete-msg button .done:hover{
+  background-color: rgb(58, 170, 58);
+  color: white;
+  border: 1px solid white;
+  transform: scale(1.2);
+}
+
+.delete-msg button .cancel{
+  background-color: rgb(221, 38, 38);
+  color: white;
+  border-radius: 50%;
+}
+
+.delete-msg button .cancel:hover{
+  color: rgb(221, 38, 38);
+  background-color: white;
+  transform: scale(1.3);
+}
+
+@keyframes delete {
+  0% {
+    transform: scale(.9);
+    opacity: 50%;
+  }
+  100%{
+    /* transform: scale(1.1); */
+    opacity: 100%;
+  }
+}
+
+

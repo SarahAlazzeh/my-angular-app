@@ -1,0 +1,37 @@
+
+<div class="delete-msg" [ngClass]="{'active' : delete === true}">
+  <h4>Do you want delete the product?</h4>
+  <div class="msg">
+    <button><i class="material-icons done" (click)="trash()"> done</i></button>
+    <button><i class="material-icons cancel" (click)="toggel()"> cancel</i></button>
+  </div>
+</div>
+<div class="container">
+  <div class="product-info">
+    <img src="img.png" alt="product.img" class="img">
+    <div class="title">
+      <h3>{{name}}</h3>
+      <p>{{discription}}</p>
+    </div>
+  </div>
+
+  <div class="quantity">
+    <button (click)="addItem()" >
+      <i class="material-icons" >add</i>
+    </button>
+    <p>{{quantity }}</p>
+    <button (click)="removeItem()" >
+      <i class="material-icons" >remove</i>
+    </button>
+  </div>
+
+  <div class="total">
+    <h3>{{price | currency : "JD" : "code" }} </h3>
+  </div>
+
+  <div class="action">
+    <button (click)="toggel()">
+      <i class="fa-regular fa-trash-can delete-icon"></i>
+    </button>
+  </div>
+</div>

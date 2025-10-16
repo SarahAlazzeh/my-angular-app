@@ -21,7 +21,6 @@ export class CartComponent{
   incItems() : void {
     this.itemsNumber += 1
     if(this.itemsNumber>= 1){
-
     }
   };
 }
