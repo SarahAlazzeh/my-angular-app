@@ -1,84 +1,100 @@
 <div class="container">
-  <!-- <div class="creatAccount">
+  <button class="back" (click)="close()">
+    <i class="fa fa-times "></i> </button>
+    <!-- <div class="creatAccount">
   </div> -->
+  <br>
   <div class="form"  >
     <h2>Creat Account </h2>
     <h5>Complete the form below to get started.</h5>
-    <form [formGroup]="userData" (ngSubmit)="submit()" >
+    <form [formGroup]="userData"  >
       <div>
         <input type="text" placeholder="Name" formControlName="name"
         [ngClass]="{'error-phone': userData.get('name')?.invalid && userData.get('name')?.touched,
             'success-phone': userData.get('name')?.valid && userData.get('name')?.touched}" >
             @if (userData.get('name')?.getError('required') && userData.get('name')?.touched) {
-            <span class="material-icons error-icon">error</span>
-            <h4 class="error-sentence" > This box is required! </h4>
+            <h4 class="error-sentence" > This box is required!
+              <span class="material-icons error-icon">error</span>
+            </h4>
           }
         @if (userData.get('name')?.getError('minlength')) {
-            <span class="material-icons error-icon">error</span>
-            <h4 class="error-sentence" > minumim length is 3 </h4>
+
+            <h4 class="error-sentence" > minumim length is 3
+              <span class="material-icons error-icon">error</span>
+            </h4>
           }
-          @if (userData.get('name')?.valid) {
+          <!-- @if (userData.get('name')?.valid) {
             <span class="material-icons done-icon" >task_alt</span>
-          }
+          } -->
       </div>
       <div>
         <input type="text" placeholder="Phone" formControlName = "phone"
         [ngClass]="{'error-phone': userData.get('phone')?.invalid && userData.get('phone')?.touched,
           'success-phone': userData.get('phone')?.valid && userData.get('phone')?.touched}">
         @if (userData.get('phone')?.getError('required') && userData.get('phone')?.touched) {
-            <span class="material-icons error-icon">error</span>
-            <h4 class="error-sentence" > This box is required! </h4>
+            <h4 class="error-sentence" > This box is required!
+              <span class="material-icons error-icon">error</span>
+            </h4>
           }
         @if (userData.get('phone')?.getError('minlength')) {
-            <span class="material-icons error-icon">error</span>
-            <h4 class="error-sentence" > minumim length is 10 </h4>
+            <h4 class="error-sentence" > minumim length is 10
+              <span class="material-icons error-icon">error</span>
+            </h4>
           }
           @if (userData.get('phone')?.getError('maxlength')) {
-            <span class="material-icons error-icon">error</span>
-            <h4 class="error-sentence" > maximum length is 10 </h4>
+            <h4 class="error-sentence" > maximum length is 10
+              <span class="material-icons error-icon">error</span>
+            </h4>
           }
-          @if (userData.get('phone')?.valid) {
+          <!-- @if (userData.get('phone')?.valid) {
             <span class="material-icons done-icon" >task_alt</span>
-          }
+          } -->
           <!-- <p> Please enter a valid number</p> -->
       </div>
       <div class="password">
-        <input type="password" placeholder="Password" class="margen-l" formControlName="password"
-        [ngClass]="{'error-password': userData.get('password')?.invalid && userData.get('password')?.touched,
-          'success-password': userData.get('password')?.valid && userData.get('password')?.touched}">
-          <input type="password" placeholder="Repassword">
+        <div class="pass">
+          <input type="password" placeholder="Password" formControlName="password"
+          [ngClass]="{'error-password': userData.get('password')?.invalid && userData.get('password')?.touched,
+            'success-password': userData.get('password')?.valid && userData.get('password')?.touched}">
+            @if (userData.get('password')?.getError('required') && userData.get('password')?.touched) {
+              <h4 class="error-pass" > This box is required! </h4>
+              <!-- <span class="material-icons error-icon">error</span> -->
+            }
+            @if (userData.get('password')?.getError('minlength')) {
+              <h4 class="error-pass" > minumim length is 10 </h4>
+              <!-- <span class="material-icons error-icon">error</span> -->
+            }
+            @if (userData.get('password')?.getError('maxlength')){
+              <h4 class="error-pass" > maximum length is 10 </h4>
+              <!-- <span class="material-icons error-icon">error</span> -->
+            }
+          </div>
+          <div class="repass">
+            <input type="password" placeholder="rePassword">
+            <!-- @if (userData.get('repassword')?.valid) {
+              <span class="material-icons done-icon" >task_alt</span>
+            } -->
+          </div>
           <!-- @if( userData.get('repassword') === userData.get('password')){
             <span class="material-icons done-icon" >task_alt</span>
           }
           @if (userData.get('repassword') != userData.get('password')) {
             <span class="material-icons error-icon">error</span>
           } -->
-          @if (userData.get('password')?.getError('required') && userData.get('password')?.touched) {
-            <h4 class="error-sentence" > This box is required! </h4>
-            <span class="material-icons error-icon">error</span>
-          }
-          @if (userData.get('password')?.getError('minlength')) {
-            <h4 class="error-sentence" > minumim length is 10 </h4>
-            <span class="material-icons error-icon">error</span>
-          }
-          @if (userData.get('password')?.getError('maxlength')){
-            <h4 class="error-sentence" > maximum length is 10 </h4>
-            <span class="material-icons error-icon">error</span>
-          }
-          @if (userData.get('password')?.valid) {
-            <span class="material-icons done-icon" >task_alt</span>
-          }
       </div>
       <!-- <div class="check">
         <input type="checkbox" name="" id="">
         <button class="agree"><span>Agree With </span><a class="agreeA">Terms & Conditions</a></button>
       </div> -->
-      <button class="submit" type="submit"  [disabled]="!userData.valid"><a > Sign Up </a></button>
 
-      <div class="switch" >
-        <span class="login">Already have an account?</span>
-        <button class="btn-socundary"><a routerLink="/signin" style="color: #c44569;"> Sign In</a></button>
-      </div>
+      <button class="submit" type="submit" [ngClass]="{'submit-valid': userData.valid}"><a > Sign Up </a></button>
     </form>
+    <div class="switch" >
+      <span class="login">Already have an account?</span>
+      <button class="btn-socundary"><a
+        (click)="switch()"
+        style="color: #c44569;"> Sign In</a></button>
+    </div>
+    <br>
   </div>
 </div>

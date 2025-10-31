@@ -1,5 +1,7 @@
 <!-- <app-navbar [enableSearch]="false" [activeRoute]="'cart'"></app-navbar> -->
 <div class="cart-container">
+    <button class="back" routerLink="/home"> <i class="material-icons" >  chevron_left </i> </button>
+
   <div class="title">
     <h1>{{ 'cart.title' | translate }}</h1>
     <h3>{{itemsNumber}}</h3>
@@ -11,14 +13,31 @@
   <button (click)="incItems()" style="background-color:black;
   padding: 10px; border-radius: 20px;
   margin: 10px 0px; border: 0px; outline :0px; color:beige; cursor:pointer;"
-  [ngClass]="{'none': itemsNumber===1}"
   >add item</button>
   <!-- <app-order></app-order> -->
 </div>
 @if (itemsNumber>=1) {
+  <div class="information">
+    <p></p>
+    <p class="info"> Product</p>
+    <p class="info"> Price</p>
+    <p class="info"> qty</p>
+    <p class="info">total</p>
+  </div>
+  <!-- <hr> -->
+  <!-- @for (item of items; track $index) {} -->
   <app-order></app-order>
 }
 <br>
 <br>
-<app-checkout></app-checkout>
+<app-checkout (check)="onChecked($event)"></app-checkout>
+
+@if (value===true && cancle=== true) {
+  <app-payment (clicked)="onClikced($event)" class="active-payment"></app-payment>
+}
+
+<!-- <app-payment
+[ngClass]="{'active-payment':value===true,
+'none':value===false}"></app-payment> -->
+<!-- <app-payment></app-payment> -->
 <!-- <app-footer></app-footer> -->

@@ -6,13 +6,26 @@
     <button><i class="material-icons cancel" (click)="toggel()"> cancel</i></button>
   </div>
 </div>
+
+
 <div class="container">
+  <div class="action">
+    <button (click)="toggel()">
+      <i class="fa fa-times  delete-icon"></i>
+    </button>
+  </div>
+
   <div class="product-info">
     <img src="img.png" alt="product.img" class="img">
     <div class="title">
       <h3>{{name}}</h3>
       <p>{{discription}}</p>
     </div>
+  </div>
+
+  <div class="price">
+    <h3>{{price | currency : "JD" : "code" }} </h3>
+    <p>For one pice</p>
   </div>
 
   <div class="quantity">
@@ -25,13 +38,9 @@
     </button>
   </div>
 
-  <div class="total">
-    <h3>{{price | currency : "JD" : "code" }} </h3>
+  <div class="total" >
+    <h3>{{total|currency : "JD" : "code" }}</h3>
   </div>
 
-  <div class="action">
-    <button (click)="toggel()">
-      <i class="fa-regular fa-trash-can delete-icon"></i>
-    </button>
-  </div>
+
 </div>

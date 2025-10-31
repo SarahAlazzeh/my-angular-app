@@ -5,6 +5,29 @@
   /* gap: 200px; */
 }
 
+.back{
+  position: absolute;
+  left: 10px;
+  top: 10px;
+  cursor: pointer;
+  background-color: transparent;
+  outline: none;
+  border: 0px;
+}
+
+.back i{
+  color: #4a2c40;
+  border: .6px solid #4a2c40;
+  border-radius: 60px;
+  transition: all .3s ease;
+}
+
+.back i:hover{
+  transform: scale(1.1);
+  color: #ffcecf;
+  background-color: #4a2c40;
+}
+
 .title{
   position: relative;
   display: flex;
@@ -22,11 +45,38 @@ h3{
   color: #4a2c40;
 }
 
+.information{
+  display: grid;
+  grid-template-columns: 60px repeat(4, 1fr) ;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  justify-items: center;
+  margin-bottom: 20px;
+  align-content: center;
+}
+
+.info{
+  text-transform: uppercase;
+  color: #1b1b1b85;
+  font-size: 1rem;
+  font-weight: 400;
+}
+
+.info::after{
+  content: "";
+  color: #4a2c40;
+  margin-top: 10px;
+  display: flex;
+  justify-self: center;
+  width: 40px;
+  border-bottom: #4a2c40 .5px solid;
+  border-radius: 20px;
+}
+
 .cart-content{
   margin-top: 200px;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-self: center;
   gap: 20px;
 }
 
@@ -61,6 +111,24 @@ a:hover{
   display: flex;
 }
 
-/* .footer{
-  margin-top: 35px;
-} */
+.active-payment{
+  display: flex;
+  justify-content: center;
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.5);
+  padding: 70px 30px;
+  backdrop-filter: blur(5px);
+  border-radius: 10px;
+  left: 0;
+  bottom: 0;
+  border: .1px solid #705b69 ;
+  transition: all .3s ease-in;
+  animation: payment .3s ease;
+}
+
+@keyframes payment{
+  0%{transform: translateY(-5px); opacity: .5;}
+  100%{transform: translateY(0); opacity: 1;}
+}

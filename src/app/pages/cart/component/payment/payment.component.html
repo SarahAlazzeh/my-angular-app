@@ -1,0 +1,15 @@
+<div class="payment">
+  <div class="title">
+    <h3> Choose Payment Method </h3>
+    <button class="close" (click)="send()" > <i class="fa fa-times " ></i></button>
+  </div>
+    <!-- <hr> -->
+      <button class="btn-payment"> Cash On Delivery
+        <i class="fa-solid fa-wallet" style="color: brown;" ></i></button>
+      <button class="btn-payment"> Visa Card <i class="fa-brands fa-cc-visa visa"> </i></button>
+      <button class="btn-payment"> Apple Pay <i class="fa-brands fa-apple-pay" style="color: black; background-color: white; padding: 1px 2px; border-radius: 5px;" ></i> </button>
+      <div class="btn">
+        <button class="btn-primary">Continue</button>
+        <button class="btn-secondary" (click)="send()">Cancel</button>
+      </div>
+</div>

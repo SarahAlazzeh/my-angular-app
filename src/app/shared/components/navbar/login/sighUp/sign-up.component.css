@@ -2,6 +2,30 @@
   display: grid;
   /* grid-template-rows: auto; */
   justify-content: center;
+  background: linear-gradient(to bottom, #ffcecf,#fff8f800, #ffcecf);
+  padding: 50px;
+  border-radius: 20px;
+  height: 70vh;
+  border: .2px solid #4a2c4073;
+}
+
+.back{
+  display: flex;
+  justify-content: start;
+  cursor: pointer;
+  width: 20px;
+  height: 20px;
+}
+
+.back i{
+  color: #4a2c40;
+  /* border: .6px solid #4a2c40; */
+  border-radius: 60px;
+  transition: all .3s ease;
+}
+
+.back i:hover{
+  transform: scale(1.1);
 }
 
 h2{
@@ -19,23 +43,23 @@ h5{
 }
 
 form{
-  justify-items: center;
   display: flex;
   flex-direction: column;
+  gap: 20px;
 }
 
 
 input{
-  background-color: transparent;
-  padding: 10px;
   width: 250px;
+  padding: 12.5px 10px;
   outline: none;
-  border: 0px;
-  border-bottom: 1px solid #c44569;
+  border-radius: 20px;
+  border: 2px solid #ffcecf;
+  /* border-bottom: 1px solid #c44569; */
   transform: translateY(-2px);
+  background-color: #fff8f8;
   color: #4a2c40;
-  margin-top: 5px;
-  margin-bottom: 15px;
+
 }
 
 .password{
@@ -68,18 +92,33 @@ button{
   font-size: 1rem;
   font-weight: 500;
   letter-spacing: .7px;
-  cursor: pointer;
   color: #fff8f8;
-  background-color: #c44569;
+  background-color: #c4456994;
+  font-size: 1rem;
+  font-weight: 500;
   padding: 3px 100px;
   border-radius: 40px;
+  justify-self: center;
+  cursor: not-allowed;
   margin-bottom: 15px;
-  transition: all .3s ease;
 }
 
-.submit:hover{
+.submit-valid{
+font-size: 1rem;
+font-weight: 500;
+letter-spacing: .7px;
+cursor: pointer;
+color: #fff8f8;
+background-color: #c44569;
+border-radius: 40px;
+justify-self: center;
+transition: all .3s ease;
+}
+
+.submit-valid:hover{
   font-size: 1.1rem;
 }
+
 
 .switch{
   display: flex;
@@ -103,7 +142,8 @@ button{
 }
 
 .btn-socundary:hover{
-  transform: translateY(-2px);
+  transform: translateY(-2px)
+  scale(1.1);
   cursor: pointer;
 }
 
@@ -113,17 +153,13 @@ a{
 
 .error-password,
 .error-phone{
-  border-bottom: .2px solid red;
-}
+  animation: borderError .3s linear forwards;
 
-.success-password,
-.success-phone{
-  border-bottom: .2px solid green;
 }
 
 .error-icon{
   color: red;
-  font-size: 20px;
+  font-size: 12.5px;
 }
 
 .error-sentence{
@@ -131,9 +167,41 @@ a{
   font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   font-size: 12px;
   font-weight: 400;
+  transition: all .3s ease-in-out;
+  animation: error .3s ease-in-out;
 }
 
-.done-icon{
-  color: green;
-  font-size: 20px;
+.success-password,
+.success-phone{
+  animation: borderSuccess .3s linear forwards;
 }
+
+.error-pass{
+  font-size: .7rem;
+  color: red;
+  margin-bottom: 20px;
+  transition: all .3s ease-in-out;
+  animation: error .3s ease-in-out;
+}
+
+@keyframes error {
+  0% { transform: translateY(-2px); opacity: .5;
+    }
+  100% { transform: translateY(0px); opacity: 1; }
+}
+
+@keyframes borderError{
+  0%{ border-left: 2px solid red;}
+  30%{ border-left: 2px solid red;  border-bottom: 2px solid red;}
+  65%{ border-left: 2px solid red;  border-bottom: 2px solid red;  border-right: 2px solid red;}
+  100%{ border: 2px solid red;}
+}
+
+@keyframes borderSuccess{
+  0%{ border: 2px solid red;}
+  /* 30%{}
+  65%{} */
+  100%{ border: 2px solid rgb(20, 163, 20);}
+}
+
+

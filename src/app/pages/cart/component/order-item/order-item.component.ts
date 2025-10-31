@@ -10,25 +10,30 @@ import { CurrencyPipe, NgClass } from "@angular/common";
 })
 
 export class OrderComponent{
+
 name : string = "cookies";
 discription : string = "Classic with chocolate chips";
 quantity : number = 1;
 price : number = 1;
 priceAdded: number = 1;
-priceRemove: number =1 ;
+priceRemove: number = 1;
+total: number = 1;
 delete: boolean = false;
 
 addItem() : void{
-  this.price += this.priceAdded;
+  this.total += this.priceAdded;
   this.quantity += 1;
+  if(this.delete === true){
+    this.toggel()
+  }
 };
 
 removeItem() :void{
-  if(this.price === 1){
+  if(this.total === 1){
     this.toggel()
   }
   else{
-    this.price -= this.priceRemove ;
+    this.total -= this.priceRemove ;
     this.quantity -= 1;
   }
 };
@@ -38,8 +43,9 @@ toggel() : void{
 }
 
 trash(): void{
-this.toggel()
-
+  this.toggel()
 }
+
+
 
 }

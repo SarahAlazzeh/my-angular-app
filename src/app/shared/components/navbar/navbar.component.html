@@ -40,10 +40,26 @@
       </button>
 
       <button class="icon-btn" [title]="'nav.cart' | translate"><a routerLink="/cart"><i class="material-icons">shopping_cart</i></a></button>
-      <button class="icon-btn" [title]="'nav.favorites' | translate"><a routerLink=""><i class="material-icons">favorite</i></a></button>
+      <button class="icon-btn" [title]="'nav.favorites' | translate"><a routerLink="/favorites"><i class="material-icons">favorite</i></a></button>
       <button class="icon-btn" (click)="signin()" ><a ><i class="material-icons user ">account_circle</i></a></button>
-      <app-loginswitch class="none" [ngClass]="{'active-sign': isActive}" ></app-loginswitch>
 
+      @if (isActive) {
+        @if (isActive==1){
+          <app-signin class = "sign" (signIn) = "signin()"
+          (signSwitch) = "signSwitch()"
+          (signClose) = "signClose()"
+          (openForget)="forget()" ></app-signin>
+        }
+        @if (isActive==2) {
+          <app-signup class="sign"
+          (signUp) = "signSwitch()"
+          (signClose) = "signClose()" ></app-signup>
+        }
+        @if (isActive == 3){
+          <app-forget class = "sign"
+          (fClose)="signin()" ></app-forget>
+        }
+      }
     </div>
   </div>
 </div>

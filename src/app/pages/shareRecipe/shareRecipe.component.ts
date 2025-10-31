@@ -33,7 +33,7 @@ constructor(){
     this.ingredients = new FormControl ('', [ Validators.required]);
     this.type = new FormControl ('', [Validators.required]);
     this.prepare = new FormControl ('', [Validators.required]);
-    this.photo = new FormControl ('', [ Validators.required]);
+    this.photo = new FormControl ('', []);
     this.email = new FormControl ('', [])
 }
 

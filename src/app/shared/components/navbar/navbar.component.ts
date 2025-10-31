@@ -1,19 +1,21 @@
 import { Component, Output, EventEmitter, Input, OnInit } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { FormsModule } from "@angular/forms";
-import { CommonModule, NgClass } from "@angular/common";
+import { CommonModule } from "@angular/common";
 import { ThemeService } from '../../../core/services/theme.service';
 import { TranslationService } from '../../../core/services/translation.service';
 import { TranslatePipe } from '../../pipes/translate.pipe';
 import { SigninComponent } from './login/signIn/sign-in.component';
-import { LoginswitchComponent } from './login/loginswitch/login-switch.component';
+// import { LoginswitchComponent } from './login/loginswitch/login-switch.component';
+import { SignupComponent } from "./login/sighUp/sign-up.component";
+import { forgetPasswordComponent } from './login/forget password/forget-password.component';
 
 @Component({
   selector: 'app-navbar',
   standalone: true,
-  imports: [RouterLink, RouterLinkActive,
-    FormsModule, CommonModule, TranslatePipe,
-    NgClass,LoginswitchComponent ],
+  imports: [RouterLink, RouterLinkActive, SignupComponent ,
+    FormsModule, CommonModule, TranslatePipe, SigninComponent
+  , forgetPasswordComponent],
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.css']
 })
@@ -28,7 +30,8 @@ export class NavbarComponent implements OnInit {
   inputSearch: string = "";
   currentTheme: string = 'light';
   currentLanguage: string = 'en';
-  isActive:boolean= false;
+  // isInActive: boolean = false;
+  isActive:number = 0;
 
   constructor(
     private themeService: ThemeService,
@@ -65,6 +68,21 @@ export class NavbarComponent implements OnInit {
   }
 
   signin(): void {
-    this.isActive = true
+      this.isActive = 1;
   }
+
+  signSwitch(){
+    if(this.isActive === 1){
+      this.isActive = 2;
+  } else {this.isActive = 1;}
+}
+
+  forget(){
+    this.isActive = 3;
+  }
+
+  signClose(){
+    this.isActive = 0;
+  }
+
 }
