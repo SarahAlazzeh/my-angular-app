@@ -39,9 +39,14 @@
         <span class="language-text">{{ currentLanguage === 'en' ? 'عربي' : 'EN' }}</span>
       </button>
 
-      <button class="icon-btn" [title]="'nav.cart' | translate"><a routerLink="/cart"><i class="material-icons">shopping_cart</i></a></button>
-      <button class="icon-btn" [title]="'nav.favorites' | translate"><a routerLink="/favorites"><i class="material-icons">favorite</i></a></button>
-      <button class="icon-btn" (click)="signin()" ><a ><i class="material-icons user ">account_circle</i></a></button>
+      <button class="icon-btn" [title]="'nav.cart' | translate">
+        <a routerLink="/cart"><i class="material-icons">
+          shopping_cart</i></a></button>
+      <button class="icon-btn" [title]="'nav.favorites' | translate">
+        <a routerLink="/favorites"><i class="material-icons">favorite</i></a></button>
+      <button class="icon-btn" (click)="signin()" title="Sign In" >
+        <a ><i class="material-icons user ">
+          account_circle</i></a></button>
 
       @if (isActive) {
         @if (isActive==1){
@@ -56,7 +61,7 @@
           (signClose) = "signClose()" ></app-signup>
         }
         @if (isActive == 3){
-          <app-forget class = "sign"
+          <app-forget class = "forget"
           (fClose)="signin()" ></app-forget>
         }
       }

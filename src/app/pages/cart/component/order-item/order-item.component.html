@@ -1,46 +1,55 @@
 
 <div class="delete-msg" [ngClass]="{'active' : delete === true}">
-  <h4>Do you want delete the product?</h4>
+  <i class="material-icons" style="color: var(--accent); font-size: 2rem;">help_outline</i>
+  <h4>Do you want to delete this product?</h4>
   <div class="msg">
-    <button><i class="material-icons done" (click)="trash()"> done</i></button>
-    <button><i class="material-icons cancel" (click)="toggel()"> cancel</i></button>
+    <button class="done" (click)="trash()">
+      <i class="material-icons">done</i> Yes
+    </button>
+    <button class="cancel" (click)="toggel()">
+      <i class="material-icons">close</i> Cancel
+    </button>
   </div>
 </div>
 
-
 <div class="container">
-  <div class="action">
-    <button (click)="toggel()">
-      <i class="fa fa-times  delete-icon"></i>
-    </button>
-  </div>
-
   <div class="product-info">
     <img src="img.png" alt="product.img" class="img">
-    <div class="title">
-      <h3>{{name}}</h3>
-      <p>{{discription}}</p>
+    <div class="">
+      <div class="title">
+        <h3>{{name}}</h3>
+        <p>{{discription}}</p>
+      </div>
+      <div class="price">
+        <h3>{{total | currency : "JD" : "code" }} </h3>
+        <!-- <p>For one pice</p> -->
+      </div>
+    </div>
+
+  </div>
+  <div class="quantity">
+    <div class="quantity-btn">
+
+      <button (click)="addItem()" >
+        <i class="material-icons" >add</i>
+      </button>
+      <p>{{quantity }}</p>
+      <button (click)="removeItem()" >
+        <i class="material-icons" >remove</i>
+      </button>
+    </div>
+    <div class="action">
+      <button (click)="toggel()">
+        <i class="fa fa-times  delete-icon"></i>
+      </button>
     </div>
   </div>
 
-  <div class="price">
-    <h3>{{price | currency : "JD" : "code" }} </h3>
-    <p>For one pice</p>
-  </div>
 
-  <div class="quantity">
-    <button (click)="addItem()" >
-      <i class="material-icons" >add</i>
-    </button>
-    <p>{{quantity }}</p>
-    <button (click)="removeItem()" >
-      <i class="material-icons" >remove</i>
-    </button>
-  </div>
 
-  <div class="total" >
+  <!-- <div class="total" >
     <h3>{{total|currency : "JD" : "code" }}</h3>
-  </div>
+  </div> -->
 
 
 </div>

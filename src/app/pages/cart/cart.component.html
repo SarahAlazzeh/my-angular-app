@@ -1,43 +1,44 @@
 <!-- <app-navbar [enableSearch]="false" [activeRoute]="'cart'"></app-navbar> -->
 <div class="cart-container">
-    <button class="back" routerLink="/home"> <i class="material-icons" >  chevron_left </i> </button>
-
+  <a routerLink="/home" class="back"><i class="material-icons" > chevron_left </i></a>
   <div class="title">
-    <h1>{{ 'cart.title' | translate }}</h1>
+    <h1>{{ 'cart.title' | translate }}
+      <!-- <i class="material-icons" >shopping_cart</i> -->
+    </h1>
     <h3>{{itemsNumber}}</h3>
-  </div>
+  </div >
   <div class="cart-content" [ngClass]="{'none': itemsNumber}">
     <h2>{{ 'cart.empty' | translate }}</h2>
+    <a routerLink="/shop" class="continue-shopping">{{ 'cart.continueShopping' | translate }}</a>
   </div>
-  <!-- <a routerLink="/shop" class="continue-shopping">{{ 'cart.continueShopping' | translate }}</a> -->
   <button (click)="incItems()" style="background-color:black;
   padding: 10px; border-radius: 20px;
   margin: 10px 0px; border: 0px; outline :0px; color:beige; cursor:pointer;"
   >add item</button>
-  <!-- <app-order></app-order> -->
 </div>
 @if (itemsNumber>=1) {
-  <div class="information">
-    <p></p>
-    <p class="info"> Product</p>
-    <p class="info"> Price</p>
-    <p class="info"> qty</p>
-    <p class="info">total</p>
-  </div>
-  <!-- <hr> -->
-  <!-- @for (item of items; track $index) {} -->
-  <app-order></app-order>
+  <app-order style="justify-self:center; background-color:#fff; width:85%;"></app-order>
+  <!-- <app-order style="justify-self:center; background-color:#fff; width:85%;"></app-order>
+  <app-order style="justify-self:center; background-color:#fff; width:85%;"></app-order>
+  <app-order style="justify-self:center; background-color:#fff; width:85%;"></app-order> -->
 }
-<br>
-<br>
-<app-checkout (check)="onChecked($event)"></app-checkout>
+<app-checkout (check)="noItemAlert($event)" class="checkout" ></app-checkout>
 
 @if (value===true && cancle=== true) {
-  <app-payment (clicked)="onClikced($event)" class="active-payment"></app-payment>
+  <app-payment (clicked)="onClikced($event)"
+  class="active-payment"></app-payment>
 }
 
-<!-- <app-payment
-[ngClass]="{'active-payment':value===true,
-'none':value===false}"></app-payment> -->
-<!-- <app-payment></app-payment> -->
-<!-- <app-footer></app-footer> -->
+<div class="alert-box" *ngIf="showAlert"
+  [ngClass]="{'fade-out': fadeOut}">
+  <i class="material-icons alert-icon">info</i>
+
+  <div class="alert-content">
+    <h4>Your cart is empty</h4>
+    <p>You can choose the items you like from
+      <a routerLink="/shop">shopping page</a>
+    </p>
+  </div>
+  <i class="material-icons close-icon" (click)="closeAlert()">close</i>
+</div>
+

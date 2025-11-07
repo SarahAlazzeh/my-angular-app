@@ -2,11 +2,13 @@
   display: grid;
   grid-template-columns: 2fr 2fr;
   /* background: linear-gradient(to right, rgba(165, 42, 42, 0.336),rgba(165, 42, 42, 0.336), #fff8f800); */
-  background-color:rgba(165, 42, 42, 0.336);
+  /* background-color:rgba(165, 42, 42, 0.336); */
+  background-color: #ff9aa2;
   padding: 20px;
   border-radius: 20px;
-  width: 90%;
+  width: 45%;
   justify-self: center;
+
 }
 
 button{
