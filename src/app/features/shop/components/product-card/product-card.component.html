@@ -1,5 +1,18 @@
-<div class="center">
+<div #loginAlert class="alert-box" style="display:none;">
+  <i class="material-icons alert-icon">info</i>
+    <div class="alert-content">
+    <h4>Oops!</h4>
+    <p>You need to login or sign up to continue shopping.
+      <!-- <a routerLink="/shop">shopping page</a> -->
+    </p>
+  </div>
+</div>
 
+<div #alertCart class="alert-cart" style="display:none;" >
+  <i class="fas fa-check-circle check-icon"></i>
+  <span>Item added to your cart successfully!</span>
+</div>
+<div class="center">
   @for (product of products|searchPipe :sInput ; track $index) {
     <div class="container">
       <div class="productGrid">
@@ -9,14 +22,13 @@
             <h3 class="productTitle">{{product.title}}</h3>
             <div class="productMeta">
               <span class="productPrice"> {{product.price | currency : "JD" : "code"}}</span>
-              <span class="productQuantity">{{product.quantity }}</span>
+              <span class="productQuantity">{{product.quantity}}</span>
             </div>
             <div class="productActions">
               <!-- <button (click)=""></button> -->
               <!-- {{ 'shop.product.addToCart' | translate }} -->
-              <button (click)="addToCart()" class=" btnPrimary" > <a >
+              <button (click)="addToCart(product.id)" class=" btnPrimary" > <a >
                 <i class="material-icons" >add_shopping_cart</i> </a> </button>
-
               <!-- <button class="btn btnPrimary" ><a ></a></button> -->
               <button class="btn  btnSecondary"><a>{{ 'shop.product.viewDetails' | translate }}</a></button>
             </div>

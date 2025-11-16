@@ -1,9 +1,9 @@
-import { AbstractControl, ValidatorFn } from "@angular/forms";
+import { AbstractControl, ValidationErrors, ValidatorFn } from "@angular/forms";
 
-export function ValiadtionFunction (regex:RegExp) : ValidatorFn{
-  return (control:AbstractControl) : null | {[key:string] :boolean} => {
-    if(control.value.match(regex)){
-      return { notValid : true};
-    }else return null;
-  }
+export function ValidationFunction(regex: RegExp): ValidatorFn {
+  return (control: AbstractControl): ValidationErrors | null => {
+    if (!control.value) return null;
+    const invalid = regex.test(control.value);
+    return invalid ? { notValid: true } : null;
+  };
 }

@@ -1,7 +1,8 @@
 import { Component, Output, EventEmitter } from "@angular/core";
 import { AbstractControl, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from "@angular/forms";
 import { NgClass } from "@angular/common";
-import { ValiadtionFunction } from "../../../../../Validators/validators";
+import { ValidationFunction } from "../../../../../Validators/validators";
+import { UserData, UserdataService } from "../../../../../core/services/userData.service";
 
 @Component({
   selector: 'app-signup',
@@ -12,7 +13,9 @@ import { ValiadtionFunction } from "../../../../../Validators/validators";
 })
 
 export class SignupComponent{
-  constructor(){
+  constructor(
+      private userdataService : UserdataService
+  ){
     this.initFormControl();
     this.initformGroup();
   }
@@ -27,7 +30,7 @@ export class SignupComponent{
   repassword !: FormControl;
 
   initFormControl(){
-    this.name =new FormControl('',[Validators.required, Validators.minLength(3), ValiadtionFunction(/[0-9]/)]),
+    this.name =new FormControl('',[Validators.required, Validators.minLength(3), ValidationFunction(/[0-9]/)]),
     this.Phone = new FormControl('',[Validators.maxLength(10), Validators.minLength(10), Validators.required]),
     this.password = new FormControl ('', [Validators.minLength(8), Validators.maxLength(16), Validators.required]),
     this.repassword = new FormControl ('', [Validators.required])
@@ -58,11 +61,15 @@ export class SignupComponent{
     this.signUp.emit(1);
   }
 
+submit(){
+      const user: UserData = {
+        name: String(this.userData.value.name),
+        phone: this.userData.value.phone,
+        email: this.userData.value.email,
+        password:this.userData.value.password
+      };
+    this.userdataService.checkUserData(user)
+    this.close()
+  }
 
-
-    // submit(){
-    //   if(this.userData.valid){
-    //   }
-    //   if(this.userData.invalid) {this.userData.markAllAsTouched()}
-    // }
 }

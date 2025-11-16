@@ -45,6 +45,7 @@ export class CartService {
     this.saveCartToStorage(currentCart);
   }
 
+
   removeFromCart(productId: number): void {
     const currentCart = this.cartSubject.value;
     const updatedCart = currentCart.filter(item => item.product.id !== productId);
@@ -55,7 +56,7 @@ export class CartService {
   updateQuantity(productId: number, quantity: number): void {
     const currentCart = this.cartSubject.value;
     const item = currentCart.find(item => item.product.id === productId);
-    
+
     if (item) {
       if (quantity <= 0) {
         this.removeFromCart(productId);
@@ -81,7 +82,7 @@ export class CartService {
   }
 
   getTotalPrice(): number {
-    return this.cartSubject.value.reduce((total, item) => 
+    return this.cartSubject.value.reduce((total, item) =>
       total + (item.product.price * item.quantity), 0);
   }
 }

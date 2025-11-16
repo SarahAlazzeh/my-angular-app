@@ -1,5 +1,7 @@
 import { Component } from "@angular/core";
 import { CurrencyPipe, NgClass } from "@angular/common";
+import { ShopService } from "../../../../features/shop";
+import { Product } from "../../../../core/models/product.interface";
 
 @Component({
   selector: 'app-order',
@@ -11,13 +13,15 @@ import { CurrencyPipe, NgClass } from "@angular/common";
 
 export class OrderComponent{
 
-name : string = "cookies";
-discription : string = "Classic with chocolate chips";
-quantity : number = 1;
-price : number = 1;
-priceAdded: number = 1;
-priceRemove: number = 1;
-total: number = 1;
+constructor( private shopService : ShopService ){}
+
+name : string = "";
+discription : string = "";
+quantity !: number ;
+price !: number;
+priceAdded !: number;
+priceRemove !: number;
+total!: number ;
 delete: boolean = false;
 
 addItem() : void{
@@ -46,6 +50,15 @@ trash(): void{
   this.toggel()
 }
 
-
+addProcact(){
+  // this.shopService.addToCart()
+  // const productInfo : Product = {
+    // name = this.shopService.addToCart(p)
+    // discription
+    // quantity
+    // price
+    // total = this.shopService.getCartTotal()
+  // }
+}
 
 }

@@ -16,12 +16,10 @@
   margin: 10px 0px; border: 0px; outline :0px; color:beige; cursor:pointer;"
   >add item</button>
 </div>
-@if (itemsNumber>=1) {
-  <app-order style="justify-self:center; background-color:#fff; width:85%;"></app-order>
-  <!-- <app-order style="justify-self:center; background-color:#fff; width:85%;"></app-order>
-  <app-order style="justify-self:center; background-color:#fff; width:85%;"></app-order>
-  <app-order style="justify-self:center; background-color:#fff; width:85%;"></app-order> -->
-}
+<!-- @if (itemsNumber>=1) { -->
+  <app-order  *ngIf="itemsNumber" style="justify-self:center;
+  background-color:#fff; width:85%;"></app-order>
+
 <app-checkout (check)="noItemAlert($event)" class="checkout" ></app-checkout>
 
 @if (value===true && cancle=== true) {
@@ -32,7 +30,6 @@
 <div class="alert-box" *ngIf="showAlert"
   [ngClass]="{'fade-out': fadeOut}">
   <i class="material-icons alert-icon">info</i>
-
   <div class="alert-content">
     <h4>Your cart is empty</h4>
     <p>You can choose the items you like from

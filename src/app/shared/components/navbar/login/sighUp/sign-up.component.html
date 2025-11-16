@@ -7,12 +7,12 @@
   <div class="form"  >
     <h2>Creat Account </h2>
     <h5>Complete the form below to get started.</h5>
-    <form [formGroup]="userData"  >
+    <form [formGroup]="userData" (ngSubmit)="submit()" >
       <div>
         <input type="text" placeholder="Name" formControlName="name"
         [ngClass]="{'error-phone': userData.get('name')?.invalid && userData.get('name')?.touched,
-            'success-phone': userData.get('name')?.valid && userData.get('name')?.touched}" >
-            @if (userData.get('name')?.getError('required') && userData.get('name')?.touched) {
+        'success-phone': userData.get('name')?.valid && userData.get('name')?.touched}" >
+        @if (userData.get('name')?.getError('required') && userData.get('name')?.touched) {
             <h4 class="error-sentence" > This box is required!
               <span class="material-icons error-icon">error</span>
             </h4>
@@ -23,9 +23,9 @@
               <span class="material-icons error-icon">error</span>
             </h4>
           }
-          <!-- @if (userData.get('name')?.valid) {
-            <span class="material-icons done-icon" >task_alt</span>
-          } -->
+        @if (userData.get('name')?.getError('notvalid')) {
+            <h4 class="error-pass">Only letters are allowd</h4>
+          }
       </div>
       <div>
         <input type="text" placeholder="Phone" formControlName = "phone"
@@ -68,26 +68,18 @@
               <h4 class="error-pass" > maximum length is 10 </h4>
               <!-- <span class="material-icons error-icon">error</span> -->
             }
+
           </div>
           <div class="repass">
             <input type="password" placeholder="rePassword">
-            <!-- @if (userData.get('repassword')?.valid) {
-              <span class="material-icons done-icon" >task_alt</span>
-            } -->
           </div>
-          <!-- @if( userData.get('repassword') === userData.get('password')){
-            <span class="material-icons done-icon" >task_alt</span>
-          }
-          @if (userData.get('repassword') != userData.get('password')) {
-            <span class="material-icons error-icon">error</span>
+          <!-- @if (userData.get('repassword')?.touched && userData.get('repassword') != userData.get('password') ) {
+              <h4 class="error-pass" > password not match </h4>
           } -->
       </div>
-      <!-- <div class="check">
-        <input type="checkbox" name="" id="">
-        <button class="agree"><span>Agree With </span><a class="agreeA">Terms & Conditions</a></button>
-      </div> -->
-
-      <button class="submit" type="submit" [ngClass]="{'submit-valid': userData.valid}"><a > Sign Up </a></button>
+      <button type="submit" [disabled]="!userData.valid" [ngClass]="{'submit-valid': userData.valid}" >
+        Sign In
+      </button>
     </form>
     <div class="switch" >
       <span class="login">Already have an account?</span>

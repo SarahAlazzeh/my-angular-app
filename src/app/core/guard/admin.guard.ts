@@ -6,15 +6,18 @@ import { UserdataService } from '../services/userData.service';
   providedIn: 'root'
 })
 
-export class UserDataGuard implements CanActivate {
-  constructor(private userService: UserdataService, private router: Router) {}
+export class AdminDataGuard implements CanActivate{
+    constructor(private userService: UserdataService, private router: Router) {}
 
-  canActivate(): boolean {
-    if (this.userService.loggedIn) {
+    canActivate(): boolean{
+      // return true;
+      if (this.userService.adminLogged) {
       return true;
     } else {
       this.router.navigate(['/login']);
       return false;
     }
-  }
+    }
 }
+
+// export class AdminDataGuard implements CanActivate {

@@ -9,14 +9,14 @@ import { SignupComponent } from './shared/components/navbar/login/sighUp/sign-up
 import { SharerecipeComponent } from './pages/shareRecipe/shareRecipe.component';
 import { FavoritesComponent } from './pages/favorites/favorites.component';
 import { Component } from '@angular/core';
-import { forgetPasswordComponent } from './shared/components/navbar/login/forget password/forget-password.component';
+import { ForgetPasswordComponent } from './shared/components/navbar/login/forget password/forget-password.component';
 import { title } from 'process';
 
 export const routes: Routes = [
   { path: '' , redirectTo: 'home', pathMatch: 'full'},
   { path: 'home' , component: HomeComponent , title: 'Home'},
   { path : 'signin' , component: SigninComponent , title: 'Sign In',},
-  { path : 'forget' , component : forgetPasswordComponent ,title :' Forget Password'} ,
+  { path : 'forget' , component : ForgetPasswordComponent ,title :' Forget Password'} ,
   { path : 'signup', component: SignupComponent , title : 'Sign Up'},
   { path: 'shop' , component: ShopComponent , title: 'Shop'},
   { path: 'cart' , component: CartComponent , title: 'Cart'},

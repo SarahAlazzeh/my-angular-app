@@ -1,40 +1,38 @@
 <div class="container">
-  <br>
   <button class="back" (click)="close()">
     <i class="fa fa-times "></i> </button>
 
   <div class="form">
     <h2>Sign In</h2>
     <h5>Welcome back! Please login to continue</h5>
-    <div class="welcome">
+    <form [formGroup]="userData" (ngSubmit)="submit()">
+      <div class="phonNumber">
+      <input type="tel" id="phone" placeholder="Phone" formControlName="phone"
+        [ngClass]="{
+          'error-phone': userData.get('phone')?.invalid && userData.get('phone')?.touched,
+          'success-phone': userData.get('phone')?.valid && userData.get('phone')?.touched
+        }">
+      <h4 class="error-sentence" *ngIf="userData.get('phone')?.touched && userData.get('phone')?.hasError('required')">
+        Enter your phone number <span class="material-icons error-icon">error</span>
+      </h4>
     </div>
-    <form [formGroup] = "userData">
-      <!-- <div class="inputs"> -->
-        <div class="phonNumber">
-          <input type="text" id="phone" placeholder="Phone" formControlName = "phone"
-          [ngClass]="{'error-phone': userData.get('phone')?.invalid && userData.get('phone')?.touched,
-          'success-phone': userData.get('phone')?.valid && userData.get('phone')?.touched}">
-          @if (userData.get('phone')?.touched && userData.get('phone')?.getError('required')){
-            <h4 class="error-sentence">Enter your phone number
-              <span class="material-icons error-icon">error</span></h4>
-          }
-          <!-- جملة شرطية لرقم الهاتف الخطأ -->
-        </div>
-        <div class="password">
-          <input type="password" id="password" placeholder="Password" formControlName = "password"
-          [ngClass]="{'error-password': userData.get('password')?.invalid && userData.get('password')?.touched,
-          'success-password': userData.get('password')?.valid && userData.get('password')?.touched}">
-          @if (userData.get('password')?.getError('required') && userData.get('password')?.touched) {
-            <h4 class="error-sentence" > Enter your password
-              <span class="material-icons error-icon">error</span></h4>
 
-          }
-          <!-- جملة شرطية لكلمة السر الغلط -->
-        </div>
-      <div class="submit" type="submit" >
-        <button><a class="submitButton" [ngClass]="{'submit-valid': userData.valid}" > Sign In </a></button>
-      </div>
-    </form>
+    <div class="password">
+      <input type="password" id="password" placeholder="Password" formControlName="password"
+        [ngClass]="{
+          'error-password': userData.get('password')?.invalid && userData.get('password')?.touched,
+          'success-password': userData.get('password')?.valid && userData.get('password')?.touched
+        }">
+      <h4 class="error-sentence" *ngIf="userData.get('password')?.touched && userData.get('password')?.hasError('required')">
+        Enter your password <span class="material-icons error-icon">error</span>
+      </h4>
+    </div>
+
+      <button type="submit" [disabled]="!userData.valid"
+      [ngClass]="{'submit-valid': userData.valid}" (click)="login()">
+        Sign In
+      </button>
+  </form>
     <div class="btn" >
       <button class="btn-primary" (click)="forget()" ><a>Forget Your Password? </a></button>
     </div>
@@ -45,6 +43,7 @@
         Sign Up  </span></button>
     </div>
   </div>
+
   <br>
 </div>
 

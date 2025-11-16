@@ -1,13 +1,12 @@
 import { Component } from "@angular/core";
 import { RouterLink } from "@angular/router";
-// import { NavbarComponent } from "../../shared/components/navbar/navbar.component";
-// import { FooterComponent } from "../../shared/components/footer/footer.component";
 import { TranslatePipe } from "../../shared/pipes/translate.pipe";
 import { CheckoutComponent } from "./component/checkout/checkout.component";
 import { NgClass, NgIf } from "@angular/common";
 import { OrderComponent } from "./component/order-item/order-item.component";
 import { PaymentComponent } from "./component/payment/payment.component";
-import { NavbarComponent } from "../../shared/components/navbar/navbar.component";
+import { ShopService } from "../../features/shop";
+import { CartService } from "../../core/services/cart.service";
 
 @Component({
   selector: 'app-cart',
@@ -19,6 +18,9 @@ import { NavbarComponent } from "../../shared/components/navbar/navbar.component
 })
 
 export class CartComponent{
+  constructor( private shopService : ShopService,
+    private cartService : CartService
+  ){}
   itemsNumber: number =0;
   value :boolean = false;
   cancle:boolean= true;
@@ -41,7 +43,6 @@ export class CartComponent{
     this.cancle=clicked;
   }
 
-
   noItemAlert(click:boolean) {
     if(this.itemsNumber === 0){
       this.showAlert = click;
@@ -60,5 +61,10 @@ export class CartComponent{
   setTimeout(() => {
     this.showAlert = false;
     }, 500);  }
+
+  addProduct(){
+    this.itemsNumber++;
+    // this.cartService.getCartItems();
+  }
 
 }

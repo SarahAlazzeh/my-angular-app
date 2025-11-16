@@ -1,11 +1,10 @@
 .container{
   display: grid;
-  /* grid-template-rows: auto; */
   justify-content: center;
   background: linear-gradient(to bottom, #ffcecf,#fff8f800, #ffcecf);
-  padding: 50px;
+  padding: 40px 80px;
   border-radius: 20px;
-  height: 70vh;
+  height: 80vh;
   border: .2px solid #4a2c4073;
 }
 
@@ -64,6 +63,7 @@ input{
   /* border-bottom: 1px solid #c44569; */
   transform: translateY(-2px);
   background-color: #fff8f8;
+  transition: border-color 0.3s ease;
   color: #4a2c40;
 
 }
@@ -79,11 +79,6 @@ input::placeholder{
   font-weight: 400;
   letter-spacing: 1px;
 }
-
-/* .option{
-  display: flex;
-  justify-content: center;
-} */
 
 button{
   background-color: transparent;
@@ -114,37 +109,29 @@ button{
   cursor: pointer;
 }
 
-.submitButton{
-  font-size: 1rem;
-  font-weight: 500;
-  letter-spacing: .7px;
-  color: #fff8f8;
+button[type="submit"] {
   background-color: #c4456994;
+  color: #fff8f8;
+  padding: 5px 80px;
+  border-radius: 40px;
+  cursor: not-allowed;
+  border: none;
   font-size: 1rem;
   font-weight: 500;
-  padding: 3px 100px;
-  border-radius: 40px;
+  letter-spacing: 0.7px;
+  transition: all 0.3s ease;
   justify-self: center;
-  cursor: not-allowed;
 }
 
-.submit-valid{
-font-size: 1rem;
-font-weight: 500;
-letter-spacing: .7px;
-cursor: pointer;
-color: #fff8f8;
-background-color: #c44569;
-/* padding: 3px 100px; */
-border-radius: 40px;
-justify-self: center;
-transition: all .3s ease;
+button[type="submit"].submit-valid {
+  background-color: #c44569;          /* أحمر صريح */
+  cursor: pointer;                   /* المؤشر يشير لإمكانية الضغط */
 }
 
-.submit-valid:hover{
-  font-size: 1.1rem;
+button[type="submit"].submit-valid:hover {
+  font-size: 1.1rem;                 /* تكبير الخط عند المرور */
+  background-color: #a63757;         /* درجة أغمق من الأحمر */
 }
-
 .switch{
   display: flex;
   justify-content: center;
@@ -180,6 +167,7 @@ a{
 
 .error-password,
 .error-phone{
+  /* border-color: red !important; */
   animation: borderError .3s linear forwards;
 }
 
@@ -188,39 +176,34 @@ a{
   animation: borderSuccess .3s linear forwards;
 }
 
-.error-icon{
+.error-icon {
   color: red;
-  font-size: 12.5px;
+  font-size: 16px;
+  vertical-align: middle;
+  margin-left: 5px;
 }
 
 .error-sentence{
-  color: red;
-  font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  margin-top: 5px;
   font-size: 12px;
-  font-weight: 400;
+  color: red;
   transition: all 0.3s ease-in-out;
   animation: error 0.3s ease-in-out forwards;
 }
 
-/* .done-icon{
-  color: green;
-  font-size: 20px;
-} */
-
 @keyframes error {
-  0% { transform: translateY(-2px); opacity: .5; }
-  100% { transform: translateY(0px); opacity: 1; }
+  0% { transform: translateY(-2px); opacity: 0.5; }
+  100% { transform: translateY(0); opacity: 1; }
 }
 
-@keyframes borderError{
-  0%{ border-left: 2px solid red;}
-  30%{ border-left: 2px solid red;  border-bottom: 2px solid red;}
-  65%{ border-left: 2px solid red;  border-bottom: 2px solid red;  border-right: 2px solid red;}
-  100%{ border: 2px solid red;}
+@keyframes borderError {
+  0% { border-color: transparent; }
+  100% { border-color: red; }
 }
 
-@keyframes borderSuccess{
-  0%{ border: 2px solid red;}
-  65%{border: 2px solid rgb(20, 163, 20);}
-  100%{ }
+@keyframes borderSuccess {
+  0% { border-color: transparent; }
+  100% { border-color: rgb(20, 163, 20); }
 }
+
+

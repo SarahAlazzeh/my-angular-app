@@ -8,7 +8,7 @@ import { Component, Output ,EventEmitter} from "@angular/core";
   styleUrls: ['./forget-password.component.css']
 })
 
-export class forgetPasswordComponent{
+export class ForgetPasswordComponent{
   @Output() fClose:EventEmitter<number>= new EventEmitter();
   closeForget(){
     this.fClose.emit(1);

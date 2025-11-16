@@ -234,6 +234,8 @@ select:focus {
   display: flex;
   align-items: center;
   justify-content: center;
+  cursor: pointer;
+  color: white;
 }
 
 .icon-btn:hover {
@@ -254,7 +256,6 @@ select:focus {
   background: none;
 }
 
-/* Material Icons */
 .material-icons {
   font-family: 'Material Icons';
   font-weight: normal;
@@ -287,20 +288,6 @@ select:focus {
 .user:hover{
   box-shadow: 0 4px 8px  rgba(100, 88, 88, 0.205);
 }
-
-/* .none{
-  display: none;
-}
-
-.active-sign{
-  display: block;
-  position: absolute;
-  left: 850px;
-  top: 40px;
-  background-color: #f7cacd;
-  padding: 20px 50px;
-  border-radius: 20px;
-} */
 
 .sign{
   display: flex;
@@ -348,7 +335,99 @@ select:focus {
   100%{transform: translateY(0); opacity: 1;}
 }
 
+.success{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.5);
+}
 
+.loader {
+  color: #27ae60;
+  font-size: 45px;
+  text-indent: -9999em;
+  overflow: hidden;
+  width: 1em;
+  height: 1em;
+  border-radius: 50%;
+  position: relative;
+  transform: translateZ(0);
+  animation: mltShdSpin 1.7s infinite ease, round 1.7s infinite ease;
+}
+
+@keyframes mltShdSpin {
+  0% {
+    box-shadow: 0 -0.83em 0 -0.4em,
+    0 -0.83em 0 -0.42em, 0 -0.83em 0 -0.44em,
+    0 -0.83em 0 -0.46em, 0 -0.83em 0 -0.477em;
+  }
+  5%,
+  95% {
+    box-shadow: 0 -0.83em 0 -0.4em, 
+    0 -0.83em 0 -0.42em, 0 -0.83em 0 -0.44em, 
+    0 -0.83em 0 -0.46em, 0 -0.83em 0 -0.477em;
+  }
+  10%,
+  59% {
+    box-shadow: 0 -0.83em 0 -0.4em, 
+    -0.087em -0.825em 0 -0.42em, -0.173em -0.812em 0 -0.44em, 
+    -0.256em -0.789em 0 -0.46em, -0.297em -0.775em 0 -0.477em;
+  }
+  20% {
+    box-shadow: 0 -0.83em 0 -0.4em, -0.338em -0.758em 0 -0.42em,
+    -0.555em -0.617em 0 -0.44em, -0.671em -0.488em 0 -0.46em, 
+    -0.749em -0.34em 0 -0.477em;
+  }
+  38% {
+    box-shadow: 0 -0.83em 0 -0.4em, -0.377em -0.74em 0 -0.42em,
+    -0.645em -0.522em 0 -0.44em, -0.775em -0.297em 0 -0.46em, 
+    -0.82em -0.09em 0 -0.477em;
+  }
+  100% {
+    box-shadow: 0 -0.83em 0 -0.4em, 0 -0.83em 0 -0.42em, 
+    0 -0.83em 0 -0.44em, 0 -0.83em 0 -0.46em, 0 -0.83em 0 -0.477em;
+  }
+}
+
+@keyframes round {
+  0% { transform: rotate(0deg) }
+  100% { transform: rotate(360deg) }
+}
+
+.spinner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #27ae60;
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  box-shadow: 0 10px 12px rgba(0, 0, 0, 0.1);
+  position: relative;
+  z-index: 1;
+}
+
+.spinner i {
+  color: white;
+  font-size: 12px;
+}
+
+@keyframes prixClipFix {
+
+  100%  {clip-path:polygon(50% 50%,0 0,0 0,0 0,0 0,0 0)}
+}
+
+@keyframes rotation {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
 /* Responsive adjustments */
 @media (max-width: 1200px) {
   .search {

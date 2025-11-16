@@ -7,5 +7,7 @@
   }
 </div> -->
 <br>
-<app-add-product (productAdded)="onProductAdded($event)"></app-add-product>
+<app-add-product (productAdded)="onProductAdded($event)"
+#addProduct *ngIf="admin"
+></app-add-product>
 <app-footer></app-footer>

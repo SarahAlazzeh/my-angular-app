@@ -3,9 +3,9 @@
   /* grid-template-rows: auto; */
   justify-content: center;
   background: linear-gradient(to bottom, #ffcecf,#fff8f800, #ffcecf);
-  padding: 50px;
+  padding: 40px 80px;
   border-radius: 20px;
-  height: 70vh;
+  height: 85vh;
   border: .2px solid #4a2c4073;
 }
 
@@ -88,35 +88,29 @@ button{
   font-size: 12px;
 }
 
-.submit{
-  font-size: 1rem;
-  font-weight: 500;
-  letter-spacing: .7px;
-  color: #fff8f8;
+button[type="submit"] {
   background-color: #c4456994;
+  color: #fff8f8;
+  padding: 5px 80px;
+  border-radius: 40px;
+  cursor: not-allowed;
+  border: none;
   font-size: 1rem;
   font-weight: 500;
-  padding: 3px 100px;
-  border-radius: 40px;
+  letter-spacing: 0.7px;
+  transition: all 0.3s ease;
   justify-self: center;
-  cursor: not-allowed;
-  margin-bottom: 15px;
+  margin-bottom: 10px;
 }
 
-.submit-valid{
-font-size: 1rem;
-font-weight: 500;
-letter-spacing: .7px;
-cursor: pointer;
-color: #fff8f8;
-background-color: #c44569;
-border-radius: 40px;
-justify-self: center;
-transition: all .3s ease;
+button[type="submit"].submit-valid {
+  background-color: #c44569;          /* أحمر صريح */
+  cursor: pointer;                   /* المؤشر يشير لإمكانية الضغط */
 }
 
-.submit-valid:hover{
-  font-size: 1.1rem;
+button[type="submit"].submit-valid:hover {
+  font-size: 1.1rem;                 /* تكبير الخط عند المرور */
+  background-color: #a63757;         /* درجة أغمق من الأحمر */
 }
 
 

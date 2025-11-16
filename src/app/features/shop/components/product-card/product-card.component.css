@@ -212,3 +212,95 @@ img {
     font-weight: bold;
     z-index: 2;
 } */
+
+.alert-box {
+  /* display: flex; */
+  flex-direction: row;
+  align-items: center;
+  gap: 12px;
+  background-color: #fff3cd;
+  border: 1px solid #ffeeba;
+  color: #856404;
+  padding: 14px 18px;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  width: 320px;
+  z-index: 1000;
+  animation: fadeIn 0.4s ease;
+}
+
+.alert-box a {
+  color: #856404;
+  font-weight: 600;
+  text-decoration: underline;
+}
+
+.alert-icon {
+  font-size: 40px;
+}
+
+.alert-content {
+  flex: 1;
+}
+
+.close-icon {
+  cursor: pointer;
+  font-size: 22px;
+  color: #856404;
+  transition: 0.3s;
+}
+
+.close-icon:hover {
+  color: #5a4300;
+  transform: scale(1.1);
+  background-color: #fff;
+  border-radius:10px ;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeOut {
+  from { opacity: 1; transform: translateY(0); }
+  to { opacity: 0; transform: translateY(-10px); }
+}
+
+.fade-out {
+  animation: fadeOut 1s ease forwards;
+}
+
+.alert-cart {
+  flex-direction: row;
+  align-items: center;
+  gap: 7px;
+  background-color: #41da65;
+  color: white;
+  padding: 14px 12px;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(40, 167, 69, 0.6);
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  width: 320px;
+  z-index: 1000;
+  transition: opacity 0.4s ease, transform 0.4s ease;
+  animation: fadeIn 0.4s ease;
+}
+
+.alert-cart.show {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0);
+}
+
+.check-icon {
+  font-size: 24px;
+  font-weight: bold;
+  color: white;
+  text-shadow: 0 0 5px rgba(255,255,255,0.6);
+}

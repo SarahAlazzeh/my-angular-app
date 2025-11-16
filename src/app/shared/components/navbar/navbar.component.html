@@ -45,26 +45,44 @@
       <button class="icon-btn" [title]="'nav.favorites' | translate">
         <a routerLink="/favorites"><i class="material-icons">favorite</i></a></button>
       <button class="icon-btn" (click)="signin()" title="Sign In" >
-        <a ><i class="material-icons user ">
-          account_circle</i></a></button>
+        <i class="material-icons user "> account_circle </i></button>
 
-      @if (isActive) {
+      <app-signin *ngIf="activeForm === 'signin'"
+      class = "sign"
+      (signSwitch) = "signup()"
+      (signClose) = "signClose()"
+      (openForget)="forget()"
+      (login)="success()"
+      ></app-signin>
+
+      <app-forget *ngIf="activeForm === 'forget'"
+      class = "forget"
+      (fClose)="signin()"
+      ></app-forget>
+
+      <app-signup  *ngIf="activeForm === 'signup'"
+      class="sign"
+      (close) = "signClose()"
+      (switch) = "signin()"
+      ></app-signup>
+
+      <div *ngIf=" activeForm === 'success'" class="success" >
+          <span #loader class="loader"></span>
+          <div #check class="spinner">
+            <i class="fa fa-check"></i>
+          </div>
+      </div>
+
+      <!-- @if (isActive) {
         @if (isActive==1){
-          <app-signin class = "sign" (signIn) = "signin()"
-          (signSwitch) = "signSwitch()"
-          (signClose) = "signClose()"
-          (openForget)="forget()" ></app-signin>
         }
         @if (isActive==2) {
-          <app-signup class="sign"
-          (signUp) = "signSwitch()"
-          (signClose) = "signClose()" ></app-signup>
         }
         @if (isActive == 3){
-          <app-forget class = "forget"
-          (fClose)="signin()" ></app-forget>
         }
-      }
+      } -->
+
+
     </div>
   </div>
 </div>

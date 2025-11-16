@@ -42,4 +42,8 @@ export class ShopService {
   getCartTotal(): number {
     return this.cartService.getTotalPrice();
   }
+
+  setProductInfo( product : Product)  {
+    // this.cartService.addToCart()
+  }
 }
