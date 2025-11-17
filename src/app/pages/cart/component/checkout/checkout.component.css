@@ -42,7 +42,7 @@ h3{
   width: 45%;
 }
 
-ul li{
+/* ul li{
   list-style: none;
 }
 
@@ -67,16 +67,51 @@ li button{
   margin-left: 20px;
   padding: 5px 10px;
   transition: all .3s ease-in;
-  /* border-radius: 7px; */
   color: #4a2c40;
   font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif ;
 }
 
-li button:hover{
+li button:hover,
+.active{
   border-bottom: .2px solid #4a2c40;
   border-radius: 0px;
   color: #c44569;
   font-weight: 700;
+} */
+
+.city-menu {
+  position: absolute;
+  margin-top: 10px;
+  background: white;
+  list-style: none;
+  padding: 10px 0;
+  width: 150px;
+  border-radius: 12px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+  opacity: 0;
+  transform: scale(0.8);
+  pointer-events: none;
+  transition: 0.25s ease;
+  filter: blur(3px);
+}
+
+/* لما تنعرض القائمة */
+.city-menu.show {
+  opacity: 1;
+  transform: scale(1);
+  pointer-events: auto;
+  filter: blur(0);
+}
+
+.city-menu li {
+  padding: 10px 16px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.city-menu li:hover {
+  background: #f7b9be;
+  color: #c44569;
 }
 
 .total-price{
