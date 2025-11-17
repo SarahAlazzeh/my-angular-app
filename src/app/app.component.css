@@ -2,5 +2,21 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+}
+
+:host {
+  display: block;
+  min-height: 100vh;
   background-color: #ffcecf;
+  transition: background-color 0.3s ease;
+}
+
+:host-context(.dark-theme) {
+  background-color: #1a202c;
+  color: #e2e8f0;
+}
+
+:host-context(.light-theme) {
+  background-color: #ffcecf;
+  color: #4a2c40;
 }

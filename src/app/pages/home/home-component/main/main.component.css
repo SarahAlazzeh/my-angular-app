@@ -176,5 +176,33 @@ button:hover{
   transform: translateY(-7px);
 } */
 
+/* Dark Theme Styles */
+:host-context(.dark-theme) {
+  --primary: #ff9aa2;
+  --secondary: #2d3748;
+  --accent: #c44569;
+  --dark: #e2e8f0;
+  --light: #4a5568;
+  --text: #e2e8f0;
+}
+
+:host-context(.dark-theme) .main {
+  background-color: #1a202c;
+}
+
+:host-context(.dark-theme) .category-card {
+  background: #2d3748;
+  color: #e2e8f0;
+}
+
+:host-context(.dark-theme) .category-card h3 {
+  color: #e2e8f0;
+}
+
+:host-context(.dark-theme) .secondary-main {
+  background-color: #1a202c;
+  color: #e2e8f0;
+}
+
 
 

@@ -105,11 +105,11 @@ i{
   }
   50% {
   color: #4a2e8a;
-    transform: translate(calc(-50% -20vw), -30vh) rotate(20deg);
+    transform: translate(calc(-50% - 20vw), -30vh) rotate(20deg);
   }
   70%{
   color: #a83e7c;
-    transform: translate(calc(-50% -20vw), -20vh) rotate(-5deg);
+    transform: translate(calc(-50% - 20vw), -20vh) rotate(-5deg);
   }
   100% {
   color: #c44569;
@@ -137,4 +137,26 @@ a{
 
 button:hover{
   transform: scale(1.1);
+}
+
+/* Dark Theme Styles */
+:host-context(.dark-theme) {
+  --primary: #ff9aa2;
+  --secondary: #2d3748;
+  --accent: #c44569;
+  --dark: #e2e8f0;
+  --light: #4a5568;
+  --text: #e2e8f0;
+}
+
+:host-context(.dark-theme) .not-found-container {
+  background: linear-gradient(to bottom, #2d3748, #1a202c, #1a202c);
+}
+
+:host-context(.dark-theme) p {
+  color: #e2e8f0;
+}
+
+:host-context(.dark-theme) a {
+  color: #90cdf4;
 }

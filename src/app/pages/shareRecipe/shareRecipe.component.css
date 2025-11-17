@@ -227,3 +227,87 @@ textarea.error-box:focus {
   color: #c44569;
   border-radius: 5px;
 }
+
+/* Dark Theme Styles */
+:host-context(.dark-theme) {
+  background: linear-gradient(135deg, #2d3748, #1a202c, #1a202c);
+  color: #e2e8f0;
+}
+
+:host-context(.dark-theme) .share-recipe-container h1 {
+  color: #ff9aa2;
+}
+
+:host-context(.dark-theme) .share-recipe-container p {
+  color: #e2e8f0;
+}
+
+:host-context(.dark-theme) .share-recipe-container p::after {
+  border-bottom-color: #e2e8f0;
+}
+
+:host-context(.dark-theme) form > div {
+  background-color: #2d3748;
+  border: 1px solid #4a5568;
+}
+
+:host-context(.dark-theme) form label {
+  color: #ff9aa2;
+}
+
+:host-context(.dark-theme) form input,
+:host-context(.dark-theme) textarea {
+  background-color: #1a202c;
+  color: #e2e8f0;
+  border-color: #4a5568;
+}
+
+:host-context(.dark-theme) form input:focus,
+:host-context(.dark-theme) textarea:focus {
+  background-color: #2d3748;
+  border-color: #ff9aa2;
+  color: #e2e8f0;
+}
+
+:host-context(.dark-theme) ::placeholder {
+  color: #9ca3af;
+}
+
+:host-context(.dark-theme) .recipe-type label {
+  color: #cbd5e0;
+}
+
+:host-context(.dark-theme) .recipe-type label:hover {
+  background-color: #4a5568;
+  color: #ff9aa2;
+}
+
+:host-context(.dark-theme) .recipe-type label:active {
+  background-color: #4a5568;
+  color: #ff9aa2;
+}
+
+:host-context(.dark-theme) .focuse {
+  background-color: #4a5568;
+  color: #ff9aa2;
+}
+
+:host-context(.dark-theme) .submit-img {
+  background-color: #2d3748;
+  color: #e2e8f0;
+  border-color: #4a5568;
+}
+
+:host-context(.dark-theme) .submit-img:hover {
+  background-color: #4a5568;
+}
+
+:host-context(.dark-theme) .submit {
+  background-color: #4a5568;
+  color: #e2e8f0;
+}
+
+:host-context(.dark-theme) .submit-valid {
+  background-color: #c44569;
+  color: #fff8f8;
+}

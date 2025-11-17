@@ -1,4 +1,4 @@
-import { Component, Output, EventEmitter, Input, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, Output, EventEmitter, Input, OnInit, OnDestroy, ViewChild, ElementRef } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { FormsModule } from "@angular/forms";
 import { CommonModule } from "@angular/common";
@@ -10,6 +10,8 @@ import { SigninComponent } from './login/signIn/sign-in.component';
 import { SignupComponent } from "./login/sighUp/sign-up.component";
 import { ForgetPasswordComponent } from './login/forget password/forget-password.component';
 import { UserdataService } from '../../../core/services/userData.service';
+import { CartService } from '../../../core/services/cart.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-navbar',
@@ -21,7 +23,7 @@ import { UserdataService } from '../../../core/services/userData.service';
   styleUrls: ['./navbar.component.css']
 })
 
-export class NavbarComponent implements OnInit {
+export class NavbarComponent implements OnInit, OnDestroy {
   @Input() enableSearch: boolean = false;
   @Input() activeRoute: string = '';
   @Output() sendSearchInput: EventEmitter<string> = new EventEmitter();
@@ -37,13 +39,19 @@ export class NavbarComponent implements OnInit {
   inputSearch: string = "";
   currentTheme: string = 'light';
   currentLanguage: string = 'en';
+  isLoggedIn: boolean = false;
+  userData: any = null;
+  showUserMenu: boolean = false;
+  cartItemCount: number = 0;
+  private cartSubscription?: Subscription;
   // isInActive: boolean = false;
   // isActive:number = 0;
 
   constructor(
     private themeService: ThemeService,
     private translationService: TranslationService,
-    private userdataService : UserdataService
+    private userdataService : UserdataService,
+    private cartService: CartService
   ) {}
 
   ngOnInit(): void {
@@ -57,7 +65,34 @@ export class NavbarComponent implements OnInit {
       this.currentLanguage = language;
     });
 
-    this.userdataService.getUserData()
+    // Subscribe to user data changes
+    this.userdataService.userData$.subscribe(userData => {
+      this.userData = userData;
+      this.isLoggedIn = this.userdataService.isLoggedIn();
+    });
+
+    // Check initial login state
+    this.isLoggedIn = this.userdataService.isLoggedIn();
+    this.userData = this.userdataService.getUserData();
+
+    // Close user menu when clicking outside
+    document.addEventListener('click', (event) => {
+      if (this.showUserMenu && !(event.target as HTMLElement).closest('.user-menu-container')) {
+        this.closeUserMenu();
+      }
+    });
+
+    // Subscribe to cart changes
+    this.cartSubscription = this.cartService.getCartItems().subscribe(items => {
+      // Count unique items (same items count as 1)
+      this.cartItemCount = items.length;
+    });
+  }
+
+  ngOnDestroy(): void {
+    if (this.cartSubscription) {
+      this.cartSubscription.unsubscribe();
+    }
   }
 
   onSearchKeyPress(): void {
@@ -96,6 +131,34 @@ success() {
 
 }
 signClose() { this.activeForm = null; }
+
+toggleUserMenu() {
+  this.showUserMenu = !this.showUserMenu;
+}
+
+closeUserMenu() {
+  this.showUserMenu = false;
+}
+
+onFavoritesClick() {
+  this.closeUserMenu();
+}
+
+async signOut() {
+  await this.userdataService.clearUserData();
+  this.showUserMenu = false;
+  this.isLoggedIn = false;
+  this.userData = null;
+}
+
+onImageError(event: Event) {
+  const img = event.target as HTMLImageElement;
+  img.style.display = 'none';
+  // Remove photoURL so the icon shows
+  if (this.userData) {
+    this.userData.photoURL = undefined;
+  }
+}
 
 //   signin(): void {
 //     this.SignIn.nativeElement.style.display='flex';

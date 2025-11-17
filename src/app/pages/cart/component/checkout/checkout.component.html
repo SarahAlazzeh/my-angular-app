@@ -5,8 +5,9 @@
     (click)="toggelMenu()" ><i class="fa-solid fa-location-dot ">
     </i> </button>
     <ul [class.show]="checkCity" class="city-menu">
-      <li  *ngFor="let city of delivaryCities"
-      (click)="chooseCity(city)" > {{city.city }} </li>
+      @for (city of delivaryCities; track city.city) {
+        <li (click)="chooseCity(city)">{{ city.city }}</li>
+      }
     </ul>
   </div>
   <div class="total-price">

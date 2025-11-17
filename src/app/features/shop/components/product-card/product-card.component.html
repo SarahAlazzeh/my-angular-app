@@ -12,11 +12,26 @@
   <i class="fas fa-check-circle check-icon"></i>
   <span>Item added to your cart successfully!</span>
 </div>
+
+<div #alertFavorite class="alert-favorite" style="display:none;">
+  <i class="material-icons favorite-icon">favorite</i>
+  <span>Added to favorites!</span>
+</div>
 <div class="center">
   @for (product of products|searchPipe :sInput ; track $index) {
     <div class="container">
       <div class="productGrid">
         <div class="productCard">
+          <div class="favorite-btn-wrapper">
+            <button 
+              type="button" 
+              class="favorite-btn" 
+              (click)="toggleFavorite(product.id)"
+              [class.favorited]="isFavorite(product.id)"
+              [title]="isFavorite(product.id) ? 'Remove from favorites' : 'Add to favorites'">
+              <i class="material-icons">{{ isFavorite(product.id) ? 'favorite' : 'favorite_border' }}</i>
+            </button>
+          </div>
           <img [src]="product.img" alt="">
           <div class="productInfo">
             <h3 class="productTitle">{{product.title}}</h3>
@@ -24,19 +39,25 @@
               <span class="productPrice"> {{product.price | currency : "JD" : "code"}}</span>
               <span class="productQuantity">{{product.quantity}}</span>
             </div>
-            <div class="productActions">
-              <!-- <button (click)=""></button> -->
-              <!-- {{ 'shop.product.addToCart' | translate }} -->
-              <button (click)="addToCart(product.id)" class=" btnPrimary" > <a >
-                <i class="material-icons" >add_shopping_cart</i> </a> </button>
-              <!-- <button class="btn btnPrimary" ><a ></a></button> -->
-              <button class="btn  btnSecondary"><a>{{ 'shop.product.viewDetails' | translate }}</a></button>
-            </div>
+              <div class="productActions">
+                <button type="button" (click)="addToCart(product.id)" class="btnPrimary">
+                  <i class="material-icons">add_shopping_cart</i>
+                  <span>{{ 'shop.product.addToCart' | translate }}</span>
+                </button>
+                <button type="button" class="btn btnSecondary" (click)="viewRecipeDetails(product.id)">
+                  {{ 'shop.product.viewDetails' | translate }}
+                </button>
+              </div>
           </div>
         </div>
       </div>
     </div>
 
   }@empty {
-      <h3>{{ 'common.error' | translate }} - {{sInput}}</h3>}
+      <div class="empty-state">
+        <div class="empty-state-icon">🔍</div>
+        <h3>{{ 'common.error' | translate }}</h3>
+        <p>{{ 'shop.noProductsFound' | translate }}: "{{sInput}}"</p>
+      </div>
+  }
 </div>

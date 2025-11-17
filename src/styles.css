@@ -4,5 +4,25 @@
   padding: 0;
   box-sizing: border-box;
 }
-body{background-color: #ffcecf;
-font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;}
+
+body {
+  background-color: #ffcecf;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Dark Theme Global Styles */
+body.dark-theme {
+  background-color: #1a202c;
+  color: #e2e8f0;
+}
+
+body.dark-theme * {
+  color: inherit;
+}
+
+/* Light Theme (default) */
+body.light-theme {
+  background-color: #ffcecf;
+  color: #4a2c40;
+}

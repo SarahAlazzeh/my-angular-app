@@ -65,7 +65,10 @@
     "instructions": "Instructions",
     "prepTime": "Prep Time",
     "cookTime": "Cook Time",
-    "servings": "Servings"
+    "servings": "Servings",
+    "difficulty": "Difficulty",
+    "category": "Category",
+    "notFound": "Recipe not found"
   },
   "shareRecipe": {
     "title": "Share Your Recipe",
@@ -113,7 +116,8 @@
     "close": "Close",
     "back": "Back",
     "next": "Next",
-    "previous": "Previous"
+    "previous": "Previous",
+    "minutes": "min"
   },
   "notFound": {
     "title": "Page Not Found",

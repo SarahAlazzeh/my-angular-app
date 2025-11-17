@@ -14,64 +14,113 @@
   </ul>
 
   <div class="navbar-right">
-    <input
-      *ngIf="enableSearch"
-      type="search"
-      [placeholder]="'nav.search.placeholder' | translate"
-      class="search"
-      [(ngModel)]="inputSearch"
-      (keypress)="onSearchKeyPress()"
-    >
+    @if (enableSearch) {
+      <input
+        type="search"
+        [placeholder]="'nav.search.placeholder' | translate"
+        class="search"
+        [(ngModel)]="inputSearch"
+        (keypress)="onSearchKeyPress()"
+      >
+    }
     <div class="options">
-      <!-- Theme Toggle -->
-      <button class="toggle-btn theme-toggle"
-              [class.active]="currentTheme === 'dark'"
-              (click)="toggleTheme()"
-              [title]="'theme.toggle' | translate: {mode: (currentTheme === 'light' ? ('theme.dark' | translate) : ('theme.light' | translate))}">
-        <i class="material-icons">{{ currentTheme === 'light' ? 'dark_mode' : 'light_mode' }}</i>
+      <button class="icon-btn cart-btn" [title]="'nav.cart' | translate">
+        <a routerLink="/cart" class="cart-link">
+          <i class="material-icons">shopping_cart</i>
+          @if (cartItemCount > 0) {
+            <span class="cart-badge">{{ cartItemCount }}</span>
+          }
+        </a>
       </button>
+      <!-- User Menu: Show when logged in -->
+      @if (isLoggedIn && userData) {
+        <div class="user-menu-container">
+          <button class="icon-btn user-profile-btn" (click)="toggleUserMenu()" [title]="userData.name || 'User Profile'">
+            @if (userData.photoURL) {
+              <img [src]="userData.photoURL" [alt]="userData.name" class="user-avatar" (error)="onImageError($event)">
+            }
+            @if (!userData.photoURL) {
+              <i class="material-icons user">account_circle</i>
+            }
+            <span class="user-name">{{ userData.name || 'User' }}</span>
+          </button>
+          @if (showUserMenu) {
+            <div class="user-dropdown" (click)="$event.stopPropagation()">
+              <div class="user-info">
+                @if (userData.photoURL) {
+                  <img [src]="userData.photoURL" [alt]="userData.name" class="user-avatar-large" (error)="onImageError($event)">
+                }
+                @if (!userData.photoURL) {
+                  <i class="material-icons">person</i>
+                }
+            <div class="user-details">
+              <span class="user-name-full">{{ userData.name }}</span>
+              <span class="user-email">{{ userData.email }}</span>
+            </div>
+          </div>
+          <div class="dropdown-divider"></div>
+          <button routerLink="/favorites" class="dropdown-item" (click)="onFavoritesClick()">
+            <i class="material-icons">favorite</i>
+            <span>{{ 'nav.favorites' | translate }}</span>
+          </button>
+          <button class="dropdown-item" (click)="toggleTheme(); closeUserMenu()">
+            <i class="material-icons">{{ currentTheme === 'light' ? 'dark_mode' : 'light_mode' }}</i>
+            <span>{{ currentTheme === 'light' ? ('theme.dark' | translate) : ('theme.light' | translate) }}</span>
+          </button>
+          <button class="dropdown-item" (click)="toggleLanguage(); closeUserMenu()">
+            <i class="material-icons">language</i>
+            <span>{{ 'language.toggle' | translate: {language: (currentLanguage === 'en' ? ('language.arabic' | translate) : ('language.english' | translate))} }}</span>
+          </button>
+          <div class="dropdown-divider"></div>
+          <button class="dropdown-item" (click)="signOut()">
+            <i class="material-icons">logout</i>
+            <span>Sign Out</span>
+          </button>
+        </div>
+        }
+      </div>
+      }
 
-      <!-- Language Toggle -->
-      <button class="toggle-btn language-toggle"
-              [class.active]="currentLanguage === 'ar'"
-              (click)="toggleLanguage()"
-              [title]="'language.toggle' | translate: {language: (currentLanguage === 'en' ? ('language.arabic' | translate) : ('language.english' | translate))}">
-        <span class="language-text">{{ currentLanguage === 'en' ? 'عربي' : 'EN' }}</span>
-      </button>
+      <!-- Sign In Button: Show when not logged in -->
+      @if (!isLoggedIn) {
+        <button class="icon-btn" (click)="signin()" title="Sign In">
+          <i class="material-icons user">account_circle</i>
+        </button>
+      }
 
-      <button class="icon-btn" [title]="'nav.cart' | translate">
-        <a routerLink="/cart"><i class="material-icons">
-          shopping_cart</i></a></button>
-      <button class="icon-btn" [title]="'nav.favorites' | translate">
-        <a routerLink="/favorites"><i class="material-icons">favorite</i></a></button>
-      <button class="icon-btn" (click)="signin()" title="Sign In" >
-        <i class="material-icons user "> account_circle </i></button>
+      @if (activeForm === 'signin') {
+        <app-signin
+        class = "sign"
+        (signSwitch) = "signup()"
+        (signClose) = "signClose()"
+        (openForget)="forget()"
+        (login)="success()"
+        ></app-signin>
+      }
 
-      <app-signin *ngIf="activeForm === 'signin'"
-      class = "sign"
-      (signSwitch) = "signup()"
-      (signClose) = "signClose()"
-      (openForget)="forget()"
-      (login)="success()"
-      ></app-signin>
+      @if (activeForm === 'forget') {
+        <app-forget
+        class = "forget"
+        (fClose)="signin()"
+        ></app-forget>
+      }
 
-      <app-forget *ngIf="activeForm === 'forget'"
-      class = "forget"
-      (fClose)="signin()"
-      ></app-forget>
+      @if (activeForm === 'signup') {
+        <app-signup
+        class="sign"
+        (close) = "signClose()"
+        (switch) = "signin()"
+        ></app-signup>
+      }
 
-      <app-signup  *ngIf="activeForm === 'signup'"
-      class="sign"
-      (close) = "signClose()"
-      (switch) = "signin()"
-      ></app-signup>
-
-      <div *ngIf=" activeForm === 'success'" class="success" >
+      @if (activeForm === 'success') {
+        <div class="success">
           <span #loader class="loader"></span>
           <div #check class="spinner">
             <i class="fa fa-check"></i>
           </div>
-      </div>
+        </div>
+      }
 
       <!-- @if (isActive) {
         @if (isActive==1){

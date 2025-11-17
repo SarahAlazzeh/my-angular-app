@@ -10,6 +10,7 @@ import { SharerecipeComponent } from './pages/shareRecipe/shareRecipe.component'
 import { FavoritesComponent } from './pages/favorites/favorites.component';
 import { Component } from '@angular/core';
 import { ForgetPasswordComponent } from './shared/components/navbar/login/forget password/forget-password.component';
+import { RecipedetailsComponent } from './pages/recipe-details/recipe-details.component';
 import { title } from 'process';
 
 export const routes: Routes = [
@@ -22,6 +23,7 @@ export const routes: Routes = [
   { path: 'cart' , component: CartComponent , title: 'Cart'},
   { path: 'favorites', component:FavoritesComponent, title:'Favorites' },
   { path: 'recipe' , component: RecipeComponent , title: 'Recipe'},
+  { path: 'recipe-details/:id' , component: RecipedetailsComponent , title: 'Recipe Details'},
   { path: 'sharerecipe' , component: SharerecipeComponent , title: 'Share Recipe'},
   { path: 'signin' , component:SigninComponent, title:'Sign In'},
   { path: 'signup' , component:SignupComponent, title:'Sign Up'},

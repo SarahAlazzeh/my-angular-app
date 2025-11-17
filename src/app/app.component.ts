@@ -1,6 +1,7 @@
 
-import { Component, signal } from '@angular/core';
+import { Component, signal, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
+import { FirebaseService } from './core/services/firebase.service';
 
 @Component({
   selector: 'app-root',
@@ -10,6 +11,14 @@ import { RouterOutlet } from '@angular/router';
   styleUrl: './app.component.css'
 })
 
-export class App {
+export class App implements OnInit {
   protected readonly title = signal('sarah-bakery');
+
+  constructor(private firebaseService: FirebaseService) {}
+
+  ngOnInit(): void {
+    // Firebase is initialized in the service constructor
+    // This ensures Firebase is ready when the app starts
+    console.log('Firebase initialized:', this.firebaseService.getApp().name);
+  }
 }

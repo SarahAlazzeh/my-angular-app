@@ -1,7 +1,6 @@
-import { Component } from "@angular/core";
+import { Component, Input, OnInit } from "@angular/core";
 import { CurrencyPipe, NgClass } from "@angular/common";
-import { ShopService } from "../../../../features/shop";
-import { Product } from "../../../../core/models/product.interface";
+import { CartService, CartItem } from "../../../../core/services/cart.service";
 
 @Component({
   selector: 'app-order',
@@ -11,54 +10,61 @@ import { Product } from "../../../../core/models/product.interface";
   styleUrl: './order-item.component.css'
 })
 
-export class OrderComponent{
+export class OrderComponent implements OnInit {
+  @Input() cartItem!: CartItem;
 
-constructor( private shopService : ShopService ){}
+  constructor(private cartService: CartService) {}
 
-name : string = "";
-discription : string = "";
-quantity !: number ;
-price !: number;
-priceAdded !: number;
-priceRemove !: number;
-total!: number ;
-delete: boolean = false;
+  name: string = "";
+  description: string = "";
+  quantity: number = 0;
+  price: number = 0;
+  total: number = 0;
+  delete: boolean = false;
+  productImage: string = "";
 
-addItem() : void{
-  this.total += this.priceAdded;
-  this.quantity += 1;
-  if(this.delete === true){
-    this.toggel()
+  ngOnInit(): void {
+    if (this.cartItem) {
+      this.name = this.cartItem.product.title;
+      this.description = this.cartItem.product.description || "";
+      this.quantity = this.cartItem.quantity;
+      this.price = this.cartItem.product.price;
+      this.total = this.price * this.quantity;
+      this.productImage = this.cartItem.product.img || "";
+    }
   }
-};
 
-removeItem() :void{
-  if(this.total === 1){
-    this.toggel()
+  addItem(): void {
+    this.quantity += 1;
+    this.total = this.price * this.quantity;
+    if (this.cartItem) {
+      this.cartService.updateQuantity(this.cartItem.product.id, this.quantity);
+    }
+    if (this.delete === true) {
+      this.toggel();
+    }
   }
-  else{
-    this.total -= this.priceRemove ;
-    this.quantity -= 1;
+
+  removeItem(): void {
+    if (this.quantity <= 1) {
+      this.toggel();
+    } else {
+      this.quantity -= 1;
+      this.total = this.price * this.quantity;
+      if (this.cartItem) {
+        this.cartService.updateQuantity(this.cartItem.product.id, this.quantity);
+      }
+    }
   }
-};
 
-toggel() : void{
-  this.delete =! this.delete;
-}
+  toggel(): void {
+    this.delete = !this.delete;
+  }
 
-trash(): void{
-  this.toggel()
-}
-
-addProcact(){
-  // this.shopService.addToCart()
-  // const productInfo : Product = {
-    // name = this.shopService.addToCart(p)
-    // discription
-    // quantity
-    // price
-    // total = this.shopService.getCartTotal()
-  // }
-}
-
+  trash(): void {
+    if (this.cartItem) {
+      this.cartService.removeFromCart(this.cartItem.product.id);
+    }
+    this.toggel();
+  }
 }

@@ -250,10 +250,54 @@ select:focus {
   align-items: center;
   justify-content: center;
   padding: 0;
+  position: relative;
 }
 
 .icon-btn a:hover {
   background: none;
+}
+
+.cart-link {
+  position: relative;
+}
+
+.cart-badge {
+  position: absolute;
+  bottom: -8px;
+  right: -12px;
+  background: linear-gradient(135deg, #ff4757, #ee5a6f);
+  color: white;
+  border-radius: 50%;
+  min-width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.6rem;
+  font-weight: 700;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  box-shadow: 0 2px 8px rgba(255, 71, 87, 0.4);
+  border: 2px solid #fff8f8;
+  z-index: 10;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.cart-badge:empty {
+  display: none;
+}
+
+.cart-btn:hover .cart-badge {
+  animation: badgeBounce 0.5s ease;
+}
+
+@keyframes badgeBounce {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.2);
+  }
 }
 
 .material-icons {
@@ -287,6 +331,180 @@ select:focus {
 
 .user:hover{
   box-shadow: 0 4px 8px  rgba(100, 88, 88, 0.205);
+}
+
+/* User Menu Styles */
+.user-menu-container {
+  position: relative;
+}
+
+.user-profile-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 12px;
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.1);
+  transition: all 0.3s ease;
+}
+
+.user-profile-btn:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.user-avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  transition: all 0.3s ease;
+}
+
+.user-profile-btn:hover .user-avatar {
+  border-color: rgba(255, 255, 255, 0.5);
+  transform: scale(1.05);
+}
+
+.user-name {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #fff8f8;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  max-width: 100px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.user-dropdown {
+  position: absolute;
+  top: calc(100% + 10px);
+  right: 0;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  min-width: 250px;
+  z-index: 1000;
+  overflow: hidden;
+  animation: dropdownFadeIn 0.2s ease;
+}
+
+@keyframes dropdownFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.user-info {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px;
+  background: linear-gradient(135deg, #ff9aa2, #ffb7c5);
+}
+
+.user-info .material-icons {
+  font-size: 2rem;
+  color: #fff8f8;
+}
+
+.user-avatar-large {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid rgba(255, 248, 248, 0.5);
+  flex-shrink: 0;
+}
+
+.user-details {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  flex: 1;
+}
+
+.user-name-full {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #fff8f8;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.user-email {
+  font-size: 0.85rem;
+  color: rgba(255, 248, 248, 0.9);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.dropdown-divider {
+  height: 1px;
+  background: #e0e0e0;
+  margin: 8px 0;
+}
+
+.dropdown-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  padding: 12px 16px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-size: 0.95rem;
+  color: #4a2c40;
+  text-align: left;
+  text-decoration: none;
+}
+
+.dropdown-item:hover {
+  background: #f5f5f5;
+}
+
+.dropdown-item .material-icons {
+  font-size: 1.2rem;
+  color: #c44569;
+  flex-shrink: 0;
+}
+
+.dropdown-item span {
+  flex: 1;
+}
+
+/* Dark theme support for user menu */
+:host-context(.dark-theme) .user-dropdown {
+  background: #2d3748;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+:host-context(.dark-theme) .dropdown-item {
+  color: #e2e8f0;
+}
+
+:host-context(.dark-theme) .dropdown-item:hover {
+  background: #4a5568;
+}
+
+:host-context(.dark-theme) .dropdown-divider {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+:host-context(.dark-theme) .cart-badge {
+  background: linear-gradient(135deg, #ff4757, #ee5a6f);
+  border-color: #2d3748;
+  box-shadow: 0 2px 8px rgba(255, 71, 87, 0.5);
 }
 
 .sign{

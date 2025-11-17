@@ -1,41 +1,76 @@
-<!-- <app-navbar [enableSearch]="false" [activeRoute]="'cart'"></app-navbar> -->
-<div class="cart-container">
-  <a routerLink="/home" class="back"><i class="material-icons" > chevron_left </i></a>
-  <div class="title">
-    <h1>{{ 'cart.title' | translate }}
-      <!-- <i class="material-icons" >shopping_cart</i> -->
-    </h1>
-    <h3>{{itemsNumber}}</h3>
-  </div >
-  <div class="cart-content" [ngClass]="{'none': itemsNumber}">
-    <h2>{{ 'cart.empty' | translate }}</h2>
-    <a routerLink="/shop" class="continue-shopping">{{ 'cart.continueShopping' | translate }}</a>
+<div class="cart-page">
+  <div class="cart-container">
+    <a routerLink="/shop" class="back">
+      <i class="material-icons">chevron_left</i>
+    </a>
+    
+    <div class="cart-header">
+      <div class="title">
+        <h1>{{ 'cart.title' | translate }}</h1>
+        @if (itemsNumber > 0) {
+          <span class="item-count-badge">{{ itemsNumber }}</span>
+        }
+      </div>
+    </div>
+
+    <!-- Empty Cart State -->
+    @if (itemsNumber === 0) {
+      <div class="cart-content" [ngClass]="{'none': itemsNumber > 0}">
+      <div class="empty-cart-icon">
+        <i class="material-icons">shopping_cart</i>
+      </div>
+      <h2>{{ 'cart.empty' | translate }}</h2>
+      <p>{{ 'cart.emptyDescription' | translate }}</p>
+      <a routerLink="/shop" class="continue-shopping">
+        <i class="material-icons">store</i>
+        {{ 'cart.continueShopping' | translate }}
+      </a>
+    </div>
+    }
+
+    <!-- Cart Items -->
+    @if (itemsNumber > 0) {
+      <div class="cart-items-container">
+      <div class="cart-items-list">
+        @for (item of cartItems; track item.product.id) {
+          <app-order 
+            [cartItem]="item"
+            class="order-item-wrapper">
+          </app-order>
+        }
+      </div>
+    </div>
+    }
+
+    <!-- Checkout Section -->
+    @if (itemsNumber > 0) {
+      <app-checkout 
+        (check)="noItemAlert($event)" 
+        class="checkout-section">
+      </app-checkout>
+    }
+
+    <!-- Payment Modal -->
+    @if (value === true && cancle === true) {
+      <app-payment 
+        (clicked)="onClikced($event)"
+        class="active-payment">
+      </app-payment>
+    }
+
+    <!-- Alert Box -->
+    @if (showAlert) {
+      <div class="alert-box" [ngClass]="{'fade-out': fadeOut}">
+      <i class="material-icons alert-icon">info</i>
+      <div class="alert-content">
+        <h4>Your cart is empty</h4>
+        <p>You can choose the items you like from
+          <a routerLink="/shop">shopping page</a>
+        </p>
+      </div>
+      <i class="material-icons close-icon" (click)="closeAlert()">close</i>
+    </div>
+    }
   </div>
-  <button (click)="incItems()" style="background-color:black;
-  padding: 10px; border-radius: 20px;
-  margin: 10px 0px; border: 0px; outline :0px; color:beige; cursor:pointer;"
-  >add item</button>
-</div>
-<!-- @if (itemsNumber>=1) { -->
-  <app-order  *ngIf="itemsNumber" style="justify-self:center;
-  background-color:#fff; width:85%;"></app-order>
-
-<app-checkout (check)="noItemAlert($event)" class="checkout" ></app-checkout>
-
-@if (value===true && cancle=== true) {
-  <app-payment (clicked)="onClikced($event)"
-  class="active-payment"></app-payment>
-}
-
-<div class="alert-box" *ngIf="showAlert"
-  [ngClass]="{'fade-out': fadeOut}">
-  <i class="material-icons alert-icon">info</i>
-  <div class="alert-content">
-    <h4>Your cart is empty</h4>
-    <p>You can choose the items you like from
-      <a routerLink="/shop">shopping page</a>
-    </p>
-  </div>
-  <i class="material-icons close-icon" (click)="closeAlert()">close</i>
 </div>
 

@@ -1,7 +1,108 @@
-<h1>Favorite Recipes</h1>
-<h3>“Here you can save your favorite recipes to access them anytime!”</h3>
+<div class="favorites-page">
+  <!-- Cart Alert -->
+  <div #cartAlert class="cart-alert" style="display:none;">
+    <i class="material-icons">check_circle</i>
+    <span>Item added to cart successfully!</span>
+  </div>
 
-<div class="empty">
-  <h3 >"You haven't added any favorites yet. Browse recipes and click the , to save them!"</h3>
+  <!-- Header Section -->
+  <div class="favorites-header">
+    <div class="header-content">
+      <div class="header-icon-wrapper">
+        <i class="material-icons header-icon">favorite</i>
+      </div>
+      <div class="header-text">
+        <h1>My Favorite Recipes</h1>
+        <p class="header-subtitle">Your saved recipes collection</p>
+      </div>
+      @if (favorites.length > 0) {
+        <div class="favorites-count-badge">
+          <span class="count-number">{{ favorites.length }}</span>
+          <span class="count-label">{{ favorites.length === 1 ? 'Item' : 'Items' }}</span>
+        </div>
+      }
+    </div>
+  </div>
+
+  <!-- Empty State -->
+  @if (favorites.length === 0) {
+    <div class="empty-state-container">
+    <div class="empty-state">
+      <div class="empty-icon-wrapper">
+        <div class="empty-icon-circle">
+          <i class="material-icons empty-icon">favorite_border</i>
+        </div>
+      </div>
+      <h2 class="empty-title">No Favorites Yet</h2>
+      <p class="empty-description">
+        Start building your collection! Browse our delicious recipes and click the 
+        <span class="heart-emoji">❤️</span> icon to save your favorites.
+      </p>
+      <div class="empty-actions">
+        <a routerLink="/shop" class="primary-action-btn">
+          <i class="material-icons">store</i>
+          <span>Explore Shop</span>
+        </a>
+        <a routerLink="/recipe" class="secondary-action-btn">
+          <i class="material-icons">restaurant_menu</i>
+          <span>Browse Recipes</span>
+        </a>
+      </div>
+    </div>
+  </div>
+  }
+
+  <!-- Favorites Grid -->
+  @if (favorites.length > 0) {
+    <div class="favorites-content">
+    <div class="favorites-grid">
+      @for (product of favorites; track product.id) {
+        <div class="favorite-card">
+        <!-- Card Image Overlay -->
+        <div class="card-image-wrapper">
+          <img [src]="product.img" [alt]="product.title" class="favorite-image">
+          <div class="image-overlay"></div>
+          
+          <!-- Favorite Badge -->
+          <div class="favorite-badge">
+            <i class="material-icons">favorite</i>
+          </div>
+          
+          <!-- Remove Button -->
+          <button class="remove-favorite-btn" (click)="removeFavorite(product.id)" title="Remove from favorites">
+            <i class="material-icons">close</i>
+          </button>
+        </div>
+
+        <!-- Card Content -->
+        <div class="favorite-info">
+          <div class="favorite-header-info">
+            <h3 class="favorite-title">{{ product.title }}</h3>
+            <div class="favorite-meta">
+              <div class="price-section">
+                <span class="price-label">Price</span>
+                <span class="favorite-price">{{ product.price | currency : "JD" : "code" }}</span>
+              </div>
+              <div class="quantity-badge">
+                <i class="material-icons">inventory_2</i>
+                <span>{{ product.quantity }}</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="favorite-actions">
+            <button class="action-btn view-details-btn" (click)="viewRecipeDetails(product.id)">
+              <i class="material-icons">visibility</i>
+              <span>View Details</span>
+            </button>
+            <button class="action-btn add-to-cart-btn" (click)="addToCart(product.id)">
+              <i class="material-icons">add_shopping_cart</i>
+              <span>Add to Cart</span>
+            </button>
+          </div>
+        </div>
+      }
+    </div>
+  </div>
+  }
 </div>
-<button><a routerLink="/recipe" > Go To Recipe</a></button>

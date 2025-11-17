@@ -77,37 +77,71 @@ h2 {
   text-align: center;
 }
 
-.btn1{
+.btn1 {
   border-radius: 30px;
   background-color: #ffcecf;
-  padding: 7px 20px;
-  transition: all 0.3s ease;
+  padding: 10px 20px;
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
   margin-right: 15px;
-}
-
-.btn2{
-  border-radius: 30px;
-  background-color: #c44569;
-  padding: 7px 25px;
-  transition: all 0.3s ease;
-}
-
-.btn1 a {
-  color: #ac3e5d;
-}
-
-.btn2:hover {
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  background-color: #ac3e5d;
-  transform: translateY(-5px);
+  border: 2px solid transparent;
   cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn1 .btnFav {
+  color: #ac3e5d;
+  transition: all 0.3s ease;
+  font-size: 24px;
 }
 
 .btn1:hover {
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
   background-color: #ecc0c1;
-  transform: translateY(-5px);
+  transform: translateY(-3px);
+  border-color: #ff9aa2;
+}
+
+.btn1:hover .btnFav {
+  transform: scale(1.2);
+  color: #ff4757;
+}
+
+.btn1.favorited {
+  background: linear-gradient(135deg, rgba(255, 71, 87, 0.15), rgba(255, 154, 162, 0.15));
+  border-color: #ff4757;
+}
+
+.btn1.favorited .btnFav {
+  color: #ff4757;
+}
+
+.btn1.favorited:hover {
+  background: linear-gradient(135deg, rgba(255, 71, 87, 0.25), rgba(255, 154, 162, 0.25));
+}
+
+.btn2 {
+  border-radius: 30px;
+  background: linear-gradient(135deg, #c44569, #a03956);
+  padding: 10px 25px;
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
   cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 8px rgba(196, 69, 105, 0.2);
+}
+
+.btn2 .material-icons {
+  color: white;
+  font-size: 24px;
+}
+
+.btn2:hover {
+  box-shadow: 0 6px 20px rgba(196, 69, 105, 0.4);
+  background: linear-gradient(135deg, #a03956, #8a2e47);
+  transform: translateY(-3px);
 }
 
 .material-icons {
@@ -132,4 +166,137 @@ button {
   color: white;
   background-color: transparent;
   text-transform: capitalize;
+}
+
+/* Alert Styles */
+.alert-box {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background-color: #fff3cd;
+  border: 1px solid #ffeeba;
+  color: #856404;
+  padding: 14px 18px;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  width: 320px;
+  z-index: 1000;
+  animation: fadeIn 0.4s ease;
+}
+
+.alert-box .alert-icon {
+  font-size: 40px;
+  flex-shrink: 0;
+}
+
+.alert-content {
+  flex: 1;
+}
+
+.alert-content h4 {
+  margin: 0 0 5px 0;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.alert-content p {
+  margin: 0;
+  font-size: 0.9rem;
+}
+
+.alert-favorite {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  background-color: #ff6b9d;
+  color: white;
+  padding: 14px 12px;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(255, 107, 157, 0.6);
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  width: 320px;
+  z-index: 1000;
+  transition: opacity 0.4s ease, transform 0.4s ease;
+  animation: fadeIn 0.4s ease;
+  font-weight: 600;
+}
+
+.favorite-icon {
+  font-size: 24px;
+  font-weight: bold;
+  color: white;
+  text-shadow: 0 0 5px rgba(255,255,255,0.6);
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Dark Theme Styles */
+:host-context(.dark-theme) body {
+  background-color: #1a202c;
+  color: #e2e8f0;
+}
+
+:host-context(.dark-theme) .product-card {
+  background: #2d3748;
+  color: #e2e8f0;
+}
+
+:host-context(.dark-theme) .product-title,
+:host-context(.dark-theme) h2 {
+  color: #e2e8f0;
+}
+
+:host-context(.dark-theme) .btn1 {
+  background-color: #4a5568;
+  border-color: #4a5568;
+}
+
+:host-context(.dark-theme) .btn1 .btnFav {
+  color: #ff9aa2;
+}
+
+:host-context(.dark-theme) .btn1:hover {
+  background-color: #5a6578;
+  border-color: #ff9aa2;
+}
+
+:host-context(.dark-theme) .btn1.favorited {
+  background: linear-gradient(135deg, rgba(255, 154, 162, 0.2), rgba(196, 69, 105, 0.2));
+  border-color: #ff9aa2;
+}
+
+:host-context(.dark-theme) .btn1.favorited .btnFav {
+  color: #ff9aa2;
+}
+
+:host-context(.dark-theme) .btn2 {
+  background: linear-gradient(135deg, #c44569, #a03956);
+}
+
+:host-context(.dark-theme) .btn2:hover {
+  background: linear-gradient(135deg, #a03956, #8a2e47);
+}
+
+:host-context(.dark-theme) .alert-box {
+  background-color: #2d3748;
+  border-color: #4a5568;
+  color: #e2e8f0;
+}
+
+:host-context(.dark-theme) .alert-content h4 {
+  color: #ff9aa2;
 }

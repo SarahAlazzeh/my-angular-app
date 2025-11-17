@@ -1,25 +1,106 @@
+:host {
+  display: block;
+  min-height: 100vh;
+  background: linear-gradient(to bottom, #ffcecf, #fff8f8);
+  padding-bottom: 40px;
+}
+
 .pageTitle {
   text-align: center;
   color: #c44569;
-  padding-bottom: 20px;
-  margin-bottom: 25px;
+  padding: 40px 20px 20px;
+  margin-bottom: 40px;
+  font-size: 3rem;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  position: relative;
 }
 
 .pageTitle::after {
   content: "";
-  color: #c44569;
-  margin-top: 10px;
-  display: flex;
-  justify-self: center;
-  width: 90px;
-  border-bottom: #c44569 4px solid;
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 120px;
+  height: 4px;
+  background: linear-gradient(to right, transparent, #c44569, transparent);
   border-radius: 20px;
+  margin-top: 15px;
 }
 
-/* .card{
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-} */
+/* Shop Container */
+.shop-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
 
+/* Empty State */
+.empty-state {
+  text-align: center;
+  padding: 80px 20px;
+  background: white;
+  border-radius: 20px;
+  margin: 40px auto;
+  max-width: 600px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+}
 
-/* ////////////////// */
+.empty-state h3 {
+  color: #c44569;
+  font-size: 1.5rem;
+  margin-bottom: 15px;
+  font-weight: 600;
+}
+
+.empty-state p {
+  color: #666;
+  font-size: 1.1rem;
+}
+
+.empty-state-icon {
+  font-size: 4rem;
+  color: #ff9aa2;
+  margin-bottom: 20px;
+  opacity: 0.7;
+}
+
+/* Dark Theme Styles */
+:host-context(.dark-theme) {
+  background: linear-gradient(to bottom, #1a202c, #2d3748);
+}
+
+:host-context(.dark-theme) .pageTitle {
+  color: #ff9aa2;
+}
+
+:host-context(.dark-theme) .pageTitle::after {
+  background: linear-gradient(to right, transparent, #ff9aa2, transparent);
+}
+
+:host-context(.dark-theme) .empty-state {
+  background: #2d3748;
+  color: #e2e8f0;
+}
+
+:host-context(.dark-theme) .empty-state h3 {
+  color: #ff9aa2;
+}
+
+:host-context(.dark-theme) .empty-state p {
+  color: #cbd5e0;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .pageTitle {
+    font-size: 2rem;
+    padding: 30px 15px 15px;
+  }
+
+  .pageTitle::after {
+    width: 80px;
+  }
+}

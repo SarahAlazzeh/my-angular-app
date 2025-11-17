@@ -63,3 +63,26 @@ h1::after{
   border-bottom: #c44569 4px solid;
   border-radius: 20px;
 }
+
+/* Dark Theme Styles */
+:host-context(.dark-theme) h1 {
+  color: #ff9aa2;
+}
+
+:host-context(.dark-theme) h1::after {
+  border-bottom-color: #ff9aa2;
+}
+
+:host-context(.dark-theme) .select {
+  color: #e2e8f0;
+  background-color: #2d3748;
+}
+
+:host-context(.dark-theme) .select:focus {
+  color: #e2e8f0;
+}
+
+:host-context(.dark-theme) .option {
+  background-color: #2d3748;
+  color: #e2e8f0;
+}

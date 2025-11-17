@@ -65,7 +65,10 @@
     "instructions": "التعليمات",
     "prepTime": "وقت التحضير",
     "cookTime": "وقت الطهي",
-    "servings": "عدد الحصص"
+    "servings": "عدد الحصص",
+    "difficulty": "الصعوبة",
+    "category": "الفئة",
+    "notFound": "الوصفة غير موجودة"
   },
   "shareRecipe": {
     "title": "شارك وصفتك",
@@ -113,7 +116,8 @@
     "close": "إغلاق",
     "back": "رجوع",
     "next": "التالي",
-    "previous": "السابق"
+    "previous": "السابق",
+    "minutes": "دقيقة"
   },
   "notFound": {
     "title": "الصفحة غير موجودة",

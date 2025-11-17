@@ -1,3 +1,18 @@
+<!-- Login Alert -->
+<div #loginAlert class="alert-box" style="display:none;">
+  <i class="material-icons alert-icon">info</i>
+  <div class="alert-content">
+    <h4>Oops!</h4>
+    <p>You need to login or sign up to add favorites.</p>
+  </div>
+</div>
+
+<!-- Favorite Alert -->
+<div #favoriteAlert class="alert-favorite" style="display:none;">
+  <i class="material-icons favorite-icon">favorite</i>
+  <span>Added to favorites!</span>
+</div>
+
 <section class="container">
 @for (product of recipeProducts |searchPipe: recipeSearch; track $index) {
   <div class="product-card">
@@ -5,11 +20,22 @@
     <div class="product-info">
       <h2>{{product.title}}</h2>
       <div class="btn">
-          <button class="btn1" >
-            <a > <i class="material-icons btnFav" (click)="favClick()" >{{ favIcon }}</i> </a>
-          </button>
-        <button class="btn2">
-          <a  class="material-icons">menu_book</a>
+        <button 
+          type="button" 
+          class="btn1" 
+          (click)="toggleFavorite(product.id)"
+          [class.favorited]="isFavorite(product.id)"
+          [title]="isFavorite(product.id) ? 'Remove from favorites' : 'Add to favorites'">
+          <i class="material-icons btnFav">
+            {{ isFavorite(product.id) ? 'favorite' : 'favorite_border' }}
+          </i>
+        </button>
+        <button 
+          type="button" 
+          class="btn2" 
+          (click)="viewRecipeDetails(product.id)"
+          title="View Recipe Details">
+          <i class="material-icons">menu_book</i>
         </button>
       </div>
     </div>

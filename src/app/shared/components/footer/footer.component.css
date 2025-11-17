@@ -130,6 +130,32 @@ p {
   color: var(--primary);
 } */
 
+/* Dark Theme Styles */
+:host-context(.dark-theme) {
+  background: linear-gradient(to bottom, #2d3748, #1a202c);
+  color: #e2e8f0;
+}
+
+:host-context(.dark-theme) h3 {
+  color: #ff9aa2;
+}
+
+:host-context(.dark-theme) a {
+  color: #cbd5e0;
+}
+
+:host-context(.dark-theme) a:hover {
+  color: #ff9aa2;
+}
+
+:host-context(.dark-theme) .copyrigh-section {
+  border-top-color: rgba(255, 255, 255, 0.2);
+}
+
+:host-context(.dark-theme) .copyright {
+  color: rgba(226, 232, 240, 0.6);
+}
+
 /* Responsive Design */
 @media (max-width: 768px) {
   .footer-contaner {

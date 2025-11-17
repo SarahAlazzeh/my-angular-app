@@ -11,45 +11,37 @@
     </button>
   </div>
 </div>
-
 <div class="container">
   <div class="product-info">
-    <img src="img.png" alt="product.img" class="img">
-    <div class="">
+    <img [src]="productImage || 'https://via.placeholder.com/150'" [alt]="name" class="img">
+    <div class="product-details">
       <div class="title">
-        <h3>{{name}}</h3>
-        <p>{{discription}}</p>
+        <h3>{{ name }}</h3>
+        @if (description) {
+          <p>{{ description }}</p>
+        }
       </div>
-      <div class="price">
-        <h3>{{total | currency : "JD" : "code" }} </h3>
-        <!-- <p>For one pice</p> -->
+      <div class="price-info">
+        <span class="unit-price">{{ price | currency : "JD" : "code" }} each</span>
+        <h3 class="total-price">{{ total | currency : "JD" : "code" }}</h3>
       </div>
     </div>
-
   </div>
-  <div class="quantity">
+  
+  <div class="quantity-controls">
     <div class="quantity-btn">
-
-      <button (click)="addItem()" >
-        <i class="material-icons" >add</i>
+      <button type="button" (click)="removeItem()" [disabled]="quantity <= 1">
+        <i class="material-icons">remove</i>
       </button>
-      <p>{{quantity }}</p>
-      <button (click)="removeItem()" >
-        <i class="material-icons" >remove</i>
+      <span class="quantity-value">{{ quantity }}</span>
+      <button type="button" (click)="addItem()">
+        <i class="material-icons">add</i>
       </button>
     </div>
     <div class="action">
-      <button (click)="toggel()">
-        <i class="fa fa-times  delete-icon"></i>
+      <button type="button" (click)="toggel()" class="delete-btn" title="Remove item">
+        <i class="fa fa-times delete-icon"></i>
       </button>
     </div>
   </div>
-
-
-
-  <!-- <div class="total" >
-    <h3>{{total|currency : "JD" : "code" }}</h3>
-  </div> -->
-
-
 </div>

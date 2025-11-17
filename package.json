@@ -6,8 +6,7 @@
     "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test",
-    "serve:ssr:sarah-bakery": "node dist/sarah-bakery/server/server.mjs"
+    "test": "ng test"
   },
   "prettier": {
     "printWidth": 100,
@@ -32,6 +31,7 @@
     "@angular/router": "^20.2.0",
     "@angular/ssr": "^20.2.1",
     "express": "^5.1.0",
+    "firebase": "^12.6.0",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.15.0"
