@@ -6,6 +6,7 @@ export interface DelivaryCity{
 export const delivaryDetalis : DelivaryCity[]= [
   {city :"Amman" ,
     delivaryPrice: 1},
+    
   { city: "Zarqaa",
   delivaryPrice: 1},
 

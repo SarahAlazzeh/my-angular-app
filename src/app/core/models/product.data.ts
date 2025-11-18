@@ -4,7 +4,7 @@ let id: number = 0;
 export const products: Product[] = [
   {
     id: ++id,
-    img: '/images/recipes/classic-cookies.jpg',
+    img: '/images/recipes/cookies.jpg',
     title: 'Classic Cookies',
     price: 0.5,
     quantity: "Per piece",
@@ -18,7 +18,7 @@ export const products: Product[] = [
   },
   {
     id: ++id,
-    img: '/images/recipes/blueberry-cookies.jpg',
+    img: '/images/recipes/berryjpg.jpg',
     title: 'Blur Berry Cookies',
     price: 1.0,
     quantity: "Per piece",
@@ -39,14 +39,14 @@ export const products: Product[] = [
   },
   {
     id: ++id,
-    img: '/images/recipes/fluffy-pancakes.jpg',
+    img: '/images/recipes/pancakes.jpg',
     title: 'Fluffy Pancakes',
     price: 1.0,
     quantity: "6 piece",
   },
   {
     id: ++id,
-    img: '/images/recipes/chocolate-muffins.jpg',
+    img: '/images/recipes/muffins.jpg',
     title: 'chocolate Muffins',
     price: 0.5,
     quantity: "Per piece",
@@ -67,7 +67,7 @@ export const products: Product[] = [
   },
   {
     id: ++id,
-    img: '/images/recipes/chocolate-donut.jpg',
+    img: '/images/recipes/donut.jpg',
     title: 'Chocolate Donut',
     price: 1.0,
     quantity: "Per piece",
@@ -88,7 +88,7 @@ export const products: Product[] = [
   },
   {
     id: ++id,
-    img: '/images/recipes/cheesecake.jpg',
+    img: '/images/recipes/cheescake.jpg',
     title: 'Cheesecake',
     price: 1.5,
     quantity: "Per piece",

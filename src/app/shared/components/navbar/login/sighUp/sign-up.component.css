@@ -3,9 +3,9 @@
   /* grid-template-rows: auto; */
   justify-content: center;
   background: linear-gradient(to bottom, #ffcecf,#fff8f800, #ffcecf);
-  padding: 40px 80px;
+  padding: 40px 90px;
   border-radius: 20px;
-  height: 85vh;
+  height: 95vh;
   border: .2px solid #4a2c4073;
 }
 
