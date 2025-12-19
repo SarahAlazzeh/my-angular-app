@@ -17,7 +17,12 @@
     <span class="price">{{delivary | currency :'JD'}}</span></div>
     <div><p> Total </p>
     <span class="price">{{total | currency : 'JD'}}</span></div>
-    <button class="checkout"  (click)="checkOut()" > Checkout </button>
+    <button  type="submit" (click)="checkOut()"
+    [disabled]="!delivary"
+    [ngClass]="{
+    'checkout-valid': delivary,
+    'checkout-invalid': !delivary}">
+    Checkout </button>
   </div>
 </div>
 <!-- <i class="material-icons contIcon">chevron_right </i> -->

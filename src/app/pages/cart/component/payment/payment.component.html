@@ -1,9 +1,8 @@
-<div class="payment">
+<!-- <div class="payment">
   <div class="title">
     <h3> Choose Payment Method </h3>
     <button class="close" (click)="send()" > <i class="fa fa-times " ></i></button>
   </div>
-    <!-- <hr> -->
       <button class="btn-payment"> Cash On Delivery
         <i class="fa-solid fa-wallet" style="color: brown;" ></i></button>
       <button class="btn-payment"> Visa Card <i class="fa-brands fa-cc-visa visa"> </i></button>
@@ -12,4 +11,93 @@
         <button class="btn-primary">Continue</button>
         <button class="btn-secondary" (click)="send()">Cancel</button>
       </div>
+</div> -->
+
+<div class="special-notes" *ngIf="specialNotesBox" >
+  <button (click)="send()" class="close" ><i  class="fa fa-times " ></i></button>
+  <h2 class="title"> special notes </h2>
+  <p class="description"> Add any special instructions for your order. You can skip this. </p>
+  <textarea name="special-note" id="special-note"
+  [(ngModel)]="specialNote"
+  placeholder="cake name, allergies, gift wrap" ></textarea>
+  <div class="special-notes-button" >
+    <button class="btn" (click)="continue()" > Skip </button>
+    <button class="btn" (click)="continue()" > Continue </button>
+  </div>
 </div>
+
+<div class="delivary-box" *ngIf="delivaryBox" >
+  <div class="button-box">
+    <button class="back" (click)="continue()" ><i class="fa-solid fa-arrow-left" ></i></button>
+    <button class="close" (click)="send()" ><i  class="fa fa-times " ></i></button>
+  </div>
+  <div class="delivary">
+    <div class="box" >
+      <label for="address">Delivary Address </label>
+      <input type="text"
+      [(ngModel)]="address"
+      name="address"
+      id="address" >
+    </div>
+
+    <label> Preferred Time </label>
+
+    <div class="time-box" >
+      <label for="time1"  >
+        <input type="radio" name="time" id="time1"
+        [(ngModel)]="slectedTime"
+        value="morning" > Morning
+      </label>
+      <p class="open-in-hover" > 10AM - 12PM </p>
+
+      <label for="time2" >
+        <input type="radio" name="time" id="time2"
+        [(ngModel)]="slectedTime"
+        value="afternoon" > Afternoon
+      </label>
+      <P class="open-in-hover" > 12PM -4PM </P>
+
+      <label for="time3" >
+        <input type="radio" name="time" id="time3"
+        [(ngModel)]="slectedTime"
+        value="evening">
+        Evening </label>
+        <P class="open-in-hover" > 4PM - 6PM </P>
+
+    </div>
+
+    <div class="box" >
+      <label for="note"> Delivary Note </label>
+      <input type="text" name="" id="note" [(ngModel)] = "delivaryNote" >
+    </div>
+  </div>
+  <div class="cancel-notes">
+    <h4> Once an order is submitted, it cannot be modified or cancelled. </h4>
+    <input type="checkbox" name="policy" id="policy" [(ngModel)]="checkPolicy" >
+    <label for="policy">Users are advised to review their order carefully before confirmation.
+      </label>
+  </div>
+  <button  class="done" type="submit"
+  [disabled]="!(address && slectedTime && checkPolicy)"
+  [ngClass]="{
+    'valid': address && slectedTime && checkPolicy,
+    'btn-disabled': !(address && slectedTime && checkPolicy)}"
+  (click) = "submit()" > Done </button>
+</div>
+
+<div class="info-box" *ngIf="infoBox" >
+  <button class="close" (click)="send()" ><i  class="fa fa-times " ></i></button>
+  <h2 class="tks-msg"> Baked with love, just for you <i></i>
+  Thank you for choosing Sarah’s Bakery.</h2>
+  <h2 class="order-no"> Order Number  <span> {{orderId}} </span>  </h2> <!--var-->
+  <h3 class="delivary-time"> Delivary Time  <span> {{slectedTime}} </span> </h3>
+  <h3 class="delivary-method">
+  Home Delivery <span>{{address}}</span>
+  </h3>
+  <h3 class="notes">Your Note
+    <br>
+    Special Note : <span>{{ specialNote || 'No notes added' }}</span>
+    <br>
+    Delinary Note :  <span>{{ delivaryNote || 'No notes added'}}</span></h3>
+  </div>
+

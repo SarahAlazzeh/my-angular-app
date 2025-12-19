@@ -68,37 +68,64 @@
       </div>
       <div class="password">
         <div class="pass">
-          <input type="password" placeholder="Password" formControlName="password"
-          [ngClass]="{'error-password': userData.get('password')?.invalid && userData.get('password')?.touched,
-            'success-password': userData.get('password')?.valid && userData.get('password')?.touched}">
-            @if (userData.get('password')?.getError('required') && userData.get('password')?.touched) {
-              <h4 class="error-pass" > This box is required! </h4>
-              <!-- <span class="material-icons error-icon">error</span> -->
-            }
-            @if (userData.get('password')?.getError('minlength')) {
-              <h4 class="error-pass" > minimum length is 8 </h4>
-              <!-- <span class="material-icons error-icon">error</span> -->
-            }
-            @if (userData.get('password')?.getError('maxlength')){
-              <h4 class="error-pass" > maximum length is 16 </h4>
-              <!-- <span class="material-icons error-icon">error</span> -->
-            }
 
-          </div>
-          <div class="repass">
-            <input type="password" placeholder="rePassword" formControlName="repassword"
-            [ngClass]="{'error-password': userData.get('repassword')?.invalid && userData.get('repassword')?.touched,
-              'success-password': userData.get('repassword')?.valid && userData.get('repassword')?.touched}">
-            @if (userData.get('repassword')?.getError('required') && userData.get('repassword')?.touched) {
-              <h4 class="error-pass" > This box is required! </h4>
-            }
-            @if (userData.get('repassword')?.touched && userData.hasError('passNotMatch')) {
-              <h4 class="error-pass" > Passwords do not match </h4>
-            }
-          </div>
-          <!-- @if (userData.get('repassword')?.touched && userData.get('repassword') != userData.get('password') ) {
-              <h4 class="error-pass" > password not match </h4>
-          } -->
+  <input
+    [type]="showPassword ? 'text' : 'password'"
+    placeholder="Password"
+    formControlName="password"
+    [ngClass]="{
+      'error-password': userData.get('password')?.invalid && userData.get('password')?.touched,
+      'success-password': userData.get('password')?.valid && userData.get('password')?.touched
+    }"
+  />
+
+  <button
+    type="button"
+    class="toggle-pass"
+    (click)="toggleShowPassword()"
+  >
+    <i class="material-icons">
+      {{ showPassword ? 'visibility_off' : 'visibility' }}
+    </i>
+  </button>
+
+  @if (userData.get('password')?.getError('required') && userData.get('password')?.touched) {
+    <h4 class="error-pass">This box is required!</h4>
+  }
+
+</div>
+
+<div class="repass">
+
+  <input
+    [type]="showRePassword ? 'text' : 'password'"
+    placeholder="Re-enter password"
+    formControlName="repassword"
+    [ngClass]="{
+      'error-password': userData.get('repassword')?.invalid && userData.get('repassword')?.touched,
+      'success-password': userData.get('repassword')?.valid && userData.get('repassword')?.touched
+    }"
+  />
+
+  <button
+    type="button"
+    class="toggle-pass"
+    (click)="toggleShowRePassword()"
+  >
+    <i class="material-icons">
+      {{ showRePassword ? 'visibility_off' : 'visibility' }}
+    </i>
+  </button>
+
+  @if (userData.get('repassword')?.getError('required') && userData.get('repassword')?.touched) {
+    <h4 class="error-pass">This box is required!</h4>
+  }
+
+  @if (userData.get('repassword')?.touched && userData.hasError('passNotMatch')) {
+    <h4 class="error-pass">Passwords do not match</h4>
+  }
+
+</div>
       </div>
       @if (errorMessage) {
         <div class="error-message">

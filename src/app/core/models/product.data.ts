@@ -32,14 +32,14 @@ export const products: Product[] = [
   },
   {
     id: ++id,
-    img: '/images/recipes/cinnamon-cookies.jpg',
+    img: '/images/recipes/cinnamon-cookiesjpg.jpg',
     title: 'Cinnamon Cookies',
     price: 0.5,
     quantity: "Per piece",
   },
   {
     id: ++id,
-    img: '/images/recipes/pancakes.jpg',
+    img: '/images/recipes/pancake.jpg',
     title: 'Fluffy Pancakes',
     price: 1.0,
     quantity: "6 piece",
@@ -88,7 +88,7 @@ export const products: Product[] = [
   },
   {
     id: ++id,
-    img: '/images/recipes/cheescake.jpg',
+    img: '/images/recipes/chesscake.jpg',
     title: 'Cheesecake',
     price: 1.5,
     quantity: "Per piece",

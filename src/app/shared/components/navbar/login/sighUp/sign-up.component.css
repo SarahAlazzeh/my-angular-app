@@ -1,278 +1,349 @@
-.container{
-  display: grid;
-  /* grid-template-rows: auto; */
-  justify-content: center;
-  background: linear-gradient(to bottom, #ffcecf,#fff8f800, #ffcecf);
-  padding: 40px 90px;
+/* ===== Form Card ===== */
+.container {
+  background: #fff;
+  width: 360px;
+  padding: 30px 35px;
   border-radius: 20px;
-  height: 95vh;
-  border: .2px solid #4a2c4073;
+  box-shadow: 0 12px 30px rgba(0,0,0,0.15);
+  position: relative;
 }
 
-.back{
-  display: flex;
-  justify-content: start;
+/* ===== Close / Back Button ===== */
+.back {
+  position: absolute;
+  top: 15px;
+  left: 15px;
+  background: none;
+  border: none;
   cursor: pointer;
-  width: 20px;
-  height: 20px;
 }
 
-.back i{
+.back i {
+  font-size: 18px;
   color: #4a2c40;
-  /* border: .6px solid #4a2c40; */
-  border-radius: 60px;
-  transition: all .3s ease;
+  transition: transform 0.3s;
 }
 
-.back i:hover{
-  transform: scale(1.1);
+.back i:hover {
+  transform: scale(1.15);
 }
 
-h2{
+/* ===== Titles ===== */
+h2 {
   color: #c44569;
-  font-size: 2rem;
-  margin-bottom: 25px;
   text-align: center;
+  margin-bottom: 6px;
 }
 
-h5{
-  justify-self: center;
-  margin-bottom: 15px;
-  font-family: 'Roboto', sans-serif;
+h5 {
+  text-align: center;
   color: #4a2c40;
+  font-size: 0.9rem;
+  margin-bottom: 22px;
 }
 
-form{
+/* ===== Form ===== */
+form {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 16px;
 }
 
-
-input{
-  width: 250px;
-  padding: 12.5px 10px;
-  outline: none;
-  border-radius: 20px;
+/* ===== Inputs ===== */
+input {
+  width: 100%;
+  padding: 12px 14px;
+  border-radius: 18px;
   border: 2px solid #ffcecf;
-  /* border-bottom: 1px solid #c44569; */
-  transform: translateY(-2px);
-  background-color: #fff8f8;
-  color: #4a2c40;
-
+  background: #fff8f8;
+  outline: none;
+  transition: 0.3s;
 }
 
-.password{
-  display: grid;
-  grid-template-columns: 1fr 1fr;
+input:focus {
+  border-color: #c44569;
+}
+
+input::placeholder {
+  color: #c445699f;
+}
+
+/* ===== Password Row ===== */
+.password {
+  display: flex;
   gap: 10px;
 }
 
-.password input{
-  width: 110px;
+.password input {
+  flex: 1;
 }
 
-input::placeholder{
-  color: #c445699f;
-  font-family: 'Cairo', sans-serif;
-  font-weight: 400;
-  letter-spacing: 1px;
+/* ===== Validation ===== */
+.error-phone,
+.error-password {
+  border-color: red;
 }
 
-button{
-  background-color: transparent;
-  border: 0px;
-  outline: none;
-  font-family: 'Cairo', sans-serif;
-  transition: all 0.3s ease;
-  font-size: 12px;
+.success-phone,
+.success-password {
+  border-color: rgb(20, 163, 20);
 }
 
+/* ===== Error Text ===== */
+.error-sentence,
+.error-pass {
+  font-size: 0.75rem;
+  color: red;
+  margin-top: 4px;
+}
+
+/* ===== Submit Button ===== */
 button[type="submit"] {
-  background-color: #c4456994;
-  color: #fff8f8;
-  padding: 5px 80px;
-  border-radius: 40px;
-  cursor: not-allowed;
-  border: none;
+  background: #c4456994;
+  color: #fff;
+  padding: 10px;
+  border-radius: 25px;
   font-size: 1rem;
-  font-weight: 500;
-  letter-spacing: 0.7px;
-  transition: all 0.3s ease;
-  justify-self: center;
-  margin-bottom: 10px;
+  cursor: not-allowed;
+  border:none;
+  outline:none;
+  transition: 0.3s;
 }
 
 button[type="submit"].submit-valid {
-  background-color: #c44569;          /* أحمر صريح */
-  cursor: pointer;                   /* المؤشر يشير لإمكانية الضغط */
-}
-
-button[type="submit"].submit-valid:hover {
-  font-size: 1.1rem;                 /* تكبير الخط عند المرور */
-  background-color: #a63757;         /* درجة أغمق من الأحمر */
-}
-
-
-.switch{
-  display: flex;
-  justify-content: center;
-}
-
-.login{
-  letter-spacing: .6px;
-  font-size: .8rem;
-  color: black;
-  font-family:'Roboto', sans-serif;
-  margin-right: 4px;
-}
-
-.btn-socundary{
-  font-weight: 400;
-  font-size: .8rem;
-  color: #c44569;
-  transition: all .3s ease;
-  font-family: 'Roboto', sans-serif;
-}
-
-.btn-socundary:hover{
-  transform: translateY(-2px)
-  scale(1.1);
+  background: #c44569;
   cursor: pointer;
 }
 
-a{
-  text-decoration: none;
+button[type="submit"].submit-valid:hover {
+  background: #a63757;
 }
 
-.error-password,
-.error-phone{
-  animation: borderError .3s linear forwards;
-
-}
-
-.error-icon{
-  color: red;
-  font-size: 12.5px;
-}
-
-.error-sentence{
-  color: red;
-  font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  font-size: 12px;
-  font-weight: 400;
-  transition: all .3s ease-in-out;
-  animation: error .3s ease-in-out;
-}
-
-.error-message {
-  margin-top: 10px;
-  margin-bottom: 10px;
-  padding: 10px;
-  background-color: #ffe6e6;
-  border: 1px solid #ff9999;
-  border-radius: 8px;
-  text-align: center;
-}
-
-.error-message .error-sentence {
-  margin: 0;
-  font-size: 0.9rem;
-  color: #d32f2f;
-}
-
+/* ===== Divider ===== */
 .divider {
   display: flex;
   align-items: center;
-  text-align: center;
   margin: 20px 0;
-  color: #666;
 }
 
 .divider::before,
 .divider::after {
-  content: '';
+  content: "";
   flex: 1;
-  border-bottom: 1px solid #ddd;
+  height: 1px;
+  background: #ddd;
 }
 
 .divider span {
-  padding: 0 15px;
-  font-size: 0.9rem;
+  padding: 0 10px;
+  font-size: 0.85rem;
   color: #999;
 }
 
+/* ===== Google Button ===== */
 .google-btn {
-  width: 100%;
-  padding: 12px 20px;
-  margin-bottom: 15px;
-  background-color: #fff;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 10px;
-  font-size: 1rem;
-  font-weight: 500;
-  color: #333;
-  transition: all 0.3s ease;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  padding: 12px;
+  border-radius: 10px;
+  border: 1px solid #ddd;
+  background: #fff;
+  cursor: pointer;
+  justify-content: center;
 }
 
 .google-btn:hover:not(:disabled) {
-  background-color: #f8f9fa;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
-  border-color: #ccc;
-}
-
-.google-btn:active:not(:disabled) {
-  transform: translateY(1px);
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
-}
-
-.google-btn:disabled {
-  opacity: 0.6;
-  cursor: not-allowed;
+  background: #f8f9fa;
 }
 
 .google-icon {
   width: 20px;
-  height: 20px;
 }
 
-.success-password,
-.success-phone{
-  animation: borderSuccess .3s linear forwards;
+/* ===== Switch ===== */
+.switch {
+  display: flex;
+  justify-content: center;
+  margin-top: 15px;
 }
 
-.error-pass{
-  font-size: .7rem;
-  color: red;
-  margin-bottom: 20px;
-  transition: all .3s ease-in-out;
-  animation: error .3s ease-in-out;
+.btn-socundary {
+  color: #c44569;
+  background: none;
+  cursor: pointer;
+  font-size: 0.8rem;
+  outline: none;
+  border: none;
 }
 
-@keyframes error {
-  0% { transform: translateY(-2px); opacity: .5;
-    }
-  100% { transform: translateY(0px); opacity: 1; }
+.btn-socundary:hover {
+  transform: scale(1.05);
 }
 
-@keyframes borderError{
-  0%{ border-left: 2px solid red;}
-  30%{ border-left: 2px solid red;  border-bottom: 2px solid red;}
-  65%{ border-left: 2px solid red;  border-bottom: 2px solid red;  border-right: 2px solid red;}
-  100%{ border: 2px solid red;}
+.pass, .repass { position: relative;
+/* 🔴 أهم سطر */ width: 100%; }
+
+.toggle-pass {
+  position: absolute;
+  right: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: #c44569;
+  font-size: 1.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
 }
 
-@keyframes borderSuccess{
-  0%{ border: 2px solid red;}
-  /* 30%{}
-  65%{} */
-  100%{ border: 2px solid rgb(20, 163, 20);}
+.pass input,
+.repass input {
+  padding-right: 3rem; /* مساحة للعين */}
+
+.toggle-pass:hover {
+  color: #a63757;
+  transform: translateY(-50%) scale(1.1);
 }
 
+.toggle-pass:active {
+  transform: translateY(-50%) scale(0.95);
+}
 
+:host-context(.dark-theme) .toggle-pass {
+  color: #ff9aa2;
+}
+
+:host-context(.dark-theme) .toggle-pass:hover {
+  color: #ff6f91;
+}
+
+/* validation */
+.error-password {
+  border: 1px solid #e74c3c;
+}
+
+.success-password {
+  border: 1px solid #2ecc71;
+}
+
+.error-pass {
+  margin-top: 6px;
+  font-size: 0.8rem;
+  color: #e74c3c;
+}
+
+/* Dark Theme Overrides */
+:host-context(.dark-theme) .container {
+  background: #2d3748; /* غامق لطبقة الخلفية */
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.6);
+  color: #e2e8f0;
+}
+
+:host-context(.dark-theme) .back i {
+  color: #ff9aa2;
+}
+
+:host-context(.dark-theme) h2 {
+  color: #ff9aa2;
+}
+
+:host-context(.dark-theme) h5 {
+  color: #d1c0c5;
+}
+
+/* Inputs */
+:host-context(.dark-theme) input {
+  background: #4a5568;
+  border-color: #ff9aa2;
+  color: #e2e8f0;
+}
+
+:host-context(.dark-theme) input::placeholder {
+  color: #d1a0a5;
+}
+:host-context(.dark-theme) input:focus {
+  border-color: #ff6f91;
+  background: #5a6777;
+  color: #fff;
+}
+
+/* Validation */
+:host-context(.dark-theme) .error-phone,
+:host-context(.dark-theme) .error-password {
+  border-color: #ff6f91;
+}
+
+:host-context(.dark-theme) .success-phone,
+:host-context(.dark-theme) .success-password {
+  border-color: #8fffaa;
+}
+
+/* Error texts */
+:host-context(.dark-theme) .error-sentence,
+:host-context(.dark-theme) .error-pass {
+  color: #ff6f91;
+}
+
+/* Submit Button */
+:host-context(.dark-theme) button[type="submit"] {
+  background: #ff9aa2aa;
+  color: #fff;
+  cursor: not-allowed;
+  border: none;
+  outline: none;
+}
+:host-context(.dark-theme) button[type="submit"].submit-valid {
+  background: #ff6f91;
+  cursor: pointer;
+  box-shadow: 0 6px 15px rgba(255, 111, 145, 0.6);
+  transition: background-color 0.3s ease;
+}
+
+:host-context(.dark-theme) button[type="submit"].submit-valid:hover {
+  background: #c44569;
+}
+
+/* Divider */
+:host-context(.dark-theme) .divider::before,
+:host-context(.dark-theme) .divider::after {
+  background: #666;
+}
+
+:host-context(.dark-theme) .divider span {
+  color: #ccc;
+}
+
+/* Google Button */
+:host-context(.dark-theme) .google-btn {
+  background: #4a5568;
+  border: 1px solid #ff9aa2;
+  color: #fff;
+}
+
+:host-context(.dark-theme) .google-btn:hover:not(:disabled) {
+  background: #5a6777;
+}
+/* Forget password */
+:host-context(.dark-theme) .btn-primary {
+  background-color: transparent;
+  color: #ff9aa2;
+}
+
+/* Switch */
+:host-context(.dark-theme) .switch {
+  color: #d1a0a5;
+}
+
+:host-context(.dark-theme) .btn-socundary {
+  color: #ff9aa2;
+}
+
+:host-context(.dark-theme) .btn-socundary:hover {
+  transform: scale(1.05);
+  color: #c44569;
+}

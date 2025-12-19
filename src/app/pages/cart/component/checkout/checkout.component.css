@@ -197,12 +197,12 @@ li button:hover,
   text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
-.checkout {
+.checkout-invalid,
+.checkout-valid {
   width: 100%;
   padding: 16px 20px;
   border-radius: 15px;
   margin-top: 10px;
-  background: linear-gradient(135deg, #4a2c40, #2d1a24);
   color: white;
   border: none;
   font-weight: 700;
@@ -214,13 +214,21 @@ li button:hover,
   letter-spacing: 1px;
 }
 
-.checkout:hover {
+.checkout-invalid{
+  cursor: no-drop;
+}
+
+.checkout-valid{
+  background: linear-gradient(135deg, #4a2c40, #2d1a24);
+}
+
+.checkout-valid:hover {
   transform: translateY(-3px);
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
   background: linear-gradient(135deg, #2d1a24, #1a0f14);
 }
 
-.checkout:active {
+.checkout-valid:active {
   transform: translateY(-1px);
 }
 

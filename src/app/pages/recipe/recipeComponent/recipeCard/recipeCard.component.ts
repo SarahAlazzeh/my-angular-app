@@ -6,11 +6,13 @@ import { FavoritesService } from "../../../../core/services/favorites.service";
 import { UserdataService } from "../../../../core/services/userData.service";
 import { Router } from "@angular/router";
 import { Subscription } from "rxjs";
+import { SearchService } from "../../../../core/services/search.service";
+import { NgIf } from "@angular/common";
 
 @Component({
   selector: 'recipe-card',
   standalone: true,
-  imports: [ SearchPipe  ],
+  imports: [ SearchPipe , NgIf ],
   templateUrl: './recipeCard.component.html',
   styleUrls: ['./recipeCard.component.css']
 })
@@ -26,8 +28,13 @@ export class RecipecardComponent implements OnInit, OnDestroy {
   constructor(
     private favoritesService: FavoritesService,
     private userdataService: UserdataService,
-    private router: Router
+    private router: Router,
+    private searchService : SearchService
+    
   ) {}
+
+  searchOn: boolean = false ;
+  searchValue: string = "";
 
   ngOnInit(): void {
     // Subscribe to favorites changes
@@ -41,6 +48,11 @@ export class RecipecardComponent implements OnInit, OnDestroy {
     this.recipeProducts.forEach(product => {
       this.favoriteStatuses.set(product.id, this.favoritesService.isFavorite(product.id));
     });
+
+    this.searchService.getSearchProduct().subscribe(value => {
+      this.searchValue = value 
+      this.searchOn = value.trim().length > 0 
+      })
   }
 
   ngOnDestroy(): void {

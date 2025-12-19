@@ -1,4 +1,4 @@
-import { CommonModule, CurrencyPipe } from "@angular/common";
+import { CommonModule, CurrencyPipe, NgClass, NgIf } from "@angular/common";
 import { Component, Output, EventEmitter, OnInit, OnDestroy } from "@angular/core";
 import { RouterLink } from "@angular/router";
 import { TranslatePipe } from "../../../../shared/pipes/translate.pipe";
@@ -9,7 +9,7 @@ import { Subscription } from "rxjs";
 @Component({
   selector: 'app-checkout',
   standalone: true,
-  imports: [CurrencyPipe, CommonModule],
+  imports: [CurrencyPipe, CommonModule , NgClass ],
   templateUrl: './checkout.component.html',
   styleUrl: './checkout.component.css'
 })

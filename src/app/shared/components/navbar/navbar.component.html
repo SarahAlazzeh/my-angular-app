@@ -1,6 +1,6 @@
 <div class="navbar" >
   <div class="navbar-left">
-    <img src="" alt="" class="logo">
+    <img src="/images/sarah-bakeryLogo.png" alt="" class="logo">
     <h1 class="logiTitle">Sarah's Bakery</h1>
   </div>
 
@@ -20,7 +20,7 @@
         [placeholder]="'nav.search.placeholder' | translate"
         class="search"
         [(ngModel)]="inputSearch"
-        (keypress)="onSearchKeyPress()"
+        (input)="sendProductIdToSearch()"
       >
     }
     <div class="options">

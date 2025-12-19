@@ -13,8 +13,13 @@
   <span>Added to favorites!</span>
 </div>
 
+<div class="search-result" *ngIf="searchOn" >
+  <h3 class="search-result-title"  > The Search Result : </h3>
+  <!-- <div class="search-result-line"></div> -->
+</div>
+
 <section class="container">
-@for (product of recipeProducts |searchPipe: recipeSearch; track $index) {
+@for (product of recipeProducts |searchPipe: searchValue; track $index) {
   <div class="product-card">
     <img [src]="product.img" alt="" class="product-image">
     <div class="product-info">

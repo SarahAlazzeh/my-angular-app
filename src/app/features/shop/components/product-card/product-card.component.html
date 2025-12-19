@@ -17,15 +17,21 @@
   <i class="material-icons favorite-icon">favorite</i>
   <span>Added to favorites!</span>
 </div>
+
+<div class="search-result" *ngIf="searchOn" >
+  <h3 class="search-result-title"  > The Search Result : </h3>
+  <!-- <div class="search-result-line"></div> -->
+</div>
+
 <div class="center">
-  @for (product of products|searchPipe :sInput ; track $index) {
+  @for (product of products|searchPipe :searchValue ; track $index) {
     <div class="container">
       <div class="productGrid">
         <div class="productCard">
           <div class="favorite-btn-wrapper">
-            <button 
-              type="button" 
-              class="favorite-btn" 
+            <button
+              type="button"
+              class="favorite-btn"
               (click)="toggleFavorite(product.id)"
               [class.favorited]="isFavorite(product.id)"
               [title]="isFavorite(product.id) ? 'Remove from favorites' : 'Add to favorites'">
@@ -40,13 +46,16 @@
               <span class="productQuantity">{{product.quantity}}</span>
             </div>
               <div class="productActions">
-                <button type="button" (click)="addToCart(product.id)" class="btnPrimary">
-                  <i class="material-icons">add_shopping_cart</i>
+                <button type="button" (click)="addToCart(product.id)" class="btnPrimary" >
+                  <i class="material-icons"  >add_shopping_cart</i>
                   <span>{{ 'shop.product.addToCart' | translate }}</span>
                 </button>
-                <button type="button" class="btn btnSecondary" (click)="viewRecipeDetails(product.id)">
+
+                <button type="button" class="btn btnSecondary" 
+                (click)="viewRecipeDetails(product.id)"  >
                   {{ 'shop.product.viewDetails' | translate }}
                 </button>
+                <!-- <i ngIf="admin == true" class="fa-solid fa-pan-square" ></i> -->
               </div>
           </div>
         </div>

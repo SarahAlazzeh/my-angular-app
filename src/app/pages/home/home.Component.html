@@ -1,5 +1,22 @@
 <app-navbar [enableSearch]="false" [activeRoute]="'home'"></app-navbar>
 <home-main></home-main>
 <app-about></app-about>
-<app-feedback></app-feedback>
+
+<div class="customer">
+  <h2>Customer Feedback</h2>
+  <p class="subtitle">We'd love to hear your thoughts and suggestions!</p>
+  <div class="review">
+    <button (click)="feedbackWindow()">
+      Write Your Review
+    </button>
+  </div>
+</div>
+
+<app-feedback *ngIf="feedbackOpen"
+  class="feedback"
+  (closed)="feedbackOpen = false"
+  (click)="feedbackWindow()"
+  [userLogin]="login" >
+</app-feedback>
+
 <app-footer></app-footer>

@@ -1,7 +1,7 @@
 import { Component, ElementRef, Input, ViewChild, OnInit, OnDestroy } from "@angular/core";
 import { products } from "../../../../core/models/product.data";
 import { Product } from "../../../../core/models/product.interface";
-import { CurrencyPipe } from "@angular/common";
+import { CurrencyPipe, NgIf } from "@angular/common";
 import { SearchPipe } from "../../../../shared/pipes/search.pipe";
 import { TranslatePipe } from "../../../../shared/pipes/translate.pipe";
 import { UserdataService } from "../../../../core/services/userData.service";
@@ -9,11 +9,12 @@ import { ShopService } from "../../services/shop.service";
 import { Router } from "@angular/router";
 import { FavoritesService } from "../../../../core/services/favorites.service";
 import { Subscription } from "rxjs";
+import { SearchService } from "../../../../core/services/search.service";
 
 @Component({
   selector: 'app-product-card',
   standalone: true,
-  imports:[ CurrencyPipe, SearchPipe, TranslatePipe ],
+  imports:[ CurrencyPipe, SearchPipe, TranslatePipe, NgIf  ],
   templateUrl: './product-card.component.html',
   styleUrl:'./product-card.component.css'
 })
@@ -24,20 +25,26 @@ export class ProductCardComponent implements OnInit, OnDestroy {
   @ViewChild ('loginAlert') loginAlert! :ElementRef;
   @ViewChild ('alertCart') alertCart! :ElementRef;
   @ViewChild ('alertFavorite') alertFavorite! :ElementRef;
-  
+
   favoriteStatuses: Map<number, boolean> = new Map();
   private favoritesSubscription?: Subscription;
-  
+
   constructor(
     private el :ElementRef,
     private userdataService : UserdataService,
     private shopService : ShopService,
     private router: Router,
-    private favoritesService: FavoritesService
+    private favoritesService: FavoritesService,
+    private searchService : SearchService
   ){}
-  
+
+  searchOn: boolean = false ;
+  searchValue: string = "";
+
   loginUser!:boolean;
   sInput: string = "";
+
+  admin : boolean = false;
 
   ngOnInit(): void {
     // Subscribe to favorites changes
@@ -46,11 +53,21 @@ export class ProductCardComponent implements OnInit, OnDestroy {
         this.favoriteStatuses.set(product.id, this.favoritesService.isFavorite(product.id));
       });
     });
-    
+
     // Initialize favorite statuses
     this.products.forEach(product => {
       this.favoriteStatuses.set(product.id, this.favoritesService.isFavorite(product.id));
     });
+
+    this.userdataService.isAdmin$.subscribe(value => {
+      console.log('is admin ' , value)
+      this.admin= value;
+    })
+
+    this.searchService.getSearchProduct().subscribe(value => {
+      this.searchValue = value.toLowerCase()
+      this.searchOn = value.trim().length > 0
+    })
   }
 
   ngOnDestroy(): void {
@@ -58,6 +75,7 @@ export class ProductCardComponent implements OnInit, OnDestroy {
       this.favoritesSubscription.unsubscribe();
     }
   }
+
   addToCart(id: number) : void {
     this.loginUser = this.userdataService.isLoggedIn()
 
@@ -85,13 +103,13 @@ export class ProductCardComponent implements OnInit, OnDestroy {
 
   toggleFavorite(productId: number): void {
     this.loginUser = this.userdataService.isLoggedIn();
-    
+
     if (this.loginUser === true) {
       const selectedProduct = this.products.find(p => p.id === productId);
       if (selectedProduct) {
         this.favoritesService.toggleFavorite(selectedProduct);
         const isFavorite = this.favoritesService.isFavorite(productId);
-        
+
         // Show alert
         if (this.alertFavorite) {
           this.alertFavorite.nativeElement.style.display = 'flex';

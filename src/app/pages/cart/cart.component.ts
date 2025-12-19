@@ -23,13 +23,14 @@ export class CartComponent implements OnInit, OnDestroy {
     private shopService: ShopService,
     private cartService: CartService
   ) {}
-  
+
   cartItems: CartItem[] = [];
   itemsNumber: number = 0;
   value: boolean = false;
   cancle: boolean = true;
   showAlert: boolean = false;
   fadeOut: boolean = false;
+  detiles : boolean = false;
   private cartSubscription?: Subscription;
 
   ngOnInit(): void {

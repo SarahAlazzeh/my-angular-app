@@ -37,6 +37,17 @@ export class SignupComponent{
   password !: FormControl;
   repassword !: FormControl;
 
+  showPassword = false;
+  showRePassword = false;
+
+  toggleShowPassword() {
+    this.showPassword = !this.showPassword;
+  }
+
+  toggleShowRePassword() {
+    this.showRePassword = !this.showRePassword;
+  }
+
   initFormControl(){
     this.name =new FormControl('',[Validators.required, Validators.minLength(3), ValidationFunction(/[0-9]/)]),
     this.email = new FormControl('', [Validators.required, Validators.email]),
@@ -106,7 +117,7 @@ export class SignupComponent{
         password: '' // Don't store password
       };
       this.userdataService.setUserData(user, userCredential.user.uid);
-      
+
       this.onClose();
     } catch (error: any) {
       console.error('Sign up error:', error);

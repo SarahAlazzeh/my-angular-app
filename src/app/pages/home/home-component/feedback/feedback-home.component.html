@@ -1,9 +1,65 @@
-<div class="customer">
-  <div>
+<div *ngIf="userLogin; else notLoggedIn" class="feedback-card" (click)="$event.stopPropagation()">
+
+  <!-- Header -->
+  <header class="feedback-header">
     <h2>Customer Feedback</h2>
+    <button class="close-btn" (click)="close()">✕</button>
+  </header>
+
+  <!-- Description -->
+  <p class="feedback-desc">
+    Your feedback helps us improve our services <i class="fa-solid fa-heart"></i>
+  </p>
+
+  <!-- Rating -->
+  <div class="rating">
+    <span
+      *ngFor="let star of stars; let i = index"
+      (click)="setRating(i + 1)"
+      [class.active]="i < rating"
+    >
+      ★
+    </span>
   </div>
-  <div class="review">
-    <button><a> Write Your Review </a></button>
+<!-- Form -->
+  <div class="feedback-form">
+    <label>Your Message</label>
+    <textarea
+      [(ngModel)]="message"
+      placeholder="Write your feedback here..."
+    ></textarea>
+    <small *ngIf="error" class="error">{{ error }}</small>
   </div>
-  <div></div>
+
+  <!-- Actions -->
+  <footer class="feedback-actions">
+    <button (click)="submit()" [disabled]="loading">
+      <span *ngIf="!loading">Send Feedback</span>
+      <span *ngIf="loading">Sending...</span>
+    </button>
+  </footer>
+
+  <!-- Success Message -->
+  <div class="success" *ngIf="success">
+    <span class="fa-solid fa-check" style="background-color:#eeecece8; padding:5px;
+    border-radius: 20px;">
+    </span>  Thank you for your feedback!
+  </div>
+
 </div>
+
+
+<!-- Template لعرض رسالة لو المستخدم غير مسجل -->
+<ng-template #notLoggedIn>
+  <div class="alert" (click)="$event.stopPropagation()">
+    <button class="close-btn" (click)="close()" >
+      <i> ✕ </i>
+    </button>
+    <h2> You cannot write without logging in. </h2>
+    <i class="fa-regular fa-face-frown"></i>
+    <p> Please log in to write your feedback. </p>
+    <button (click)="signInWindow()"> Sign In </button>
+  </div>
+
+  <app-signin *ngIf="signIn" class="sign"></app-signin>
+</ng-template>

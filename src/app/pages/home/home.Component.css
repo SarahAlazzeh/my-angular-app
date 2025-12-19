@@ -1,0 +1,120 @@
+.customer {
+  background: linear-gradient(to bottom, #fff, #ffcecf);
+  width: 100%;
+  max-width: 600px;
+  margin: 40px auto;
+  padding: 40px 30px;
+  box-shadow: 0 4px 12px rgba(196, 69, 105, 0.2);
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.customer h2 {
+  color: #c44569;
+  font-size: 2.8rem;
+  font-weight: 700;
+  position: relative;
+  margin: 0;
+  padding-bottom: 15px;
+}
+
+.customer h2::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 90px;
+  border-bottom: 4px solid #c44569;
+  border-radius: 20px;
+}
+.subtitle {
+  color: #8f4f61;
+  font-size: 1.1rem;
+  font-weight: 500;
+  margin: 0 0 20px 0;
+  text-align: center;
+}
+
+.review button {
+  background-color: #c44569;
+  color: #fff;
+  font-size: 1.1rem;
+  font-weight: 600;
+  padding: 14px 30px;
+  border-radius: 30px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 6px 15px rgba(196, 69, 105, 0.3);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.review button:hover {
+  background-color: #852a45;
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(133, 42, 69, 0.5);
+}
+
+.review .icon {
+  font-size: 1.4rem;
+  line-height: 1;
+}
+
+@keyframes overlayFade {
+  from { opacity: 0; transform: translateY(-3px); }
+  to   { opacity: 1; transform: translateY(0px); }
+}
+
+.feedback{
+  position: fixed;
+  inset: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(6px);
+  z-index: 1000;
+  animation: overlayFade 0.3s ease-in-out;
+}
+
+:host-context(.dark-theme) .customer {
+  background: linear-gradient(to bottom, #3a2e3d, #5b4451);
+  box-shadow: 0 4px 15px rgba(196, 69, 105, 0.6);
+  color: #e0b2b3;
+}
+
+:host-context(.dark-theme) .customer h2 {
+  color: #ff9aa2;
+}
+
+:host-context(.dark-theme) .customer h2::after {
+  border-color: #ff9aa2;
+}
+
+:host-context(.dark-theme) .subtitle {
+  color: #d8b7bf;
+}
+
+:host-context(.dark-theme) .review button {
+  background-color: #ff6f91;
+  box-shadow: 0 6px 15px rgba(255, 111, 145, 0.5);
+  color: #fff;
+}
+
+:host-context(.dark-theme) .review button:hover {
+  background-color: #c44569;
+  box-shadow: 0 10px 25px rgba(196, 69, 105, 0.7);
+  transform: translateY(-5px);
+}
+
+:host-context(.dark-theme) .feedback {
+  background: rgba(58, 46, 61, 0.8);
+  backdrop-filter: blur(8px);
+}

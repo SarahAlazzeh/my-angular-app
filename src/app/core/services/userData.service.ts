@@ -19,7 +19,7 @@ export interface UserData{
 export class UserdataService {
   private userDataSubject = new BehaviorSubject<UserData | null>(null);
   private currentUserId: string | null = null;
-  
+
   public userData$ = this.userDataSubject.asObservable();
   public loggedIn = false;
   public adminLogged = false;
@@ -53,10 +53,10 @@ export class UserdataService {
     try {
       const auth = this.firebaseService.getAuth();
       const currentUser = auth.currentUser;
-      
+
       const db = this.firebaseService.getFirestore();
       const userDoc = await getDoc(doc(db, 'users', uid));
-      
+
       if (userDoc.exists()) {
         const userData = userDoc.data();
         const user: UserData = {
@@ -85,14 +85,25 @@ export class UserdataService {
     }
   }
 
+  // adminCheck
+
+  private adminCheck = new BehaviorSubject<boolean>(false);
+  isAdmin$ = this.adminCheck.asObservable();
+
   setUserData(data: UserData, uid: string): void {
     this.userDataSubject.next(data);
     this.currentUserId = uid;
     this.loggedIn = true;
+
     // Check if user is admin
-    if (data.email === 'admin@sarahsbakery.com') {
-      this.adminLogged = true;
-    }
+
+    const isAdmin = data.email?.trim().toLowerCase()  === 'admin@sarahsbakery.com';
+    // && data.password === "ShAMm2910"  ;
+
+    this.adminCheck.next(isAdmin);
+      this.adminLogged = isAdmin;
+      console.log(data.email)
+      localStorage.setItem('isAdmin', isAdmin.toString())
   }
 
   checkUserData(data: UserData) {
@@ -121,6 +132,8 @@ export class UserdataService {
       this.loggedIn = false;
       this.adminLogged = false;
       this.currentUserId = null;
+      this.adminCheck.next(false);
+      localStorage.removeItem('isAdmin')
     } catch (error) {
       console.error('Sign out error:', error);
     }

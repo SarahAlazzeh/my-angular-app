@@ -81,6 +81,36 @@
   letter-spacing: -0.5px;
 }
 
+.order-detils{
+  align-self: center;
+  justify-self: center;
+  transform: translateX(20%);
+}
+
+.order-detils button {
+  display: flex;
+  align-items: center;
+  padding: 12px 12px;
+  background: transparent;
+  border: 1.5px solid var(--primary);
+  border-radius: 20px;
+  color: var(--primary);
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.order-detils i {
+  font-size: 1.5rem;
+  color: var(--accent);
+}
+
+.order-detils button:hover {
+  background: var(--primary);
+  color: white;
+}
+
+
 .item-count-badge {
   background: var(--light);
   color: var(--accent);
@@ -256,7 +286,7 @@
   border: .1px solid #705b69 ;
   transition: all .3s ease-in;
   animation: payment .3s ease;
-  z-index: 100;
+  z-index: 1000;
 }
 
 @keyframes payment{

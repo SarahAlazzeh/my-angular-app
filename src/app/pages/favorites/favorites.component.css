@@ -7,6 +7,20 @@
   position: relative;
 }
 
+.back{
+  justify-content:start;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #ff9aa2, #c44569);
+  color: white;
+  border: none;
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(0,0,0,.15);
+  margin: 20px;
+  cursor: pointer;
+}
+
 .favorites-page {
   max-width: 1400px;
   margin: 0 auto;

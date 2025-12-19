@@ -12,6 +12,7 @@ import { Component } from '@angular/core';
 import { ForgetPasswordComponent } from './shared/components/navbar/login/forget password/forget-password.component';
 import { RecipedetailsComponent } from './pages/recipe-details/recipe-details.component';
 import { title } from 'process';
+import { FeedbackComponent } from './pages/home/home-component/feedback/feedback-home.component';
 
 export const routes: Routes = [
   { path: '' , redirectTo: 'home', pathMatch: 'full'},
@@ -27,6 +28,7 @@ export const routes: Routes = [
   { path: 'sharerecipe' , component: SharerecipeComponent , title: 'Share Recipe'},
   { path: 'signin' , component:SigninComponent, title:'Sign In'},
   { path: 'signup' , component:SignupComponent, title:'Sign Up'},
+  { path: 'feedback' , component:FeedbackComponent, title:'feed back'},
 
 
   { path: '**' , component: NotfoundComponent , title: 'Not Found '}

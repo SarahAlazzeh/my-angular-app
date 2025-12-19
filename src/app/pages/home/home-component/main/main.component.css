@@ -186,23 +186,115 @@ button:hover{
   --text: #e2e8f0;
 }
 
+/* Dark Theme Variables */
+:host-context(.dark-theme) {
+  --primary: #ff9aa2;
+  --secondary: #2d3748;
+  --accent: #ff6f91;
+  --dark: #e2e8f0;
+  --light: #4a5568;
+  --text: #e2e8f0;
+  --shadow: 0 4px 15px rgba(255, 111, 145, 0.4);
+}
+
+/* Main background with subtle pinkish overlay */
 :host-context(.dark-theme) .main {
-  background-color: #1a202c;
+  background-color: #1a202c; /* dark navy/gray */
+  background-image: linear-gradient(rgba(255, 154, 162, 0.1), rgba(255, 154, 162, 0.1));
+  color: var(--text);
+  box-shadow: none;
 }
 
-:host-context(.dark-theme) .category-card {
-  background: #2d3748;
-  color: #e2e8f0;
+/* Headings and texts inside main */
+:host-context(.dark-theme) .main1 h1,
+:host-context(.dark-theme) .main1 p {
+  color: var(--text);
+  text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.7);
 }
 
-:host-context(.dark-theme) .category-card h3 {
-  color: #e2e8f0;
+/* Shop now button */
+:host-context(.dark-theme) .main a.shop-now {
+  background-color: var(--accent);
+  color: #fff;
+  box-shadow: var(--shadow);
+  transition: var(--transition);
+}
+:host-context(.dark-theme) .main a.shop-now:hover {
+  background-color: #c44569; /* a bit darker pink */
+  box-shadow: 0 8px 20px rgba(196, 69, 105, 0.7);
+  transform: translateY(-5px);
 }
 
+/* Secondary main section background */
 :host-context(.dark-theme) .secondary-main {
   background-color: #1a202c;
-  color: #e2e8f0;
+  color: var(--text);
+  padding-bottom: 60px;
 }
 
+/* Featured Categories Heading */
+:host-context(.dark-theme) .secondary-main h2 {
+  color: var(--accent);
+  position: relative;
+}
 
+:host-context(.dark-theme) .secondary-main h2::after {
+  border-bottom-color: var(--accent);
+}
 
+/* Categories grid cards */
+:host-context(.dark-theme) .category-card {
+  background: #2d3748;
+  color: var(--text);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.6);
+  transition: all 0.3s ease;
+}
+
+:host-context(.dark-theme) .category-card:hover {
+  transform: translateY(-15px);
+  box-shadow: 0 15px 30px rgba(255, 111, 145, 0.4);
+}
+/* Category card heading */
+:host-context(.dark-theme) .category-card h3 {
+  color: var(--text);
+}
+
+/* Category images - dimmed slightly */
+:host-context(.dark-theme) .category-image {
+  filter: brightness(0.85);
+  transition: filter 0.3s ease;
+}
+
+:host-context(.dark-theme) .category-card:hover .category-image {
+  filter: brightness(1);
+}
+
+/* Buttons inside category cards */
+:host-context(.dark-theme) button {
+  background-color: var(--accent);
+  color: #fff;
+  border-radius: 40px;
+  font-weight: 500;
+  font-size: 1.1rem;
+  padding: 15px 130px;
+  border: none;
+  cursor: pointer;
+  transition: var(--transition);
+  box-shadow: var(--shadow);
+}
+
+:host-context(.dark-theme) button:hover {
+  background-color: #c44569;
+  transform: translateY(-10px);
+  box-shadow: 0 10px 25px rgba(196, 69, 105, 0.7);
+}
+/* Links inside buttons if any */
+:host-context(.dark-theme) button a.view {
+  color: #fff;
+  text-decoration: none;
+}
+
+/* General h2 styling fallback */
+:host-context(.dark-theme) h2 {
+  color: var(--accent);
+}

@@ -6,12 +6,13 @@ import { NavbarComponent } from "../../shared/components/navbar/navbar.component
 import { FooterComponent } from "../../shared/components/footer/footer.component";
 import { TranslatePipe } from "../../shared/pipes/translate.pipe";
 import { UserdataService } from "../../core/services/userData.service";
-import { CommonModule } from "@angular/common";
+import { CommonModule, NgIf } from "@angular/common";
 
 @Component({
   selector: 'app-shop',
   standalone: true,
-  imports:[ ProductCardComponent, AddProductComponent, NavbarComponent, FooterComponent, TranslatePipe, CommonModule ],
+  imports:[ ProductCardComponent, AddProductComponent, NavbarComponent,
+    NgIf, FooterComponent, TranslatePipe, CommonModule ],
   templateUrl: './shop.component.html',
   styleUrl: './shop.component.css'
 })
@@ -26,8 +27,11 @@ export class ShopComponent{
   }
   constructor( private userdataService : UserdataService,){}
 
-  ngDoCheck(){
-    this.admin = this.userdataService.isLooginAdmin();
+  ngOnInit(){
+    this.userdataService.isAdmin$.subscribe(value => {
+      console.log('is admin ' , value)
+      this.admin= value;
+    })
   }
 
   onProductAdded(newProduct: any) {

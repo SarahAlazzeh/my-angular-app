@@ -3,7 +3,7 @@
     <a routerLink="/shop" class="back">
       <i class="material-icons">chevron_left</i>
     </a>
-    
+
     <div class="cart-header">
       <div class="title">
         <h1>{{ 'cart.title' | translate }}</h1>
@@ -12,6 +12,7 @@
         }
       </div>
     </div>
+
 
     <!-- Empty Cart State -->
     @if (itemsNumber === 0) {
@@ -33,7 +34,7 @@
       <div class="cart-items-container">
       <div class="cart-items-list">
         @for (item of cartItems; track item.product.id) {
-          <app-order 
+          <app-order
             [cartItem]="item"
             class="order-item-wrapper">
           </app-order>
@@ -44,15 +45,15 @@
 
     <!-- Checkout Section -->
     @if (itemsNumber > 0) {
-      <app-checkout 
-        (check)="noItemAlert($event)" 
+      <app-checkout
+        (check)="noItemAlert($event)"
         class="checkout-section">
       </app-checkout>
     }
 
     <!-- Payment Modal -->
     @if (value === true && cancle === true) {
-      <app-payment 
+      <app-payment
         (clicked)="onClikced($event)"
         class="active-payment">
       </app-payment>

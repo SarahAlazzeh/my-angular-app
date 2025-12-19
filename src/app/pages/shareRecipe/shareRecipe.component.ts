@@ -16,8 +16,7 @@ import { NgClass } from "@angular/common";
 export class SharerecipeComponent{
 constructor(){
   this.initFormControl();
-  this.initformGroup();
-}
+  this.initformGroup();}
 
   recipe! : FormGroup;
   name !: FormControl;
@@ -47,5 +46,4 @@ constructor(){
       email : this.email,
     })
   }
-
 }

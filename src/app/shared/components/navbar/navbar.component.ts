@@ -12,6 +12,7 @@ import { ForgetPasswordComponent } from './login/forget password/forget-password
 import { UserdataService } from '../../../core/services/userData.service';
 import { CartService } from '../../../core/services/cart.service';
 import { Subscription } from 'rxjs';
+import { SearchService } from '../../../core/services/search.service';
 
 @Component({
   selector: 'app-navbar',
@@ -51,7 +52,8 @@ export class NavbarComponent implements OnInit, OnDestroy {
     private themeService: ThemeService,
     private translationService: TranslationService,
     private userdataService : UserdataService,
-    private cartService: CartService
+    private cartService: CartService ,
+    private serchService :SearchService,
   ) {}
 
   ngOnInit(): void {
@@ -95,11 +97,17 @@ export class NavbarComponent implements OnInit, OnDestroy {
     }
   }
 
-  onSearchKeyPress(): void {
-    if (this.enableSearch) {
-      this.sendSearchInput.emit(this.inputSearch);
-    }
-  }
+  // onSearchKeyPress(): void {
+  //   if (this.enableSearch) {
+  //     this.sendSearchInput.emit(this.inputSearch);
+  //   }
+  // }
+
+  sendProductIdToSearch(){
+    if( this.inputSearch == "" ){
+      this.serchService.sendSearchProduct("")
+    }else this.serchService.sendSearchProduct(this.inputSearch)
+}
 
   toggleTheme(): void {
     this.themeService.toggleTheme();
@@ -112,13 +120,13 @@ export class NavbarComponent implements OnInit, OnDestroy {
     this.languageChanged.emit(newLanguage);
   }
 
-  activeForm: 'signin' | 'signup' | 'forget' | 'success' | null = null;
+activeForm: 'signin' | 'signup' | 'forget' | 'success' | null = null;
 
 signin() { this.activeForm = 'signin'; }
 signup() { this.activeForm = 'signup'; }
 forget() { this.activeForm = 'forget'; }
-success() { 
-  this.activeForm = 'success' 
+success() {
+  this.activeForm = 'success'
   this.loader.nativeElement.style.display= 'flex';
     setTimeout(() => {
     this.loader.nativeElement.style.display='none';
@@ -128,7 +136,6 @@ success() {
   setTimeout(()=>{
     this.check.nativeElement.style.display='none';
   }, 2000);
-
 }
 signClose() { this.activeForm = null; }
 
@@ -149,6 +156,7 @@ async signOut() {
   this.showUserMenu = false;
   this.isLoggedIn = false;
   this.userData = null;
+
 }
 
 onImageError(event: Event) {
@@ -159,6 +167,7 @@ onImageError(event: Event) {
     this.userData.photoURL = undefined;
   }
 }
+
 
 //   signin(): void {
 //     this.SignIn.nativeElement.style.display='flex';
