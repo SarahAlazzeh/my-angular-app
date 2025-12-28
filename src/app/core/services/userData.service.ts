@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Injectable } from "@angular/core";
-import { BehaviorSubject } from "rxjs";
+import { BehaviorSubject, ReplaySubject } from "rxjs";
 import { FirebaseService } from "./firebase.service";
 import { onAuthStateChanged, signOut, User } from "firebase/auth";
 import { doc, getDoc } from "firebase/firestore";
@@ -10,6 +10,7 @@ export interface UserData{
   email:string;
   password: string;
   photoURL?: string;
+  isAdmin?: boolean;
 }
 
 @Injectable({
@@ -18,9 +19,13 @@ export interface UserData{
 
 export class UserdataService {
   private userDataSubject = new BehaviorSubject<UserData | null>(null);
+  public userData$ = this.userDataSubject.asObservable();
+
+  private adminSubject = new BehaviorSubject<boolean>(false);
+  // isAdmin$ = this.adminSubject.asObservable()
+
   private currentUserId: string | null = null;
 
-  public userData$ = this.userDataSubject.asObservable();
   public loggedIn = false;
   public adminLogged = false;
 
@@ -30,14 +35,15 @@ export class UserdataService {
 
   private initAuthStateListener(): void {
     const auth = this.firebaseService.getAuth();
+
     onAuthStateChanged(auth, async (user: User | null) => {
       if (user) {
         this.currentUserId = user.uid;
         this.loggedIn = true;
         // Check if user is admin (you can customize this logic)
-        if (user.email === 'admin@sarahsbakery.com') {
-          this.adminLogged = true;
-        }
+        // if (user.email === 'admin@sarahsbakery.com') {
+          // this.adminLogged = true;
+        // }
         // Load user data from Firestore
         await this.loadUserDataFromFirestore(user.uid);
       } else {
@@ -51,6 +57,8 @@ export class UserdataService {
 
   private async loadUserDataFromFirestore(uid: string): Promise<void> {
     try {
+      console.log('auth uid:' , uid);
+
       const auth = this.firebaseService.getAuth();
       const currentUser = auth.currentUser;
 
@@ -64,9 +72,16 @@ export class UserdataService {
           phone: userData['phone'] || '',
           email: userData['email'] || '',
           password: '',
-          photoURL: userData['photoURL'] || currentUser?.photoURL || undefined
+          photoURL: userData['photoURL'] || currentUser?.photoURL || undefined ,
+          isAdmin: userData['isAdmin'] || false
         };
         this.userDataSubject.next(user);
+      console.log('isAdmin from Firestore:', userData['isAdmin']);
+
+
+        this.adminLogged = user.isAdmin ?? false;
+        this.adminCheck.next(this.adminLogged);
+        console.log('admin statuse set to:', this.adminLogged);
       } else {
         // If user data doesn't exist in Firestore, create basic user object from auth
         if (currentUser) {
@@ -87,7 +102,7 @@ export class UserdataService {
 
   // adminCheck
 
-  private adminCheck = new BehaviorSubject<boolean>(false);
+  private adminCheck = new ReplaySubject<boolean>(1);
   isAdmin$ = this.adminCheck.asObservable();
 
   setUserData(data: UserData, uid: string): void {
@@ -97,24 +112,23 @@ export class UserdataService {
 
     // Check if user is admin
 
-    const isAdmin = data.email?.trim().toLowerCase()  === 'admin@sarahsbakery.com';
+    // const isAdmin = data.email?.trim().toLowerCase()  === 'admin@sarahsbakery.com';
     // && data.password === "ShAMm2910"  ;
-
-    this.adminCheck.next(isAdmin);
-      this.adminLogged = isAdmin;
-      console.log(data.email)
-      localStorage.setItem('isAdmin', isAdmin.toString())
+    // this.adminCheck.next(isAdmin);
+    //   this.adminLogged = isAdmin;
+    //   console.log(data.email)
+    //   localStorage.setItem('isAdmin', isAdmin.toString())
   }
 
-  checkUserData(data: UserData) {
-    // Legacy method for backward compatibility
-    this.userDataSubject.next(data);
-    if(data.phone == "0798057662" && data.password == "ShAMm2910" ){
-      this.adminLogged= true;
-    } else {
-      this.loggedIn = true;
-    }
-  }
+  // checkUserData(data: UserData) {
+  //   Legacy method for backward compatibility
+  //   this.userDataSubject.next(data);
+  //   if(data.phone == "0798057662" && data.password == "ShAMm2910" ){
+  //     this.adminLogged= true;
+  //   } else {
+  //     this.loggedIn = true;
+  //   }
+  // }
 
   getUserData(): UserData | null {
     return this.userDataSubject.value;

@@ -11,7 +11,7 @@
       <label for="recipeName" >Please write the name of the recipe:</label>
       <input type="text" id="recipeName" placeholder="Name Of Recipe"
       [ngClass]="{'error-box': recipe.get('name')?.invalid && recipe.get('name')?.touched}"
-      formControlName="name" >
+      formControlName="name" [(ngModel)]="newRecipe" >
       @if (recipe.get('name')?.touched && recipe.get('name')?.getError('required')) {
         <h4 class="error-sentence"> This box is required <span class="material-icons error-icon">error</span> </h4>
       }
@@ -45,7 +45,7 @@
         <label for="ingredients">Tell us the ingredients in cups or grams: </label>
         <textarea type="text" placeholder="Write The Ingredients 1- 2- ..." id="ingredients"
         [ngClass]="{'error-box': recipe.get('ingredients')?.invalid && recipe.get('ingredients')?.touched}"
-        formControlName="ingredients" ></textarea>
+        formControlName="ingredients"  [(ngModel)]="newingredients" ></textarea>
         @if (recipe.get('ingredients')?.touched && recipe.get('ingredients')?.getError('required')) {
           <h4 class="error-sentence"> This box is required <span class="material-icons error-icon">error</span> </h4>
         }
@@ -54,7 +54,7 @@
         <label for="prepare"> Tell us how to make it step by step:</label>
         <textarea type="text" placeholder=" Write the method of preparing the recipe " id="prepare"
         [ngClass]="{'error-box': recipe.get('prepare')?.invalid && recipe.get('prepare')?.touched}"
-        formControlName="prepare" ></textarea>
+        formControlName="prepare" [(ngModel)]="newPrepare"  ></textarea>
         @if (recipe.get('prepare')?.touched && recipe.get('prepare')?.getError('required')) {
           <h4 class="error-sentence"> This box is required <span class="material-icons error-icon">error</span> </h4>
         }
@@ -65,15 +65,22 @@
       </div>
       <div>
         <label for="email">Want us to contact you? Leave your email (optional):</label>
-        <input type="text" id="email" placeholder="xxxx@xxx.xxx">
+        <input type="text" id="email" placeholder="xxxx@xxx.xxx"
+        [(ngModel)]="newEmail">
       </div>
       <!-- <input type="text">
       <input type="text"> -->
     </form>
     <div class="done">
       <button type="submit" class="submit" [ngClass]="{'submit-valid': recipe.valid}"
-
-      [disabled]="recipe.valid" > Done </button>
+      [disabled]="recipe.valid || isLoading" >
+      @if (!isLoading) {
+          <span>Send</span>
+        }
+        @if (isLoading) {
+          <span>Sending...</span>
+        } </button>
     </div>
+
 </div>
 <app-footer></app-footer>

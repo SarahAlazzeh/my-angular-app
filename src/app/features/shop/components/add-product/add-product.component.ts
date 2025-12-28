@@ -1,41 +1,61 @@
-import { Component, Input, Output, EventEmitter } from "@angular/core";
-import { products } from "../../../../core/models/product.data";
-import { Product } from "../../../../core/models/product.interface";
-import { FormsModule } from "@angular/forms";
-import { TranslatePipe } from "../../../../shared/pipes/translate.pipe";
+import { Component, inject } from '@angular/core';
+import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';  // دوال فقط
+import { Storage } from '@angular/fire/storage';                      // الـ service التي تستخدمها inject
+import { FormsModule } from '@angular/forms';
+import { TranslatePipe } from '../../../../shared/pipes/translate.pipe';
+import { ProductService } from '../../../../core/services/product.service';
 
 @Component({
   selector: 'app-add-product',
   standalone: true,
-  imports:[ FormsModule, TranslatePipe ],
+  imports: [TranslatePipe, FormsModule],
   templateUrl: './add-product.component.html',
-  styleUrl: './add-product.component.css'
+  styleUrls: ['./add-product.component.css']
 })
+export class AddProductComponent {
 
-export class AddProductComponent{
-  @Output() productAdded = new EventEmitter<Product>();
+  private productService = inject(ProductService);
+  private storage = inject(Storage);  // هنا نستخدم Storage من @angular/fire/storage
 
-  productList: Product[] = products;
-  newId: number = 0;
-  newImg: string = "";
-  newTitle: string = "";
-  newPrice: number = 0;
-  newQuantity: string = "";
+  newImg!: File;
+  newTitle = '';
+  newPrice = 0;
+  newQuantity = '';
 
-  addProduct() : void{
-    const newItem: Product = {
-      id: this.newId++,
-      title: this.newTitle,
-      price: this.newPrice,
-      quantity: this.newQuantity,
-      img: this.newImg
-    };
-    this.productList.push(newItem);
-    // this.productAdded.emit(newItem);
-        //reset input
-    this.newTitle = "";
-    this.newPrice = 0;
-    this.newQuantity = "";
-    this.newImg = "";
+  async addProduct() {
+
+    if (!this.newTitle || !this.newPrice || !this.newImg) {
+      console.log('Please fill all required fields and select an image.');
+      return;
+    }
+
+    try {
+      const filePath = `products/${Date.now()}_${this.newImg.name}`;
+      const storageRef = ref(this.storage, filePath);  // هنا inject(Storage) يعمل بشكل صحيح
+
+      await uploadBytes(storageRef, this.newImg);
+      const imageUrl = await getDownloadURL(storageRef);
+
+      await this.productService.addProduct({
+        id: 1,
+        title: this.newTitle,
+        price: this.newPrice,
+        quantity: this.newQuantity,
+        img: imageUrl
+      });
+
+      // reset
+      this.newTitle = '';
+      this.newPrice = 0;
+      this.newQuantity = '';
+      this.newImg = undefined as any;
+
+    } catch (err) {
+      console.error('Image upload error:', err);
+    }
+  }
+
+  onFileSelected(event: any) {
+    this.newImg = event.target.files[0];
   }
 }

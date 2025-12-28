@@ -1,0 +1,80 @@
+h2 {
+  text-align: center;
+  color: #c44569;
+  font-size: 2.8rem;
+  font-weight: 700;
+  position: relative;
+  margin: 20px 0px;
+  padding-bottom: 15px;
+}
+
+h2::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 90px;
+  border-bottom: 4px solid #c44569;
+  border-radius: 20px;
+  margin: 10px 0px;
+}
+
+.card {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  justify-items: center;
+  align-content: center;
+}
+
+.feedback-card {
+  background-color: white;
+  text-align: center;
+  padding: 15px;
+  border-radius: 20px;
+}
+
+.feedback-card h4 {
+  color: #8f4f61;
+}
+
+.feedback-card h4 span {
+  color: #4e2c35;
+}
+
+.feedback-card p {
+  font-size: 1.2rem;
+  font-weight: 500;
+  color: #8f4f61;
+}
+
+.feedback-card p span {
+  font-weight: 400;
+  color: #4e2c35;
+}
+
+button {
+  background-color: #c44569;
+  color: #fff;
+  font-size: 1.1rem;
+  font-weight: 600;
+  padding: 14px 30px;
+  border-radius: 30px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 6px 15px rgba(196, 69, 105, 0.3);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 25px;
+  align-self: center;
+  justify-self: center;
+}
+
+button:hover {
+  background-color: #852a45;
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(133, 42, 69, 0.5);
+}

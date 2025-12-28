@@ -31,6 +31,7 @@ export class ShopComponent{
     this.userdataService.isAdmin$.subscribe(value => {
       console.log('is admin ' , value)
       this.admin= value;
+      console.log( this.admin )
     })
   }
 

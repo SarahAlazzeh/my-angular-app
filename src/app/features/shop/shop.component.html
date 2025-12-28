@@ -7,9 +7,9 @@
   }
 </div> -->
 <br>
-@if (admin) {
+
   <app-add-product (productAdded)="onProductAdded($event)"
   #addProduct *ngIf="admin"
   ></app-add-product>
-}
-<app-footer></app-footer>
+
+<app-footer  ></app-footer>

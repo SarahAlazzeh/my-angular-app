@@ -1,13 +1,32 @@
 <app-navbar [enableSearch]="false" [activeRoute]="'home'"></app-navbar>
 <home-main></home-main>
-<app-about></app-about>
+<home-about></home-about>
 
-<div class="customer">
+<div class="customer" *ngIf="!admin" >
   <h2>Customer Feedback</h2>
   <p class="subtitle">We'd love to hear your thoughts and suggestions!</p>
   <div class="review">
-    <button (click)="feedbackWindow()">
+    <button
+    type="button"
+    (click)="feedbackWindow()">
       Write Your Review
+    </button>
+  </div>
+</div>
+
+<div class="admin" *ngIf="admin">
+  <h2>Admin Dashboard</h2>
+  <p class="subtitle">
+    View and manage all customer feedback in one place
+  </p>
+
+  <div class="review">
+    <button
+      type="button"
+      routerLink="/Showfeedback"
+      class="admin-btn"
+    >
+      View Customer Feedback
     </button>
   </div>
 </div>
@@ -15,7 +34,6 @@
 <app-feedback *ngIf="feedbackOpen"
   class="feedback"
   (closed)="feedbackOpen = false"
-  (click)="feedbackWindow()"
   [userLogin]="login" >
 </app-feedback>
 

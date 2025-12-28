@@ -1,0 +1,66 @@
+.contact-container {
+  max-width: 900px;
+  margin: 70px auto;
+  padding: 20px;
+  text-align: center;
+}
+
+.contact-container h1 {
+  color: #c2185b;
+  margin-bottom: 10px;
+}
+
+.subtitle {
+  color: #666;
+  margin-bottom: 40px;
+}
+
+.contact-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 25px;
+}
+
+.card {
+  background: #fff;
+  padding: 25px;
+  border-radius: 16px;
+  text-decoration: none;
+  color: #333;
+  box-shadow: 0 8px 18px rgba(0,0,0,0.08);
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+.card i {
+  font-size: 36px;
+  margin-bottom: 12px;
+}
+
+.card h3 {
+  margin: 8px 0;
+}
+
+.card p {
+  font-size: 14px;
+  color: #777;
+}
+
+.card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 25px rgba(0,0,0,0.15);
+}
+
+/* Colors */
+.email i {
+  color: #d32f2f;
+}
+
+.instagram i {
+  color: #e1306c;
+}
+
+.facebook i {
+  color: #1877f2;
+}
+.whatsapp i {
+  color: #25d366;
+}

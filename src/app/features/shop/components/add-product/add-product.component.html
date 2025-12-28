@@ -8,19 +8,26 @@
   </div> -->
   <div class="upload">
     <label for="image">{{ 'shop.product.image' | translate }} : </label>
-    <input type="file" [(ngModel)]="newImg" class="imgUpload" placeholder="image" name="image">
+    <input type="file" (change)="onFileSelected($event)" >
+
   </div>
   <div class="upload">
     <label for="title">{{ 'shop.product.name' | translate }} :</label>
-    <input type="text" [(ngModel)]="newTitle" class="titleUpload" name="title" [placeholder]="'shop.product.name' | translate">
+    <input type="text" [(ngModel)]="newTitle"
+    class="titleUpload" name="title"
+    [placeholder]="'shop.product.name' | translate">
   </div>
   <div class="upload">
     <label for="title">{{ 'shop.product.price' | translate }} :</label>
-    <input type="text" [(ngModel)]="newPrice" class="priceUpload" name="price" [placeholder]="'shop.product.price' | translate">
+    <input type="number" [(ngModel)]="newPrice"
+    class="priceUpload" name="price"
+    [placeholder]="'shop.product.price' | translate">
   </div>
   <div class="upload">
     <label for="quantity">{{ 'shop.product.quantity' | translate }} :</label>
-    <input type="text" [(ngModel)]="newQuantity" class="quantityUpload" name="quantity" [placeholder]="'shop.product.quantity' | translate">
+    <input type="text" [(ngModel)]="newQuantity"
+    class="quantityUpload" name="quantity"
+    [placeholder]="'shop.product.quantity' | translate">
   </div>
 </div>
 

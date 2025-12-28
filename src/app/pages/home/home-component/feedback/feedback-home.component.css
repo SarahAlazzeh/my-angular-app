@@ -98,6 +98,22 @@
   font-size: 1.1rem;
 }
 
+input {
+  padding: 7px 10px;
+  border-radius: 15px;
+  border: 1.8px solid #c44569;
+  outline: none;
+  resize: none;
+  font-size: 1rem;
+  font-family: inherit;
+  transition: box-shadow 0.3s ease;
+}
+
+input:focus {
+  box-shadow: 0 0 8px rgba(196, 69, 105, 0.5);
+  border-color: #c44569;
+}
+
 textarea {
   height: 110px;
   padding: 12px 15px;

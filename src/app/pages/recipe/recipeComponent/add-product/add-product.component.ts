@@ -3,6 +3,7 @@ import { products } from "../../../../core/models/product.data";
 import { Product } from "../../../../core/models/product.interface";
 import { FormsModule } from "@angular/forms";
 import { TranslatePipe } from "../../../../shared/pipes/translate.pipe";
+import { ProductService } from "../../../../core/services/product.service";
 
 @Component({
   selector: 'app-add-recipe-product',
@@ -15,24 +16,35 @@ import { TranslatePipe } from "../../../../shared/pipes/translate.pipe";
 export class AddrecipeProductComponent{
   @Output() productAdded = new EventEmitter<Product>();
 
+  constructor( private productService: ProductService ){}
+
   productList: Product[] = products;
-  newId: number = 0;
+  newId: number =0 ;
   newImg: string = "";
   newTitle: string = "";
-  newPrice: number = 0;
+  newPrice!: number ;
   newQuantity: string = "";
+  isLooding: boolean= false;
 
   addProduct() : void{
-    const newProd: Product = {
-      id: this.newId++,
+    this.isLooding= true;
+
+    const newProd : Product ={
+      id : this.newId,
       title: this.newTitle,
       img: this.newImg,
       price: this.newPrice,
-      quantity: this.newQuantity,
+      quantity: this.newQuantity
     };
-    this.productList.push(newProd);
-    this.newTitle = "";
-    this.newImg = "";
+    this.productService.addProduct(newProd);
+
+    // reset input
+    this.newPrice = 0;
+    this.newTitle= ""
+
+    // this.productList.push(newProd);
+    // this.newTitle = "";
+    // this.newImg = "";
     // this.productAdded.emit(newItem);
         //reset input
     // this.newPrice = 0;

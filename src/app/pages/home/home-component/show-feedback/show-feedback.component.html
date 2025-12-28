@@ -1,0 +1,12 @@
+<h2> All Customer Feedback  </h2>
+
+<div class="card">
+  <div *ngFor="let feedback of feedbackList" class="">
+    <div class="feedback-card">
+      <h4>Customer Name:  <span> {{ feedback.name }} </span> </h4>
+      <p>Customer Feedback: <span> {{ feedback.message }} </span> </p>
+    </div>
+  </div>
+</div>
+
+<button routerLink="/home" > Back To Home </button>

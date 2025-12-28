@@ -18,6 +18,16 @@ constructor(){
   this.initFormControl();
   this.initformGroup();}
 
+  isLoading: boolean = false;
+
+  newRecipe!: string;
+  newName!: string;
+  newtype!: string;
+  newingredients!: string;
+  newPrepare!: string;
+  newPhoto!: string;
+  newEmail!: string;
+
   recipe! : FormGroup;
   name !: FormControl;
   type !: FormControl;
