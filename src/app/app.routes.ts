@@ -17,6 +17,7 @@ import { AboutComponent } from './pages/about/about.component';
 import { ContactComponent } from './pages/contact/contact.component';
 import { ShowFeedbackComponent } from './pages/home/home-component/show-feedback/show-feedback.component';
 import { AdminDataGuard } from './core/guard/admin.guard';
+import { ReviewRecipesComponent } from './pages/review-recipes/review-recipes.component';
 
 export const routes: Routes = [
   { path: '' , redirectTo: 'home', pathMatch: 'full'},
@@ -37,7 +38,9 @@ export const routes: Routes = [
   { path: 'contactus' , component:ContactComponent, title:'Contact Us'},
   { path: 'Showfeedback' , component:ShowFeedbackComponent, title:'Customar Feddback', 
     canActivate: [AdminDataGuard]},
-  
+  { path: 'review-recipes' , component: ReviewRecipesComponent, title: 'Review Recipes',
+    canActivate: [AdminDataGuard]},
+
 
 
   { path: '**' , component: NotfoundComponent , title: 'Not Found '}

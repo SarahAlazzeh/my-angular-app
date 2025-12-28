@@ -18,10 +18,12 @@
   <span>Added to favorites!</span>
 </div>
 
-<div class="search-result" *ngIf="searchOn" >
-  <h3 class="search-result-title"  > The Search Result : </h3>
-  <!-- <div class="search-result-line"></div> -->
-</div>
+@if (searchOn) {
+  <div class="search-result">
+    <h3 class="search-result-title"  > The Search Result : </h3>
+    <!-- <div class="search-result-line"></div> -->
+  </div>
+}
 
 <div class="center">
   @for (product of products|searchPipe :searchValue ; track $index) {

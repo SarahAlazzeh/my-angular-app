@@ -1,7 +1,7 @@
 import { Component, ElementRef, Input, ViewChild, OnInit, OnDestroy } from "@angular/core";
 import { products } from "../../../../core/models/product.data";
 import { Product } from "../../../../core/models/product.interface";
-import { CurrencyPipe, NgIf } from "@angular/common";
+import { CurrencyPipe } from "@angular/common";
 import { SearchPipe } from "../../../../shared/pipes/search.pipe";
 import { TranslatePipe } from "../../../../shared/pipes/translate.pipe";
 import { UserdataService } from "../../../../core/services/userData.service";
@@ -14,7 +14,7 @@ import { SearchService } from "../../../../core/services/search.service";
 @Component({
   selector: 'app-product-card',
   standalone: true,
-  imports:[ CurrencyPipe, SearchPipe, TranslatePipe, NgIf  ],
+  imports:[ CurrencyPipe, SearchPipe, TranslatePipe ],
   templateUrl: './product-card.component.html',
   styleUrl:'./product-card.component.css'
 })

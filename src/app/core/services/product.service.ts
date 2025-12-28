@@ -2,11 +2,8 @@ import { inject, Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { Product } from '../models/product.interface';
 import { products } from '../models/product.data';
-// import { FirebaseService } from './firebase.service';
-import { initializeApp } from 'firebase/app';
-import { environment } from '../../../environments/environment';
-import { addDoc, collection, Firestore, getFirestore } from 'firebase/firestore';
-// import { getFirestore } from '@angular/f'
+import { Firestore } from '@angular/fire/firestore';
+import { addDoc, collection } from 'firebase/firestore';
 
 // const app = initializeApp(environment.firebase);
 // const db = getFirestore();

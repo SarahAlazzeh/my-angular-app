@@ -17,7 +17,7 @@
 <div class="admin" *ngIf="admin">
   <h2>Admin Dashboard</h2>
   <p class="subtitle">
-    View and manage all customer feedback in one place
+    Manage customer feedback and review submitted recipes
   </p>
 
   <div class="review">
@@ -27,6 +27,13 @@
       class="admin-btn"
     >
       View Customer Feedback
+    </button>
+    <button
+      type="button"
+      routerLink="/review-recipes"
+      class="admin-btn"
+    >
+      Review Recipes
     </button>
   </div>
 </div>

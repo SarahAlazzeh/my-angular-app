@@ -2,7 +2,6 @@
   display: block;
   min-height: 100vh;
   background: linear-gradient(to bottom, #ffcecf, #fff8f8);
-  padding-bottom: 40px;
 }
 
 .pageTitle {
@@ -28,6 +27,55 @@
   background: linear-gradient(to right, transparent, #c44569, transparent);
   border-radius: 20px;
   margin-top: 15px;
+}
+
+/* Admin Actions */
+.admin-actions {
+  display: flex;
+  justify-content: center;
+  padding: 20px;
+  margin-bottom: 20px;
+}
+
+.add-product-btn {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 28px;
+  background: linear-gradient(135deg, #ff9aa2 0%, #c44569 100%);
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-weight: 600;
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(196, 69, 105, 0.4);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.add-product-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(196, 69, 105, 0.5);
+}
+
+.add-product-btn:active {
+  transform: translateY(0);
+}
+
+.add-product-btn svg {
+  width: 20px;
+  height: 20px;
+}
+
+/* Dark Theme for Admin Button */
+:host-context(.dark-theme) .add-product-btn {
+  background: linear-gradient(135deg, #c44569 0%, #a03956 100%);
+  box-shadow: 0 4px 12px rgba(196, 69, 105, 0.4);
+}
+
+:host-context(.dark-theme) .add-product-btn:hover {
+  box-shadow: 0 6px 20px rgba(196, 69, 105, 0.5);
 }
 
 /* Shop Container */
