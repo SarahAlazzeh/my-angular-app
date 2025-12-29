@@ -60,13 +60,22 @@
       </div>
       <div>
         <label for="photoUpload">{{ 'shareRecipe.form.photo' | translate }}</label>
-        <input type="file" id="photoUpload" accept="image/*" style="display: none;" (change)="onFileSelected($event)" #photoInput>
-        <button type="button" class="submit-img" (click)="photoInput.click()">
-          <i class="fa-solid fa-cloud-arrow-up"></i>
-          <span>{{ selectedFile ? selectedFile.name : ('shareRecipe.form.uploadPhoto' | translate) }}</span>
-        </button>
-        @if (selectedFile) {
-          <small style="color: #c44569; margin-top: 8px; display: block;">Selected: {{ selectedFile.name }}</small>
+        @if (imagePreview()) {
+          <div class="image-preview-container">
+            <img [src]="imagePreview()!" alt="Preview" class="image-preview">
+            <button type="button" class="remove-image-btn" (click)="removeImage()" aria-label="Remove image">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="18" y1="6" x2="6" y2="18"></line>
+                <line x1="6" y1="6" x2="18" y2="18"></line>
+              </svg>
+            </button>
+          </div>
+        } @else {
+          <input type="file" id="photoUpload" accept="image/*" style="display: none;" (change)="onFileSelected($event)" #photoInput>
+          <button type="button" class="submit-img" (click)="photoInput.click()">
+            <i class="fa-solid fa-cloud-arrow-up"></i>
+            <span>{{ 'shareRecipe.form.uploadPhoto' | translate }}</span>
+          </button>
         }
       </div>
       <div>

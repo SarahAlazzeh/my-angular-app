@@ -9,6 +9,8 @@
   min-height: 100vh;
   background-color: #ffcecf;
   transition: background-color 0.3s ease;
+  overflow-y: auto;
+  overflow-x: hidden;
 }
 
 :host-context(.dark-theme) {

@@ -3,6 +3,8 @@
   margin: 0 auto;
   padding: 20px;
   font-family: 'Cairo', 'Roboto', sans-serif;
+  min-height: 100vh;
+  overflow-y: auto;
 }
 
 .back-button {
@@ -180,6 +182,26 @@
 
 .instructions-list li:last-child {
   border-bottom: none;
+}
+
+.recipe-loading {
+  text-align: center;
+  padding: 60px 20px;
+  min-height: 60vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.recipe-loading .donut-loader {
+  margin-bottom: 20px;
+}
+
+.recipe-loading p {
+  color: #c44569;
+  font-size: 1.2rem;
+  font-weight: 500;
 }
 
 .recipe-not-found {

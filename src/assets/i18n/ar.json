@@ -31,14 +31,33 @@
   },
   "shop": {
     "title": "حلوياتنا اللذيذة",
-    "addProduct": "إضافة منتج جديد",
+    "addProduct": {
+      "title": "إضافة منتج جديد",
+      "uploadImage": "انقر لرفع الصورة",
+      "imageFormat": "PNG، JPG، WEBP حتى 1 ميجابايت",
+      "uploading": "جاري الرفع...",
+      "errors": {
+        "fillRequired": "يرجى ملء جميع الحقول المطلوبة وتحديد صورة.",
+        "fillRecipeFields": "يرجى ملء جميع حقول الوصفة أو إلغاء تحديد \"تضمين وصفة\".",
+        "imageSize": "يجب أن يكون حجم الصورة أقل من 1 ميجابايت. يرجى اختيار صورة أصغر.",
+        "invalidImage": "يرجى تحديد ملف صورة صالح.",
+        "failed": "فشل إضافة المنتج. يرجى المحاولة مرة أخرى."
+      },
+      "success": {
+        "product": "تم إضافة المنتج بنجاح!",
+        "productAndRecipe": "تم إضافة المنتج والوصفة بنجاح!"
+      }
+    },
     "product": {
       "name": "اسم المنتج",
       "price": "السعر",
       "quantity": "الكمية",
       "image": "رابط الصورة",
       "addToCart": "أضف إلى السلة",
-      "viewDetails": "عرض التفاصيل"
+      "viewDetails": "عرض التفاصيل",
+      "includeRecipe": "تضمين وصفة",
+      "recipeCategory": "فئة الوصفة",
+      "selectCategory": "اختر الفئة"
     },
     "filters": {
       "all": "جميع المنتجات",
@@ -66,7 +85,12 @@
     "prepTime": "وقت التحضير",
     "cookTime": "وقت الطهي",
     "servings": "عدد الحصص",
-    "difficulty": "الصعوبة",
+    "difficulty": {
+      "label": "الصعوبة",
+      "easy": "سهل",
+      "medium": "متوسط",
+      "hard": "صعب"
+    },
     "category": "الفئة",
     "notFound": "الوصفة غير موجودة"
   },

@@ -1,5 +1,4 @@
 import { Component, ElementRef, Input, ViewChild, OnInit, OnDestroy } from "@angular/core";
-import { products } from "../../../../core/models/product.data";
 import { Product } from "../../../../core/models/product.interface";
 import { CurrencyPipe } from "@angular/common";
 import { SearchPipe } from "../../../../shared/pipes/search.pipe";
@@ -10,6 +9,7 @@ import { Router } from "@angular/router";
 import { FavoritesService } from "../../../../core/services/favorites.service";
 import { Subscription } from "rxjs";
 import { SearchService } from "../../../../core/services/search.service";
+import { ProductService } from "../../../../core/services/product.service";
 
 @Component({
   selector: 'app-product-card',
@@ -20,7 +20,8 @@ import { SearchService } from "../../../../core/services/search.service";
 })
 
 export class ProductCardComponent implements OnInit, OnDestroy {
-  products: Product[] = products;
+  products: Product[] = [];
+  isLoading = true;
   @Input() search : string = "";
   @ViewChild ('loginAlert') loginAlert! :ElementRef;
   @ViewChild ('alertCart') alertCart! :ElementRef;
@@ -28,6 +29,8 @@ export class ProductCardComponent implements OnInit, OnDestroy {
 
   favoriteStatuses: Map<number, boolean> = new Map();
   private favoritesSubscription?: Subscription;
+  private productsSubscription?: Subscription;
+  private loadingSubscription?: Subscription;
 
   constructor(
     private el :ElementRef,
@@ -35,7 +38,8 @@ export class ProductCardComponent implements OnInit, OnDestroy {
     private shopService : ShopService,
     private router: Router,
     private favoritesService: FavoritesService,
-    private searchService : SearchService
+    private searchService : SearchService,
+    private productService: ProductService
   ){}
 
   searchOn: boolean = false ;
@@ -47,16 +51,26 @@ export class ProductCardComponent implements OnInit, OnDestroy {
   admin : boolean = false;
 
   ngOnInit(): void {
-    // Subscribe to favorites changes
-    this.favoritesSubscription = this.favoritesService.getFavorites().subscribe(favorites => {
+    // Subscribe to loading state
+    this.loadingSubscription = this.productService.loading$.subscribe(loading => {
+      this.isLoading = loading;
+    });
+
+    // Load products from service (includes Firestore products)
+    this.productsSubscription = this.productService.getAllProducts().subscribe(products => {
+      this.products = products;
+      
+      // Update favorite statuses when products change
       this.products.forEach(product => {
         this.favoriteStatuses.set(product.id, this.favoritesService.isFavorite(product.id));
       });
     });
 
-    // Initialize favorite statuses
-    this.products.forEach(product => {
-      this.favoriteStatuses.set(product.id, this.favoritesService.isFavorite(product.id));
+    // Subscribe to favorites changes
+    this.favoritesSubscription = this.favoritesService.getFavorites().subscribe(favorites => {
+      this.products.forEach(product => {
+        this.favoriteStatuses.set(product.id, this.favoritesService.isFavorite(product.id));
+      });
     });
 
     this.userdataService.isAdmin$.subscribe(value => {
@@ -73,6 +87,12 @@ export class ProductCardComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     if (this.favoritesSubscription) {
       this.favoritesSubscription.unsubscribe();
+    }
+    if (this.productsSubscription) {
+      this.productsSubscription.unsubscribe();
+    }
+    if (this.loadingSubscription) {
+      this.loadingSubscription.unsubscribe();
     }
   }
 
@@ -130,5 +150,32 @@ export class ProductCardComponent implements OnInit, OnDestroy {
 
   isFavorite(productId: number): boolean {
     return this.favoriteStatuses.get(productId) || false;
+  }
+
+  async deleteProduct(product: Product): Promise<void> {
+    if (!this.admin) {
+      return;
+    }
+
+    // Check if product is from Firestore
+    if (!product.firestoreId) {
+      return; // Can't delete static products
+    }
+
+    if (!confirm(`Are you sure you want to delete "${product.title}"?`)) {
+      return;
+    }
+
+    try {
+      await this.productService.deleteProduct(product);
+      // Product will be removed from the list automatically via subscription
+    } catch (error) {
+      console.error('Error deleting product:', error);
+      alert('Failed to delete product. Please try again.');
+    }
+  }
+
+  isFromFirestore(product: Product): boolean {
+    return !!product.firestoreId;
   }
 }

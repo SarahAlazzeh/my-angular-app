@@ -1,9 +1,10 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, inject } from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
 import { CommonModule } from "@angular/common";
 import { recipes } from "../../core/models/recipe.data";
 import { Recipe } from "../../core/models/recipe.interface";
 import { TranslationService } from "../../core/services/translation.service";
+import { RecipeService } from "../../core/services/recipe.service";
 import { TranslatePipe } from "../../shared/pipes/translate.pipe";
 
 @Component({
@@ -17,6 +18,9 @@ import { TranslatePipe } from "../../shared/pipes/translate.pipe";
 export class RecipedetailsComponent implements OnInit {
   recipe: Recipe | undefined;
   currentLanguage: string = 'en';
+  isLoading = true;
+
+  private recipeService = inject(RecipeService);
 
   constructor(
     private route: ActivatedRoute,
@@ -24,14 +28,27 @@ export class RecipedetailsComponent implements OnInit {
     private translationService: TranslationService
   ) {}
 
-  ngOnInit(): void {
+  async ngOnInit(): Promise<void> {
     // Get product ID from route
     const productId = this.route.snapshot.paramMap.get('id');
     
     if (productId) {
-      // Find recipe by productId
-      this.recipe = recipes.find(r => r.productId === parseInt(productId));
+      const productIdNum = parseInt(productId);
+      
+      // First, try to find in static recipes
+      this.recipe = recipes.find(r => r.productId === productIdNum);
+      
+      // If not found in static recipes, try Firestore
+      if (!this.recipe) {
+        this.isLoading = true;
+        const firestoreRecipe = await this.recipeService.getRecipeByProductId(productIdNum);
+        if (firestoreRecipe) {
+          this.recipe = firestoreRecipe;
+        }
+      }
     }
+
+    this.isLoading = false;
 
     // Subscribe to language changes
     this.translationService.getCurrentLanguageObservable().subscribe(lang => {
@@ -64,6 +81,10 @@ export class RecipedetailsComponent implements OnInit {
 
   getDifficulty(): string {
     if (!this.recipe) return '';
+    // Handle both object format (difficulty.en/ar) and string format
+    if (typeof this.recipe.difficulty === 'string') {
+      return this.recipe.difficulty;
+    }
     return this.currentLanguage === 'ar' ? this.recipe.difficulty.ar : this.recipe.difficulty.en;
   }
 

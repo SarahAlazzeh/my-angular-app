@@ -31,14 +31,33 @@
   },
   "shop": {
     "title": "Our Delicious Treats",
-    "addProduct": "Add New Product",
+    "addProduct": {
+      "title": "Add New Product",
+      "uploadImage": "Click to upload image",
+      "imageFormat": "PNG, JPG, WEBP up to 1MB",
+      "uploading": "Uploading...",
+      "errors": {
+        "fillRequired": "Please fill all required fields and select an image.",
+        "fillRecipeFields": "Please fill all recipe fields or uncheck \"Include Recipe\".",
+        "imageSize": "Image size must be less than 1MB. Please choose a smaller image.",
+        "invalidImage": "Please select a valid image file.",
+        "failed": "Failed to add product. Please try again."
+      },
+      "success": {
+        "product": "Product added successfully!",
+        "productAndRecipe": "Product and recipe added successfully!"
+      }
+    },
     "product": {
       "name": "Product Name",
       "price": "Price",
       "quantity": "Quantity",
       "image": "Image URL",
       "addToCart": "Add to Cart",
-      "viewDetails": "View Details"
+      "viewDetails": "View Details",
+      "includeRecipe": "Include Recipe",
+      "recipeCategory": "Recipe Category",
+      "selectCategory": "Select Category"
     },
     "filters": {
       "all": "All Products",
@@ -66,7 +85,12 @@
     "prepTime": "Prep Time",
     "cookTime": "Cook Time",
     "servings": "Servings",
-    "difficulty": "Difficulty",
+    "difficulty": {
+      "label": "Difficulty",
+      "easy": "Easy",
+      "medium": "Medium",
+      "hard": "Hard"
+    },
     "category": "Category",
     "notFound": "Recipe not found"
   },

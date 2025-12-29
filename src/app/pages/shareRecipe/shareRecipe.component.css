@@ -237,6 +237,51 @@ textarea:focus {
   font-size: 1.2rem;
 }
 
+/* Image Preview */
+.image-preview-container {
+  position: relative;
+  width: 100%;
+  max-width: 300px;
+  margin-top: 8px;
+}
+
+.image-preview {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 12px;
+  border: 2px solid #ff9aa2;
+  box-shadow: 0 4px 12px rgba(196, 69, 105, 0.2);
+}
+
+.remove-image-btn {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  background: rgba(239, 68, 68, 0.9);
+  border: none;
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: white;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.remove-image-btn:hover {
+  background: rgba(220, 38, 38, 1);
+  transform: scale(1.1);
+}
+
+.remove-image-btn svg {
+  width: 16px;
+  height: 16px;
+}
+
 /* Submit Button */
 .done {
   display: flex;

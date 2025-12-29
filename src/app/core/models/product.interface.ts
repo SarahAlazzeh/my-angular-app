@@ -6,4 +6,5 @@ export interface Product {
   quantity: string;
   name?: string;
   description?: string;
+  firestoreId?: string; // Firestore document ID for products from Firestore
 }

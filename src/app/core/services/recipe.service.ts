@@ -13,8 +13,6 @@ import {
   orderBy,
   Timestamp
 } from 'firebase/firestore';
-import { Storage } from '@angular/fire/storage';
-import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 
 export interface PendingRecipe {
   id?: string;
@@ -48,7 +46,6 @@ export interface ApprovedRecipe {
 })
 export class RecipeService {
   private firestore = inject(Firestore);
-  private storage = inject(Storage);
 
   // Submit a recipe for review
   async submitRecipe(recipe: Omit<PendingRecipe, 'id' | 'status' | 'submittedAt'>, userId?: string): Promise<string> {
@@ -64,13 +61,6 @@ export class RecipeService {
     return docRef.id;
   }
 
-  // Upload recipe image
-  async uploadRecipeImage(file: File): Promise<string> {
-    const filePath = `recipes/${Date.now()}_${file.name}`;
-    const storageRef = ref(this.storage, filePath);
-    await uploadBytes(storageRef, file);
-    return await getDownloadURL(storageRef);
-  }
 
   // Get all pending recipes
   async getPendingRecipes(): Promise<PendingRecipe[]> {
@@ -152,6 +142,93 @@ export class RecipeService {
   async deletePendingRecipe(pendingRecipeId: string): Promise<void> {
     const pendingRecipeDoc = doc(this.firestore, 'pendingRecipes', pendingRecipeId);
     await deleteDoc(pendingRecipeDoc);
+  }
+
+  // Get recipe by productId from Firestore
+  async getRecipeByProductId(productId: number): Promise<any | null> {
+    try {
+      const recipesRef = collection(this.firestore, 'recipes');
+      const q = query(recipesRef, where('productId', '==', productId));
+      const snapshot = await getDocs(q);
+      
+      if (snapshot.empty) {
+        return null;
+      }
+      
+      // Return the first matching recipe
+      const recipeDoc = snapshot.docs[0];
+      const data = recipeDoc.data();
+      
+      // Convert Firestore recipe to Recipe interface format
+      return {
+        id: recipeDoc.id,
+        productId: data['productId'] || 0,
+        title: {
+          en: data['name'] || '',
+          ar: data['name'] || ''
+        },
+        description: {
+          en: '',
+          ar: ''
+        },
+        image: data['image'] || '',
+        ingredients: {
+          en: Array.isArray(data['ingredients']) ? data['ingredients'] : [],
+          ar: Array.isArray(data['ingredients']) ? data['ingredients'] : []
+        },
+        instructions: {
+          en: Array.isArray(data['instructions']) ? data['instructions'] : [],
+          ar: Array.isArray(data['instructions']) ? data['instructions'] : []
+        },
+        prepTime: data['prepTime'] || 0,
+        cookTime: data['cookTime'] || 0,
+        servings: data['servings'] || 0,
+        difficulty: {
+          en: data['difficulty'] || 'Medium',
+          ar: data['difficulty'] || 'Medium'
+        },
+        category: {
+          en: data['category'] || data['type'] || '',
+          ar: data['category'] || data['type'] || ''
+        }
+      };
+    } catch (error) {
+      console.error('Error fetching recipe from Firestore:', error);
+      return null;
+    }
+  }
+
+  // Add a recipe directly (for admin adding products with recipes)
+  async addRecipeDirectly(recipe: {
+    name: string;
+    category: string;
+    ingredients: string[];
+    instructions: string[];
+    image: string;
+    productId?: number;
+    prepTime?: number;
+    cookTime?: number;
+    servings?: number;
+    difficulty?: string;
+  }): Promise<string> {
+    const recipeData = {
+      name: recipe.name,
+      type: recipe.category,
+      category: recipe.category,
+      ingredients: recipe.ingredients,
+      instructions: recipe.instructions,
+      image: recipe.image,
+      productId: recipe.productId || 0,
+      prepTime: recipe.prepTime || 0,
+      cookTime: recipe.cookTime || 0,
+      servings: recipe.servings || 0,
+      difficulty: recipe.difficulty || 'Medium',
+      approvedAt: Timestamp.now()
+    };
+
+    const recipesRef = collection(this.firestore, 'recipes');
+    const docRef = await addDoc(recipesRef, recipeData);
+    return docRef.id;
   }
 }
 

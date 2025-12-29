@@ -6,6 +6,7 @@ import { FormControl, FormGroup, Validators, FormsModule, ReactiveFormsModule } 
 import { NgClass, CommonModule } from "@angular/common";
 import { RecipeService } from "../../core/services/recipe.service";
 import { UserdataService } from "../../core/services/userData.service";
+import { TranslationService } from "../../core/services/translation.service";
 
 @Component({
   selector: 'app-sharerecipe',
@@ -18,6 +19,7 @@ import { UserdataService } from "../../core/services/userData.service";
 export class SharerecipeComponent{
   private recipeService = inject(RecipeService);
   private userDataService = inject(UserdataService);
+  private translationService = inject(TranslationService);
 
   constructor(){
     this.initFormControl();
@@ -28,6 +30,7 @@ export class SharerecipeComponent{
   successMessage = signal<string | null>(null);
   errorMessage = signal<string | null>(null);
   selectedFile: File | null = null;
+  imagePreview = signal<string | null>(null);
 
   newRecipe!: string;
   newName!: string;
@@ -71,20 +74,53 @@ export class SharerecipeComponent{
       // Check file size (1MB)
       const maxSize = 1048576;
       if (file.size > maxSize) {
-        this.errorMessage.set('Image size must be less than 1MB. Please choose a smaller image.');
+        this.errorMessage.set(this.translationService.translate('shop.addProduct.errors.imageSize'));
+        this.removeImage();
         return;
       }
 
       // Check if file is an image
       if (!file.type.startsWith('image/')) {
-        this.errorMessage.set('Please select a valid image file.');
+        this.errorMessage.set(this.translationService.translate('shop.addProduct.errors.invalidImage'));
+        this.removeImage();
         return;
       }
 
       this.selectedFile = file;
       this.photo.setValue(file.name);
       this.errorMessage.set(null);
+
+      // Create preview
+      const reader = new FileReader();
+      reader.onload = (e: any) => {
+        this.imagePreview.set(e.target.result);
+      };
+      reader.readAsDataURL(file);
     }
+  }
+
+  removeImage() {
+    this.selectedFile = null;
+    this.imagePreview.set(null);
+    this.photo.setValue('');
+    const fileInput = document.getElementById('photoUpload') as HTMLInputElement;
+    if (fileInput) {
+      fileInput.value = '';
+    }
+  }
+
+  private convertFileToBase64(file: File): Promise<string> {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = () => {
+        const result = reader.result as string;
+        resolve(result);
+      };
+      reader.onerror = (error) => {
+        reject(error);
+      };
+      reader.readAsDataURL(file);
+    });
   }
 
   async onSubmit() {
@@ -98,11 +134,11 @@ export class SharerecipeComponent{
     this.successMessage.set(null);
 
     try {
-      let imageUrl = '';
+      let imageBase64 = '';
 
-      // Upload image if provided
+      // Convert image to base64 if provided
       if (this.selectedFile) {
-        imageUrl = await this.recipeService.uploadRecipeImage(this.selectedFile);
+        imageBase64 = await this.convertFileToBase64(this.selectedFile);
       }
 
       // Get current user ID
@@ -114,7 +150,7 @@ export class SharerecipeComponent{
         type: this.recipe.get('type')?.value,
         ingredients: this.recipe.get('ingredients')?.value,
         prepare: this.recipe.get('prepare')?.value,
-        photo: imageUrl,
+        photo: imageBase64, // Store base64 string instead of URL
         email: this.recipe.get('email')?.value || undefined
       }, userId || undefined);
 
@@ -122,11 +158,7 @@ export class SharerecipeComponent{
       
       // Reset form
       this.recipe.reset();
-      this.selectedFile = null;
-      const fileInput = document.getElementById('photoUpload') as HTMLInputElement;
-      if (fileInput) {
-        fileInput.value = '';
-      }
+      this.removeImage();
 
     } catch (error: any) {
       console.error('Error submitting recipe:', error);
