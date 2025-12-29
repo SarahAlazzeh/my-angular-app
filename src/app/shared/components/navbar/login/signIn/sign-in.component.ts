@@ -1,9 +1,9 @@
 import { CommonModule, NgClass } from "@angular/common";
-import { Component, Output, EventEmitter, ChangeDetectionStrategy } from "@angular/core";
+import { Component, Output, EventEmitter, ChangeDetectionStrategy, signal } from "@angular/core";
 import { FormControl, FormGroup, Validators, FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { UserData, UserdataService } from "../../../../../core/services/userData.service";
 import { FirebaseService } from "../../../../../core/services/firebase.service";
-import { signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
+import { signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider, sendPasswordResetEmail } from "firebase/auth";
 import { doc, getDoc, setDoc } from "firebase/firestore";
 
 @Component({
@@ -17,6 +17,11 @@ import { doc, getDoc, setDoc } from "firebase/firestore";
 export class SigninComponent{
   errorMessage: string = '';
   isLoading: boolean = false;
+  showPasswordReset = signal(false);
+  passwordResetEmail = signal('');
+  passwordResetLoading = signal(false);
+  passwordResetSuccess = signal(false);
+  passwordResetError = signal('');
 
 constructor(
   private userdataService : UserdataService,
@@ -49,7 +54,6 @@ private async checkAuthState(): Promise<void> {
 @Output() signIn:EventEmitter<number> = new EventEmitter();
 @Output() signClose:EventEmitter<number> = new EventEmitter();
 @Output() signSwitch:EventEmitter<number> = new EventEmitter();
-@Output() openForget:EventEmitter<number>= new EventEmitter();
 
   userData! : FormGroup;
   email !: FormControl;
@@ -74,8 +78,70 @@ private async checkAuthState(): Promise<void> {
   switch(){
     this.signSwitch.emit(2);
   }
+  
   forget(){
-    this.openForget.emit(1);
+    this.showPasswordReset.set(true);
+    this.passwordResetSuccess.set(false);
+    this.passwordResetError.set('');
+    this.passwordResetEmail.set(this.email.value || '');
+  }
+
+  closePasswordReset(){
+    this.showPasswordReset.set(false);
+    this.passwordResetSuccess.set(false);
+    this.passwordResetError.set('');
+    this.passwordResetEmail.set('');
+  }
+
+  async sendPasswordReset(){
+    const email = this.passwordResetEmail().trim();
+    
+    if (!email) {
+      this.passwordResetError.set('Please enter your email address.');
+      return;
+    }
+
+    // Basic email validation
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      this.passwordResetError.set('Please enter a valid email address.');
+      return;
+    }
+
+    this.passwordResetLoading.set(true);
+    this.passwordResetError.set('');
+    this.passwordResetSuccess.set(false);
+
+    try {
+      const auth = this.firebaseService.getAuth();
+      await sendPasswordResetEmail(auth, email);
+      
+      this.passwordResetSuccess.set(true);
+      this.passwordResetError.set('');
+      
+      // Auto-close after 3 seconds
+      setTimeout(() => {
+        this.closePasswordReset();
+      }, 3000);
+    } catch (error: any) {
+      console.error('Password reset error:', error);
+      this.passwordResetError.set(this.getPasswordResetErrorMessage(error.code));
+    } finally {
+      this.passwordResetLoading.set(false);
+    }
+  }
+
+  private getPasswordResetErrorMessage(errorCode: string): string {
+    switch (errorCode) {
+      case 'auth/user-not-found':
+        return 'No account found with this email address.';
+      case 'auth/invalid-email':
+        return 'Invalid email address.';
+      case 'auth/too-many-requests':
+        return 'Too many requests. Please try again later.';
+      default:
+        return 'An error occurred. Please try again.';
+    }
   }
 
   async submit(){

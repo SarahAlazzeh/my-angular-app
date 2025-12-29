@@ -47,6 +47,8 @@
     @if (itemsNumber > 0) {
       <app-checkout
         (check)="noItemAlert($event)"
+        (deliveryPriceChange)="deliveryPrice = $event"
+        (totalPriceChange)="totalPrice = $event"
         class="checkout-section">
       </app-checkout>
     }
@@ -54,6 +56,8 @@
     <!-- Payment Modal -->
     @if (value === true && cancle === true) {
       <app-payment
+        [deliveryPrice]="deliveryPrice"
+        [totalPrice]="totalPrice"
         (clicked)="onClikced($event)"
         class="active-payment">
       </app-payment>

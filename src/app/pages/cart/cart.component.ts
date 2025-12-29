@@ -31,6 +31,8 @@ export class CartComponent implements OnInit, OnDestroy {
   showAlert: boolean = false;
   fadeOut: boolean = false;
   detiles : boolean = false;
+  deliveryPrice: number = 0;
+  totalPrice: number = 0;
   private cartSubscription?: Subscription;
 
   ngOnInit(): void {

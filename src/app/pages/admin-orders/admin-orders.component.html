@@ -1,0 +1,233 @@
+<app-navbar [enableSearch]="false" [activeRoute]="'admin-orders'"></app-navbar>
+
+<div class="admin-orders-container">
+  <div class="header">
+    <h1>{{ 'adminOrders.title' | translate }}</h1>
+    <p class="subtitle">{{ 'adminOrders.subtitle' | translate }}</p>
+  </div>
+
+  @if (isLoading()) {
+    <div class="loading">
+      <svg width="120" height="140" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="60" cy="60" r="50" stroke="#ff9aa2" stroke-width="4" fill="none" opacity="0.3"/>
+        <circle cx="60" cy="60" r="50" stroke="#c44569" stroke-width="4" fill="none" stroke-dasharray="314" stroke-dashoffset="157" opacity="0.8">
+          <animate attributeName="stroke-dashoffset" values="314;0;314" dur="2s" repeatCount="indefinite"/>
+          <animate attributeName="opacity" values="0.3;1;0.3" dur="2s" repeatCount="indefinite"/>
+        </circle>
+      </svg>
+      <p class="loading-text">{{ 'common.loading' | translate }}</p>
+    </div>
+  }
+
+  @if (errorMessage()) {
+    <div class="alert alert-error">
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="12" cy="12" r="10"></circle>
+        <line x1="12" y1="8" x2="12" y2="12"></line>
+        <line x1="12" y1="16" x2="12.01" y2="16"></line>
+      </svg>
+      <span>{{ errorMessage() }}</span>
+    </div>
+  }
+
+  @if (!isLoading() && orders().length === 0) {
+    <div class="empty-state">
+      <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"></path>
+        <line x1="3" y1="6" x2="21" y2="6"></line>
+        <path d="M16 10a4 4 0 0 1-8 0"></path>
+      </svg>
+      <h3>{{ 'adminOrders.noOrders' | translate }}</h3>
+      <p>{{ 'adminOrders.noOrdersMessage' | translate }}</p>
+    </div>
+  }
+
+  @if (!isLoading() && orders().length > 0) {
+    <div class="orders-grid">
+      @for (order of orders(); track order.id) {
+        <div class="order-card">
+          <div class="order-header">
+            <div class="order-info">
+              <h3>Order #{{ order.id?.substring(0, 8) }}</h3>
+              <span class="order-date">{{ formatDate(order.createdAt) }}</span>
+            </div>
+            <span class="status-badge" [style.background-color]="getStatusColor(order.status)">
+              {{ getStatusLabel(order.status) }}
+            </span>
+          </div>
+
+          <div class="order-body">
+            <div class="customer-info">
+              <p><strong>{{ 'adminOrders.customer' | translate }}:</strong> {{ order.userName }}</p>
+              <p><strong>{{ 'adminOrders.email' | translate }}:</strong> {{ order.userEmail }}</p>
+              @if (order.userPhone) {
+                <p><strong>{{ 'adminOrders.phone' | translate }}:</strong> {{ order.userPhone }}</p>
+              }
+            </div>
+
+            <div class="order-items">
+              <strong>{{ 'adminOrders.items' | translate }}:</strong>
+              <ul>
+                @for (item of order.items; track item.product.id) {
+                  <li>
+                    {{ item.product.title }} x{{ item.quantity }}
+                    <span class="item-price">{{ item.product.price * item.quantity | currency:'USD':'symbol':'1.2-2' }}</span>
+                  </li>
+                }
+              </ul>
+            </div>
+
+            <div class="order-summary">
+              <div class="summary-row">
+                <span>{{ 'adminOrders.subtotal' | translate }}</span>
+                <span>{{ order.totalPrice | currency:'USD':'symbol':'1.2-2' }}</span>
+              </div>
+              <div class="summary-row">
+                <span>{{ 'adminOrders.delivery' | translate }}</span>
+                <span>{{ order.deliveryPrice | currency:'USD':'symbol':'1.2-2' }}</span>
+              </div>
+              <div class="summary-row total">
+                <span>{{ 'adminOrders.total' | translate }}</span>
+                <span>{{ (order.totalPrice + order.deliveryPrice) | currency:'USD':'symbol':'1.2-2' }}</span>
+              </div>
+            </div>
+
+            <div class="delivery-info">
+              <p><strong>{{ 'adminOrders.address' | translate }}:</strong> {{ order.address }}</p>
+              <p><strong>{{ 'adminOrders.deliveryTime' | translate }}:</strong> {{ order.deliveryTime }}</p>
+            </div>
+
+            @if (order.specialNote) {
+              <div class="special-note">
+                <strong>{{ 'adminOrders.specialNote' | translate }}:</strong>
+                <p>{{ order.specialNote }}</p>
+              </div>
+            }
+          </div>
+
+          <div class="order-actions">
+            <button type="button" class="btn-details" (click)="viewOrderDetails(order)">
+              {{ 'adminOrders.viewDetails' | translate }}
+            </button>
+            
+            @if (order.status === 'confirmed') {
+              <button type="button" class="btn-action btn-preparing" (click)="updateOrderStatus(order.id!, 'preparing')">
+                {{ 'adminOrders.startPreparing' | translate }}
+              </button>
+            }
+            
+            @if (order.status === 'preparing') {
+              <button type="button" class="btn-action btn-ready" (click)="updateOrderStatus(order.id!, 'ready')">
+                {{ 'adminOrders.markReady' | translate }}
+              </button>
+            }
+            
+            @if (order.status === 'ready') {
+              <button type="button" class="btn-action btn-complete" (click)="updateOrderStatus(order.id!, 'completed')">
+                {{ 'adminOrders.markCompleted' | translate }}
+              </button>
+            }
+          </div>
+        </div>
+      }
+    </div>
+  }
+</div>
+
+<!-- Order Details Modal -->
+@if (showOrderDetails() && selectedOrder()) {
+  <div class="modal-overlay" (click)="closeOrderDetails()">
+    <div class="modal-content" (click)="$event.stopPropagation()">
+      <button class="modal-close" (click)="closeOrderDetails()">
+        <i class="material-icons">close</i>
+      </button>
+      
+      <h2>{{ 'adminOrders.orderDetails' | translate }} #{{ selectedOrder()!.id?.substring(0, 8) }}</h2>
+      
+      <div class="modal-body">
+        <div class="detail-section">
+          <h3>{{ 'adminOrders.customerInfo' | translate }}</h3>
+          <p><strong>{{ 'adminOrders.name' | translate }}:</strong> {{ selectedOrder()!.userName }}</p>
+          <p><strong>{{ 'adminOrders.email' | translate }}:</strong> {{ selectedOrder()!.userEmail }}</p>
+          @if (selectedOrder()!.userPhone) {
+            <p><strong>{{ 'adminOrders.phone' | translate }}:</strong> {{ selectedOrder()!.userPhone }}</p>
+          }
+        </div>
+
+        <div class="detail-section">
+          <h3>{{ 'adminOrders.items' | translate }}</h3>
+          <div class="items-list">
+            @for (item of selectedOrder()!.items; track item.product.id) {
+              <div class="item-detail">
+                <img [src]="item.product.img" [alt]="item.product.title" class="item-image">
+                <div class="item-info">
+                  <h4>{{ item.product.title }}</h4>
+                  <p>{{ item.product.description }}</p>
+                  <p class="item-quantity">Quantity: {{ item.quantity }}</p>
+                  <p class="item-price">{{ item.product.price * item.quantity | currency:'USD':'symbol':'1.2-2' }}</p>
+                </div>
+              </div>
+            }
+          </div>
+        </div>
+
+        <div class="detail-section">
+          <h3>{{ 'adminOrders.deliveryInfo' | translate }}</h3>
+          <p><strong>{{ 'adminOrders.address' | translate }}:</strong> {{ selectedOrder()!.address }}</p>
+          <p><strong>{{ 'adminOrders.deliveryTime' | translate }}:</strong> {{ selectedOrder()!.deliveryTime }}</p>
+          @if (selectedOrder()!.deliveryNote) {
+            <p><strong>{{ 'adminOrders.deliveryNote' | translate }}:</strong> {{ selectedOrder()!.deliveryNote }}</p>
+          }
+        </div>
+
+        @if (selectedOrder()!.specialNote) {
+          <div class="detail-section">
+            <h3>{{ 'adminOrders.specialNote' | translate }}</h3>
+            <p>{{ selectedOrder()!.specialNote }}</p>
+          </div>
+        }
+
+        <div class="detail-section">
+          <h3>{{ 'adminOrders.orderSummary' | translate }}</h3>
+          <div class="summary-details">
+            <div class="summary-row">
+              <span>{{ 'adminOrders.subtotal' | translate }}</span>
+              <span>{{ selectedOrder()!.totalPrice | currency:'USD':'symbol':'1.2-2' }}</span>
+            </div>
+            <div class="summary-row">
+              <span>{{ 'adminOrders.delivery' | translate }}</span>
+              <span>{{ selectedOrder()!.deliveryPrice | currency:'USD':'symbol':'1.2-2' }}</span>
+            </div>
+            <div class="summary-row total">
+              <span>{{ 'adminOrders.total' | translate }}</span>
+              <span>{{ (selectedOrder()!.totalPrice + selectedOrder()!.deliveryPrice) | currency:'USD':'symbol':'1.2-2' }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-actions">
+        @if (selectedOrder()!.status === 'confirmed') {
+          <button type="button" class="btn-action btn-preparing" (click)="updateOrderStatus(selectedOrder()!.id!, 'preparing')">
+            {{ 'adminOrders.startPreparing' | translate }}
+          </button>
+        }
+        
+        @if (selectedOrder()!.status === 'preparing') {
+          <button type="button" class="btn-action btn-ready" (click)="updateOrderStatus(selectedOrder()!.id!, 'ready')">
+            {{ 'adminOrders.markReady' | translate }}
+          </button>
+        }
+        
+        @if (selectedOrder()!.status === 'ready') {
+          <button type="button" class="btn-action btn-complete" (click)="updateOrderStatus(selectedOrder()!.id!, 'completed')">
+            {{ 'adminOrders.markCompleted' | translate }}
+          </button>
+        }
+      </div>
+    </div>
+  </div>
+}
+
+<app-footer></app-footer>
+

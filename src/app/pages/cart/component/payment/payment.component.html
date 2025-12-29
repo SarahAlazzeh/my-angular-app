@@ -13,7 +13,8 @@
       </div>
 </div> -->
 
-<div class="special-notes" *ngIf="specialNotesBox" >
+@if (specialNotesBox) {
+<div class="special-notes">
   <button (click)="send()" class="close" ><i  class="fa fa-times " ></i></button>
   <h2 class="title"> special notes </h2>
   <p class="description"> Add any special instructions for your order. You can skip this. </p>
@@ -25,8 +26,10 @@
     <button class="btn" (click)="continue()" > Continue </button>
   </div>
 </div>
+}
 
-<div class="delivary-box" *ngIf="delivaryBox" >
+@if (delivaryBox) {
+<div class="delivary-box">
   <div class="button-box">
     <button class="back" (click)="continue()" ><i class="fa-solid fa-arrow-left" ></i></button>
     <button class="close" (click)="send()" ><i  class="fa fa-times " ></i></button>
@@ -78,18 +81,32 @@
       </label>
   </div>
   <button  class="done" type="submit"
-  [disabled]="!(address && slectedTime && checkPolicy)"
+  [disabled]="!(address && slectedTime && checkPolicy) || isLoading()"
   [ngClass]="{
-    'valid': address && slectedTime && checkPolicy,
-    'btn-disabled': !(address && slectedTime && checkPolicy)}"
-  (click) = "submit()" > Done </button>
+    'valid': address && slectedTime && checkPolicy && !isLoading(),
+    'btn-disabled': !(address && slectedTime && checkPolicy) || isLoading()}"
+  (click) = "submit()" > 
+    @if (!isLoading()) {
+      Done
+    } @else {
+      Creating Order...
+    }
+  </button>
+  
+  @if (errorMessage()) {
+    <div class="error-message">
+      {{ errorMessage() }}
+    </div>
+  }
 </div>
+}
 
-<div class="info-box" *ngIf="infoBox" >
+@if (infoBox) {
+<div class="info-box">
   <button class="close" (click)="send()" ><i  class="fa fa-times " ></i></button>
   <h2 class="tks-msg"> Baked with love, just for you <i></i>
-  Thank you for choosing Sarah’s Bakery.</h2>
-  <h2 class="order-no"> Order Number  <span> {{orderId}} </span>  </h2> <!--var-->
+  Thank you for choosing Sarah's Bakery.</h2>
+  <h2 class="order-no"> Order Number  <span> {{createdOrderId() || orderId}} </span>  </h2>
   <h3 class="delivary-time"> Delivary Time  <span> {{slectedTime}} </span> </h3>
   <h3 class="delivary-method">
   Home Delivery <span>{{address}}</span>
@@ -100,4 +117,4 @@
     <br>
     Delivary Note :  <span>{{ delivaryNote || 'No notes added'}}</span></h3>
   </div>
-
+}

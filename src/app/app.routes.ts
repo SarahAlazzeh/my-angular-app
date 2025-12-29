@@ -18,6 +18,7 @@ import { ContactComponent } from './pages/contact/contact.component';
 import { ShowFeedbackComponent } from './pages/home/home-component/show-feedback/show-feedback.component';
 import { AdminDataGuard } from './core/guard/admin.guard';
 import { ReviewRecipesComponent } from './pages/review-recipes/review-recipes.component';
+import { AdminOrdersComponent } from './pages/admin-orders/admin-orders.component';
 
 export const routes: Routes = [
   { path: '' , redirectTo: 'home', pathMatch: 'full'},
@@ -39,6 +40,8 @@ export const routes: Routes = [
   { path: 'Showfeedback' , component:ShowFeedbackComponent, title:'Customar Feddback', 
     canActivate: [AdminDataGuard]},
   { path: 'review-recipes' , component: ReviewRecipesComponent, title: 'Review Recipes',
+    canActivate: [AdminDataGuard]},
+  { path: 'admin-orders' , component: AdminOrdersComponent, title: 'Admin Orders',
     canActivate: [AdminDataGuard]},
 
 

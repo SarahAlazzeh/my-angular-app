@@ -104,7 +104,6 @@ button[type="submit"] {
   padding: 10px;
   border-radius: 25px;
   font-size: 1rem;
-  cursor: not-allowed;
   transition: 0.3s;
   border:none;
   outline:none;
@@ -148,6 +147,7 @@ button[type="submit"].submit-valid:hover {
 
 .btn-primary{
   padding: 5px 10px ;
+  display: flex;
   outline: none;
   border: none;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -155,6 +155,8 @@ button[type="submit"].submit-valid:hover {
   justify-self: center;
   justify-content: center;
   background-color: #ffff;
+  color: #c44569;
+  margin-top: 15px;
 }
 
 /* ===== Google Button ===== */
@@ -255,7 +257,6 @@ button[type="submit"].submit-valid:hover {
 :host-context(.dark-theme) button[type="submit"] {
   background: #ff9aa2aa;
   color: #fff;
-  cursor: not-allowed;
   border: none;
   outline: none;
 }
@@ -308,4 +309,232 @@ button[type="submit"].submit-valid:hover {
 :host-context(.dark-theme) .btn-socundary:hover {
   transform: scale(1.05);
   color: #c44569;
+}
+
+/* ===== Password Reset Modal ===== */
+.password-reset-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  backdrop-filter: blur(4px);
+}
+
+.password-reset-modal {
+  background: #fff;
+  width: 90%;
+  max-width: 420px;
+  padding: 30px;
+  border-radius: 20px;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.3);
+  position: relative;
+  animation: slideIn 0.3s ease-out;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.password-reset-close {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 20px;
+  color: #4a2c40;
+  transition: transform 0.3s;
+}
+
+.password-reset-close:hover {
+  transform: scale(1.15);
+  color: #c44569;
+}
+
+.password-reset-modal h2 {
+  color: #c44569;
+  text-align: center;
+  margin-bottom: 10px;
+  margin-top: 0;
+}
+
+.password-reset-subtitle {
+  text-align: center;
+  color: #4a2c40;
+  font-size: 0.9rem;
+  margin-bottom: 25px;
+  line-height: 1.5;
+}
+
+.password-reset-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.password-reset-field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.password-reset-field input {
+  width: 100%;
+  padding: 12px 14px;
+  border-radius: 18px;
+  border: 2px solid #ffcecf;
+  background: #fff8f8;
+  outline: none;
+  transition: 0.3s;
+  font-size: 1rem;
+}
+
+.password-reset-field input:focus {
+  border-color: #c44569;
+}
+
+.password-reset-field input.error-input {
+  border-color: red;
+}
+
+.password-reset-error {
+  font-size: 0.75rem;
+  color: red;
+  margin: 0;
+}
+
+.password-reset-submit {
+  background: #c44569;
+  color: #fff;
+  padding: 12px;
+  border-radius: 25px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: 0.3s;
+  border: none;
+  outline: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.password-reset-submit:hover:not(:disabled) {
+  background: #a63757;
+}
+
+.password-reset-submit:disabled {
+  background: #c4456994;
+  cursor: not-allowed;
+}
+
+.password-reset-submit .spinner {
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.password-reset-success {
+  text-align: center;
+  padding: 20px 0;
+}
+
+.password-reset-success svg {
+  color: #22c55e;
+  margin-bottom: 15px;
+}
+
+.password-reset-success h3 {
+  color: #c44569;
+  margin: 15px 0 10px;
+  font-size: 1.3rem;
+}
+
+.password-reset-success p {
+  color: #4a2c40;
+  font-size: 0.9rem;
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* Dark Theme for Password Reset Modal */
+:host-context(.dark-theme) .password-reset-modal {
+  background: #2d3748;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.6);
+}
+
+:host-context(.dark-theme) .password-reset-close {
+  color: #ff9aa2;
+}
+
+:host-context(.dark-theme) .password-reset-close:hover {
+  color: #ff6f91;
+}
+
+:host-context(.dark-theme) .password-reset-modal h2 {
+  color: #ff9aa2;
+}
+
+:host-context(.dark-theme) .password-reset-subtitle {
+  color: #d1c0c5;
+}
+
+:host-context(.dark-theme) .password-reset-field input {
+  background: #4a5568;
+  border-color: #ff9aa2;
+  color: #e2e8f0;
+}
+
+:host-context(.dark-theme) .password-reset-field input:focus {
+  border-color: #ff6f91;
+  background: #5a6777;
+}
+
+:host-context(.dark-theme) .password-reset-field input.error-input {
+  border-color: #ff6f91;
+}
+
+:host-context(.dark-theme) .password-reset-error {
+  color: #ff6f91;
+}
+
+:host-context(.dark-theme) .password-reset-submit {
+  background: #ff6f91;
+}
+
+:host-context(.dark-theme) .password-reset-submit:hover:not(:disabled) {
+  background: #c44569;
+}
+
+:host-context(.dark-theme) .password-reset-submit:disabled {
+  background: #ff9aa2aa;
+}
+
+:host-context(.dark-theme) .password-reset-success h3 {
+  color: #ff9aa2;
+}
+
+:host-context(.dark-theme) .password-reset-success p {
+  color: #d1c0c5;
 }

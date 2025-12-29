@@ -220,4 +220,8 @@ export class CartService implements OnDestroy {
     return this.cartSubject.value.reduce((total, item) =>
       total + (item.product.price * item.quantity), 0);
   }
+
+  getCartItemsValue(): CartItem[] {
+    return this.cartSubject.value;
+  }
 }

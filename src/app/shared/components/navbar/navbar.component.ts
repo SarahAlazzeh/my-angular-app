@@ -44,6 +44,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
   userData: any = null;
   showUserMenu: boolean = false;
   cartItemCount: number = 0;
+  isAdmin: boolean = false;
   private cartSubscription?: Subscription;
   // isInActive: boolean = false;
   // isActive:number = 0;
@@ -71,11 +72,18 @@ export class NavbarComponent implements OnInit, OnDestroy {
     this.userdataService.userData$.subscribe(userData => {
       this.userData = userData;
       this.isLoggedIn = this.userdataService.isLoggedIn();
+      this.isAdmin = userData?.isAdmin || false;
+    });
+
+    // Subscribe to admin status changes
+    this.userdataService.isAdmin$.subscribe(isAdmin => {
+      this.isAdmin = isAdmin;
     });
 
     // Check initial login state
     this.isLoggedIn = this.userdataService.isLoggedIn();
     this.userData = this.userdataService.getUserData();
+    this.isAdmin = this.userdataService.isLooginAdmin();
 
     // Close user menu when clicking outside
     document.addEventListener('click', (event) => {

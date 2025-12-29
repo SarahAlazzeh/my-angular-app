@@ -111,13 +111,9 @@ export class UserdataService {
     this.loggedIn = true;
 
     // Check if user is admin
-
-    // const isAdmin = data.email?.trim().toLowerCase()  === 'admin@sarahsbakery.com';
-    // && data.password === "ShAMm2910"  ;
-    // this.adminCheck.next(isAdmin);
-    //   this.adminLogged = isAdmin;
-    //   console.log(data.email)
-    //   localStorage.setItem('isAdmin', isAdmin.toString())
+    const isAdmin = data.isAdmin || false;
+    this.adminLogged = isAdmin;
+    this.adminCheck.next(isAdmin);
   }
 
   // checkUserData(data: UserData) {

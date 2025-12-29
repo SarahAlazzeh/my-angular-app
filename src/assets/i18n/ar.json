@@ -8,6 +8,10 @@
     "share": "شارك وصفاتك",
     "cart": "سلة التسوق",
     "favorites": "المفضلة",
+    "admin": "الإدارة",
+    "adminOrders": "الطلبات",
+    "reviewRecipes": "مراجعة الوصفات",
+    "feedback": "ملاحظات العملاء",
     "search": {
       "placeholder": "ابحث عن الحلويات..."
     }
@@ -74,7 +78,8 @@
     "checkout": "الدفع",
     "continueShopping": "متابعة التسوق",
     "remove": "إزالة",
-    "quantity": "الكمية"
+    "quantity": "الكمية",
+    "orderError": "فشل إنشاء الطلب. يرجى المحاولة مرة أخرى."
   },
   "recipe": {
     "title": "وصفاتنا",
@@ -181,5 +186,42 @@
     "title": "الصفحة غير موجودة",
     "message": "عذراً، الصفحة التي تبحث عنها غير موجودة.",
     "goHome": "العودة للرئيسية"
+  },
+  "adminOrders": {
+    "title": "طلبات الإدارة",
+    "subtitle": "عرض وإدارة طلبات العملاء المؤكدة",
+    "loading": "جاري تحميل الطلبات...",
+    "noOrders": "لا توجد طلبات مؤكدة",
+    "noOrdersMessage": "لا توجد طلبات مؤكدة للتحضير في الوقت الحالي.",
+    "loadError": "فشل تحميل الطلبات. يرجى المحاولة مرة أخرى.",
+    "updateError": "فشل تحديث حالة الطلب. يرجى المحاولة مرة أخرى.",
+    "customer": "العميل",
+    "email": "البريد الإلكتروني",
+    "phone": "الهاتف",
+    "items": "العناصر",
+    "subtotal": "المجموع الفرعي",
+    "delivery": "التوصيل",
+    "total": "المجموع",
+    "address": "العنوان",
+    "deliveryTime": "وقت التوصيل",
+    "specialNote": "ملاحظة خاصة",
+    "viewDetails": "عرض التفاصيل",
+    "startPreparing": "بدء التحضير",
+    "markReady": "وضع علامة جاهز",
+    "markCompleted": "وضع علامة مكتمل",
+    "orderDetails": "تفاصيل الطلب",
+    "customerInfo": "معلومات العميل",
+    "name": "الاسم",
+    "deliveryInfo": "معلومات التوصيل",
+    "deliveryNote": "ملاحظة التوصيل",
+    "orderSummary": "ملخص الطلب",
+    "status": {
+      "pending": "قيد الانتظار",
+      "confirmed": "مؤكد",
+      "preparing": "قيد التحضير",
+      "ready": "جاهز",
+      "completed": "مكتمل",
+      "cancelled": "ملغى"
+    }
   }
 }

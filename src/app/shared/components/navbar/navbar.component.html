@@ -63,6 +63,24 @@
             <i class="material-icons">favorite</i>
             <span>{{ 'nav.favorites' | translate }}</span>
           </button>
+          @if (isAdmin) {
+            <div class="dropdown-divider"></div>
+            <div class="admin-section">
+              <span class="admin-label">{{ 'nav.admin' | translate }}</span>
+            </div>
+            <button routerLink="/admin-orders" class="dropdown-item" (click)="closeUserMenu()">
+              <i class="material-icons">shopping_bag</i>
+              <span>{{ 'nav.adminOrders' | translate }}</span>
+            </button>
+            <button routerLink="/review-recipes" class="dropdown-item" (click)="closeUserMenu()">
+              <i class="material-icons">rate_review</i>
+              <span>{{ 'nav.reviewRecipes' | translate }}</span>
+            </button>
+            <button routerLink="/Showfeedback" class="dropdown-item" (click)="closeUserMenu()">
+              <i class="material-icons">feedback</i>
+              <span>{{ 'nav.feedback' | translate }}</span>
+            </button>
+          }
           <button class="dropdown-item" (click)="toggleTheme(); closeUserMenu()">
             <i class="material-icons">{{ currentTheme === 'light' ? 'dark_mode' : 'light_mode' }}</i>
             <span>{{ currentTheme === 'light' ? ('theme.dark' | translate) : ('theme.light' | translate) }}</span>
@@ -93,7 +111,6 @@
         class = "sign"
         (signSwitch) = "signup()"
         (signClose) = "signClose()"
-        (openForget)="forget()"
         (login)="success()"
         ></app-signin>
       }

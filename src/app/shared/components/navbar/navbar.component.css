@@ -483,6 +483,20 @@ select:focus {
   flex: 1;
 }
 
+.admin-section {
+  padding: 8px 16px;
+  margin: 4px 0;
+}
+
+.admin-label {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #c44569;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
 /* Dark theme support for user menu */
 :host-context(.dark-theme) .user-dropdown {
   background: #2d3748;
@@ -499,6 +513,10 @@ select:focus {
 
 :host-context(.dark-theme) .dropdown-divider {
   background: rgba(255, 255, 255, 0.1);
+}
+
+:host-context(.dark-theme) .admin-label {
+  color: #ff9aa2;
 }
 
 :host-context(.dark-theme) .cart-badge {

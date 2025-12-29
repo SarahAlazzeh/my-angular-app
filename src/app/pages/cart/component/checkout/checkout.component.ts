@@ -21,6 +21,8 @@ export class CheckoutComponent implements OnInit, OnDestroy {
   totalPrice: number = 0;
   checkCity: boolean = false;
   @Output() check: EventEmitter<any> = new EventEmitter();
+  @Output() deliveryPriceChange: EventEmitter<number> = new EventEmitter();
+  @Output() totalPriceChange: EventEmitter<number> = new EventEmitter();
   delivaryCities: DelivaryCity[] = delivaryDetalis;
   private cartSubscription?: Subscription;
 
@@ -45,6 +47,8 @@ export class CheckoutComponent implements OnInit, OnDestroy {
 
   updateTotal(): void {
     this.total = this.totalPrice + this.delivary;
+    this.deliveryPriceChange.emit(this.delivary);
+    this.totalPriceChange.emit(this.total);
   }
 
   checkOut() {

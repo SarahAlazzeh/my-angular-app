@@ -8,6 +8,10 @@
     "share": "Share Your Recipes",
     "cart": "Shopping Cart",
     "favorites": "Favorites",
+    "admin": "Admin",
+    "adminOrders": "Orders",
+    "reviewRecipes": "Review Recipes",
+    "feedback": "Customer Feedback",
     "search": {
       "placeholder": "Search for treats..."
     }
@@ -74,7 +78,8 @@
     "checkout": "Checkout",
     "continueShopping": "Continue Shopping",
     "remove": "Remove",
-    "quantity": "Quantity"
+    "quantity": "Quantity",
+    "orderError": "Failed to create order. Please try again."
   },
   "recipe": {
     "title": "Our Recipes",
@@ -181,5 +186,42 @@
     "title": "Page Not Found",
     "message": "Sorry, the page you are looking for does not exist.",
     "goHome": "Go Home"
+  },
+  "adminOrders": {
+    "title": "Admin Orders",
+    "subtitle": "View and manage confirmed customer orders",
+    "loading": "Loading orders...",
+    "noOrders": "No Confirmed Orders",
+    "noOrdersMessage": "There are no confirmed orders to prepare at this time.",
+    "loadError": "Failed to load orders. Please try again.",
+    "updateError": "Failed to update order status. Please try again.",
+    "customer": "Customer",
+    "email": "Email",
+    "phone": "Phone",
+    "items": "Items",
+    "subtotal": "Subtotal",
+    "delivery": "Delivery",
+    "total": "Total",
+    "address": "Address",
+    "deliveryTime": "Delivery Time",
+    "specialNote": "Special Note",
+    "viewDetails": "View Details",
+    "startPreparing": "Start Preparing",
+    "markReady": "Mark as Ready",
+    "markCompleted": "Mark as Completed",
+    "orderDetails": "Order Details",
+    "customerInfo": "Customer Information",
+    "name": "Name",
+    "deliveryInfo": "Delivery Information",
+    "deliveryNote": "Delivery Note",
+    "orderSummary": "Order Summary",
+    "status": {
+      "pending": "Pending",
+      "confirmed": "Confirmed",
+      "preparing": "Preparing",
+      "ready": "Ready",
+      "completed": "Completed",
+      "cancelled": "Cancelled"
+    }
   }
 }
