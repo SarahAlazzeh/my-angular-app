@@ -1,141 +1,211 @@
-<app-navbar [enableSearch]="false" [activeRoute]="'share'"></app-navbar>
-<div class="share-recipe-container">
-  <h1>{{ 'shareRecipe.title' | translate }}</h1>
-  <p>{{ 'shareRecipe.subtitle' | translate }}</p>
-  <!-- <div class="share-recipe-content">
-    <p>{{ 'common.loading' | translate }}</p>
-  </div> -->
-  <form [formGroup]="recipe">
-
-    <div>
-      <label for="recipeName">{{ 'shareRecipe.form.name' | translate }}</label>
-      <input type="text" id="recipeName" [placeholder]="'shareRecipe.form.namePlaceholder' | translate"
-      [ngClass]="{'error-box': recipe.get('name')?.invalid && recipe.get('name')?.touched}"
-      formControlName="name" [(ngModel)]="newRecipe" >
-      @if (recipe.get('name')?.touched && recipe.get('name')?.getError('required')) {
-        <h4 class="error-sentence">{{ 'shareRecipe.form.required' | translate }} <span class="material-icons error-icon">error</span> </h4>
-      }
+<app-navbar [enableSearch]="false" [activeRoute]="'share-recipe'"></app-navbar>
+<div class="share-recipe-page">
+  <!-- Hero Section -->
+  <section class="hero-section">
+    <div class="container">
+      <h1 class="hero-title">{{ 'shareRecipe.title' | translate }}</h1>
+      <p class="hero-subtitle">{{ 'shareRecipe.subtitle' | translate }}</p>
     </div>
-    <div>
-      <label for="">{{ 'shareRecipe.form.type' | translate }}</label>
-      <div class="recipe-type">
-        <div>
-          <input type="radio" name="type" id="type1" formControlName="type" value="Cold Desserts">
-          <label for="type1" [ngClass]="{'focuse': recipe.get('type')?.value === 'Cold Desserts'}">{{ 'shareRecipe.types.coldDesserts' | translate }}</label>
+  </section>
+
+  <!-- Form Section -->
+  <section class="form-section">
+    <div class="container">
+      <form [formGroup]="recipe" class="recipe-form">
+        <!-- Recipe Name -->
+        <div class="form-group">
+          <label for="recipeName" class="form-label">
+            <i class="fas fa-utensils"></i>
+            {{ 'shareRecipe.form.name' | translate }}
+          </label>
+          <input 
+            type="text" 
+            id="recipeName" 
+            [placeholder]="'shareRecipe.form.namePlaceholder' | translate"
+            [ngClass]="{'error-box': recipe.get('name')?.invalid && recipe.get('name')?.touched}"
+            formControlName="name" 
+            [(ngModel)]="newRecipe">
+          @if (recipe.get('name')?.touched && recipe.get('name')?.getError('required')) {
+            <div class="error-message">
+              <i class="fas fa-exclamation-circle"></i>
+              <span>{{ 'shareRecipe.form.required' | translate }}</span>
+            </div>
+          }
         </div>
-        <div>
-          <input type="radio" name="type" id="type2" formControlName="type" value="Baked Desserts">
-          <label for="type2" [ngClass]="{'focuse': recipe.get('type')?.value === 'Baked Desserts'}">{{ 'shareRecipe.types.bakedDesserts' | translate }}</label>
-        </div>
-        <div>
-          <input type="radio" name="type" id="type3" formControlName="type" value="Pastries">
-          <label for="type3" [ngClass]="{'focuse': recipe.get('type')?.value === 'Pastries'}">{{ 'shareRecipe.types.pastries' | translate }}</label>
-        </div>
-        <div>
-          <input type="radio" name="type" id="type4" formControlName="type" value="cookies">
-          <label for="type4" [ngClass]="{'focuse': recipe.get('type')?.value === 'cookies'}">{{ 'shareRecipe.types.cookies' | translate }}</label>
-        </div>
-        @if (recipe.get('type')?.touched && recipe.get('type')?.invalid){
-        <h4 class="error-sentence">{{ 'shareRecipe.form.chooseType' | translate }} </h4>
-        }
-      </div>
-      </div>
-      <div>
-        <label for="ingredients">{{ 'shareRecipe.form.ingredients' | translate }}</label>
-        <textarea type="text" [placeholder]="'shareRecipe.form.ingredientsPlaceholder' | translate" id="ingredients"
-        [ngClass]="{'error-box': recipe.get('ingredients')?.invalid && recipe.get('ingredients')?.touched}"
-        formControlName="ingredients"  [(ngModel)]="newingredients" ></textarea>
-        @if (recipe.get('ingredients')?.touched && recipe.get('ingredients')?.getError('required')) {
-          <h4 class="error-sentence">{{ 'shareRecipe.form.required' | translate }} <span class="material-icons error-icon">error</span> </h4>
-        }
-      </div>
-      <div>
-        <label for="prepare">{{ 'shareRecipe.form.prepare' | translate }}</label>
-        <textarea type="text" [placeholder]="'shareRecipe.form.preparePlaceholder' | translate" id="prepare"
-        [ngClass]="{'error-box': recipe.get('prepare')?.invalid && recipe.get('prepare')?.touched}"
-        formControlName="prepare" [(ngModel)]="newPrepare"  ></textarea>
-        @if (recipe.get('prepare')?.touched && recipe.get('prepare')?.getError('required')) {
-          <h4 class="error-sentence">{{ 'shareRecipe.form.required' | translate }} <span class="material-icons error-icon">error</span> </h4>
-        }
-      </div>
-      <div>
-        <label for="photoUpload">{{ 'shareRecipe.form.photo' | translate }}</label>
-        @if (imagePreview()) {
-          <div class="image-preview-container">
-            <img [src]="imagePreview()!" alt="Preview" class="image-preview">
-            <button type="button" class="remove-image-btn" (click)="removeImage()" aria-label="Remove image">
-              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <line x1="18" y1="6" x2="6" y2="18"></line>
-                <line x1="6" y1="6" x2="18" y2="18"></line>
-              </svg>
-            </button>
+
+        <!-- Recipe Type -->
+        <div class="form-group">
+          <label class="form-label">
+            <i class="fas fa-tag"></i>
+            {{ 'shareRecipe.form.type' | translate }}
+          </label>
+          <div class="recipe-type-grid">
+            <div class="type-option">
+              <input type="radio" name="type" id="type1" formControlName="type" value="Cold Desserts">
+              <label for="type1" [ngClass]="{'selected': recipe.get('type')?.value === 'Cold Desserts'}">
+                <i class="fas fa-ice-cream"></i>
+                <span>{{ 'shareRecipe.types.coldDesserts' | translate }}</span>
+              </label>
+            </div>
+            <div class="type-option">
+              <input type="radio" name="type" id="type2" formControlName="type" value="Baked Desserts">
+              <label for="type2" [ngClass]="{'selected': recipe.get('type')?.value === 'Baked Desserts'}">
+                <i class="fas fa-birthday-cake"></i>
+                <span>{{ 'shareRecipe.types.bakedDesserts' | translate }}</span>
+              </label>
+            </div>
+            <div class="type-option">
+              <input type="radio" name="type" id="type3" formControlName="type" value="Pastries">
+              <label for="type3" [ngClass]="{'selected': recipe.get('type')?.value === 'Pastries'}">
+                <i class="fas fa-cookie"></i>
+                <span>{{ 'shareRecipe.types.pastries' | translate }}</span>
+              </label>
+            </div>
+            <div class="type-option">
+              <input type="radio" name="type" id="type4" formControlName="type" value="cookies">
+              <label for="type4" [ngClass]="{'selected': recipe.get('type')?.value === 'cookies'}">
+                <i class="fas fa-cookie-bite"></i>
+                <span>{{ 'shareRecipe.types.cookies' | translate }}</span>
+              </label>
+            </div>
           </div>
-        } @else {
-          <input type="file" id="photoUpload" accept="image/*" style="display: none;" (change)="onFileSelected($event)" #photoInput>
-          <button type="button" class="submit-img" (click)="photoInput.click()">
-            <i class="fa-solid fa-cloud-arrow-up"></i>
-            <span>{{ 'shareRecipe.form.uploadPhoto' | translate }}</span>
+          @if (recipe.get('type')?.touched && recipe.get('type')?.invalid) {
+            <div class="error-message">
+              <i class="fas fa-exclamation-circle"></i>
+              <span>{{ 'shareRecipe.form.chooseType' | translate }}</span>
+            </div>
+          }
+        </div>
+
+        <!-- Ingredients -->
+        <div class="form-group">
+          <label for="ingredients" class="form-label">
+            <i class="fas fa-list"></i>
+            {{ 'shareRecipe.form.ingredients' | translate }}
+          </label>
+          <textarea 
+            [placeholder]="'shareRecipe.form.ingredientsPlaceholder' | translate" 
+            id="ingredients"
+            [ngClass]="{'error-box': recipe.get('ingredients')?.invalid && recipe.get('ingredients')?.touched}"
+            formControlName="ingredients" 
+            [(ngModel)]="newingredients"
+            rows="5"></textarea>
+          @if (recipe.get('ingredients')?.touched && recipe.get('ingredients')?.getError('required')) {
+            <div class="error-message">
+              <i class="fas fa-exclamation-circle"></i>
+              <span>{{ 'shareRecipe.form.required' | translate }}</span>
+            </div>
+          }
+        </div>
+
+        <!-- Instructions -->
+        <div class="form-group">
+          <label for="prepare" class="form-label">
+            <i class="fas fa-clipboard-list"></i>
+            {{ 'shareRecipe.form.prepare' | translate }}
+          </label>
+          <textarea 
+            [placeholder]="'shareRecipe.form.preparePlaceholder' | translate" 
+            id="prepare"
+            [ngClass]="{'error-box': recipe.get('prepare')?.invalid && recipe.get('prepare')?.touched}"
+            formControlName="prepare" 
+            [(ngModel)]="newPrepare"
+            rows="6"></textarea>
+          @if (recipe.get('prepare')?.touched && recipe.get('prepare')?.getError('required')) {
+            <div class="error-message">
+              <i class="fas fa-exclamation-circle"></i>
+              <span>{{ 'shareRecipe.form.required' | translate }}</span>
+            </div>
+          }
+        </div>
+
+        <!-- Photo Upload -->
+        <div class="form-group">
+          <label for="photoUpload" class="form-label">
+            <i class="fas fa-camera"></i>
+            {{ 'shareRecipe.form.photo' | translate }}
+          </label>
+          @if (imagePreview()) {
+            <div class="image-preview-container">
+              <img [src]="imagePreview()!" alt="Preview" class="image-preview">
+              <button type="button" class="remove-image-btn" (click)="removeImage()" aria-label="Remove image">
+                <i class="fas fa-times"></i>
+              </button>
+            </div>
+          } @else {
+            <input type="file" id="photoUpload" accept="image/*" style="display: none;" (change)="onFileSelected($event)" #photoInput>
+            <button type="button" class="upload-btn" (click)="photoInput.click()">
+              <i class="fas fa-cloud-arrow-up"></i>
+              <span>{{ 'shareRecipe.form.uploadPhoto' | translate }}</span>
+            </button>
+          }
+        </div>
+
+        <!-- Email -->
+        <div class="form-group">
+          <label for="email" class="form-label">
+            <i class="fas fa-envelope"></i>
+            {{ 'shareRecipe.form.email' | translate }}
+          </label>
+          <input 
+            type="email" 
+            id="email" 
+            [placeholder]="'shareRecipe.form.emailPlaceholder' | translate"
+            formControlName="email"
+            [ngClass]="{'error-box': recipe.get('email')?.invalid && recipe.get('email')?.touched && recipe.get('email')?.value}"
+            [(ngModel)]="newEmail">
+          @if (recipe.get('email')?.touched && recipe.get('email')?.invalid && recipe.get('email')?.value) {
+            <div class="error-message">
+              <i class="fas fa-exclamation-circle"></i>
+              <span>{{ 'shareRecipe.form.validEmail' | translate }}</span>
+            </div>
+          }
+        </div>
+
+        <!-- Success/Error Messages -->
+        @if (successMessage()) {
+          <div class="alert alert-success">
+            <i class="fas fa-check-circle"></i>
+            <span>{{ 'shareRecipe.form.submitSuccess' | translate }}</span>
+          </div>
+        }
+
+        @if (errorMessage()) {
+          <div class="alert alert-error">
+            <i class="fas fa-exclamation-triangle"></i>
+            <span>{{ errorMessage() === 'Please fill in all required fields correctly.' ? ('shareRecipe.form.fillRequired' | translate) : ('shareRecipe.form.submitError' | translate) }}</span>
+          </div>
+        }
+
+        <!-- Submit Button -->
+        <div class="form-actions">
+          <button 
+            type="button" 
+            class="submit-btn" 
+            [ngClass]="{'submit-valid': recipe.valid}"
+            [disabled]="!recipe.valid || isLoading()" 
+            (click)="onSubmit()">
+            @if (!isLoading()) {
+              <i class="fas fa-paper-plane"></i>
+              <span>{{ 'shareRecipe.form.submit' | translate }}</span>
+            }
+            @if (isLoading()) {
+              <svg class="spinner" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="12" y1="2" x2="12" y2="6"></line>
+                <line x1="12" y1="18" x2="12" y2="22"></line>
+                <line x1="4.93" y1="4.93" x2="7.76" y2="7.76"></line>
+                <line x1="16.24" y1="16.24" x2="19.07" y2="19.07"></line>
+                <line x1="2" y1="12" x2="6" y2="12"></line>
+                <line x1="18" y1="12" x2="22" y2="12"></line>
+                <line x1="4.93" y1="19.07" x2="7.76" y2="16.24"></line>
+                <line x1="16.24" y1="7.76" x2="19.07" y2="4.93"></line>
+              </svg>
+              <span>{{ 'shareRecipe.form.sending' | translate }}</span>
+            }
           </button>
-        }
-      </div>
-      <div>
-        <label for="email">{{ 'shareRecipe.form.email' | translate }}</label>
-        <input type="email" id="email" [placeholder]="'shareRecipe.form.emailPlaceholder' | translate"
-        formControlName="email"
-        [ngClass]="{'error-box': recipe.get('email')?.invalid && recipe.get('email')?.touched && recipe.get('email')?.value}"
-        [(ngModel)]="newEmail">
-        @if (recipe.get('email')?.touched && recipe.get('email')?.invalid && recipe.get('email')?.value) {
-          <h4 class="error-sentence">{{ 'shareRecipe.form.validEmail' | translate }} <span class="material-icons error-icon">error</span> </h4>
-        }
-      </div>
-      <!-- <input type="text">
-      <input type="text"> -->
-    </form>
-
-    <!-- Success/Error Messages -->
-    @if (successMessage()) {
-      <div class="alert alert-success">
-        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
-          <polyline points="22 4 12 14.01 9 11.01"></polyline>
-        </svg>
-        <span>{{ 'shareRecipe.form.submitSuccess' | translate }}</span>
-      </div>
-    }
-
-    @if (errorMessage()) {
-      <div class="alert alert-error">
-        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <circle cx="12" cy="12" r="10"></circle>
-          <line x1="12" y1="8" x2="12" y2="12"></line>
-          <line x1="12" y1="16" x2="12.01" y2="16"></line>
-        </svg>
-        <span>{{ errorMessage() === 'Please fill in all required fields correctly.' ? ('shareRecipe.form.fillRequired' | translate) : ('shareRecipe.form.submitError' | translate) }}</span>
-      </div>
-    }
-
-    <div class="done">
-      <button type="button" class="submit" [ngClass]="{'submit-valid': recipe.valid}"
-      [disabled]="!recipe.valid || isLoading()" (click)="onSubmit()">
-      @if (!isLoading()) {
-          <span>{{ 'shareRecipe.form.submit' | translate }}</span>
-        }
-        @if (isLoading()) {
-          <span>
-            <svg class="spinner" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <line x1="12" y1="2" x2="12" y2="6"></line>
-              <line x1="12" y1="18" x2="12" y2="22"></line>
-              <line x1="4.93" y1="4.93" x2="7.76" y2="7.76"></line>
-              <line x1="16.24" y1="16.24" x2="19.07" y2="19.07"></line>
-              <line x1="2" y1="12" x2="6" y2="12"></line>
-              <line x1="18" y1="12" x2="22" y2="12"></line>
-              <line x1="4.93" y1="19.07" x2="7.76" y2="16.24"></line>
-              <line x1="16.24" y1="7.76" x2="19.07" y2="4.93"></line>
-            </svg>
-            {{ 'shareRecipe.form.sending' | translate }}
-          </span>
-        } </button>
+        </div>
+      </form>
     </div>
-
+  </section>
 </div>
 <app-footer></app-footer>

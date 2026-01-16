@@ -1,34 +1,163 @@
-<div class="about-container">
-  <h1>About Sarah’s Bakery 🍰</h1>
-
-  <p class="intro">
-    At Sarah’s Bakery, we believe that every dessert tells a story.
-    Our passion is baking fresh, homemade sweets with love and care.
-  </p>
-
-  <div class="cards">
-    <div class="card">
-      <h3>Our Story</h3>
-      <p>
-        Sarah’s Bakery started as a small home kitchen, baking treats for family
-        and friends, and grew into a place where flavors meet happiness.
-      </p>
+<app-navbar [enableSearch]="false" [activeRoute]="'about-us'"></app-navbar>
+<div class="about-page">
+  <!-- Hero Section -->
+  <section class="hero-section">
+    <div class="hero-content">
+      <h1 class="hero-title">About Sarah's Bakery 🍰</h1>
+      <p class="hero-subtitle">Where Sweetness Meets Home</p>
     </div>
-
-    <div class="card">
-      <h3>Our Mission</h3>
-      <p>
-        To deliver freshly baked desserts using high-quality ingredients,
-        made with love, and served with a smile.
-      </p>
+    <div class="hero-image">
+      <img src="/images/about-img.png" alt="Bakery Interior" />
     </div>
+  </section>
 
-    <div class="card">
-      <h3>Why Choose Us?</h3>
-      <ul>
-        <li>Freshly baked every day</li>
-        <li>Homemade recipes</li>
-        <li>Custom orders for special occasions</li>
-      </ul>
+  <!-- Story Section -->
+  <section class="story-section">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">Our Story</h2>
+        <div class="title-underline"></div>
+      </div>
+      <div class="story-content">
+        <div class="story-text">
+          <p class="lead-text">
+            Welcome to Sarah's Bakery, where every dessert tells a story and every bite brings joy.
+          </p>
+          <p>
+            Founded in 2015, Sarah's Bakery started as a small home kitchen, baking treats for family
+            and friends. What began as a passion project quickly grew into a beloved local bakery
+            where flavors meet happiness.
+          </p>
+          <p>
+            We believe that every recipe has a story, and we're dedicated to creating delicious baked
+            goods using traditional methods and the finest ingredients. Our passion is to spread joy
+            through the art of baking, bringing a little happiness to your table with every treat.
+          </p>
+        </div>
+        <div class="story-stats">
+          <div class="stat-item">
+            <div class="stat-number">9+</div>
+            <div class="stat-label">Years of Excellence</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-number">1000+</div>
+            <div class="stat-label">Happy Customers</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-number">50+</div>
+            <div class="stat-label">Unique Recipes</div>
+          </div>
+        </div>
+      </div>
     </div>
-  </div>
+  </section>
+
+  <!-- Mission Section -->
+  <section class="mission-section">
+    <div class="container">
+      <div class="mission-grid">
+        <div class="mission-card">
+          <div class="mission-icon">
+            <i class="fas fa-heart"></i>
+          </div>
+          <h3>Our Mission</h3>
+          <p>
+            To deliver freshly baked desserts using high-quality ingredients, made with love,
+            and served with a smile. We're committed to bringing artisanal quality to every
+            product we create.
+          </p>
+        </div>
+        <div class="mission-card">
+          <div class="mission-icon">
+            <i class="fas fa-eye"></i>
+          </div>
+          <h3>Our Vision</h3>
+          <p>
+            To become the most trusted and beloved bakery in our community, known for our
+            commitment to quality, innovation, and the joy we bring to every customer's day.
+          </p>
+        </div>
+        <div class="mission-card">
+          <div class="mission-icon">
+            <i class="fas fa-gem"></i>
+          </div>
+          <h3>Our Values</h3>
+          <p>
+            Quality, authenticity, and care are at the heart of everything we do. We believe
+            in using only the finest ingredients and traditional baking methods to create
+            exceptional treats.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Why Choose Us Section -->
+  <section class="features-section">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">Why Choose Us</h2>
+        <div class="title-underline"></div>
+      </div>
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-icon">
+            <i class="fas fa-heart"></i>
+          </div>
+          <h3>Made with Love</h3>
+          <p>Every item is baked with care and attention to detail, ensuring the perfect taste and texture in every bite.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">
+            <i class="fas fa-leaf"></i>
+          </div>
+          <h3>Fresh Ingredients</h3>
+          <p>We source locally and use organic ingredients whenever possible, ensuring the highest quality in every recipe.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">
+            <i class="fas fa-star"></i>
+          </div>
+          <h3>Artisan Quality</h3>
+          <p>Handcrafted perfection in every product. We take pride in traditional baking methods and artisanal techniques.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">
+            <i class="fas fa-calendar-day"></i>
+          </div>
+          <h3>Fresh Daily</h3>
+          <p>All our baked goods are prepared fresh every day, ensuring you always get the best quality and flavor.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">
+            <i class="fas fa-book"></i>
+          </div>
+          <h3>Homemade Recipes</h3>
+          <p>Our recipes are passed down through generations and perfected over years of baking experience.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">
+            <i class="fas fa-gift"></i>
+          </div>
+          <h3>Custom Orders</h3>
+          <p>We specialize in custom orders for special occasions, making your celebrations even more memorable.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="cta-section">
+    <div class="container">
+      <div class="cta-content">
+        <h2>Ready to Taste the Difference?</h2>
+        <p>Visit our shop or browse our recipes to discover the perfect treat for you.</p>
+        <div class="cta-buttons">
+          <a routerLink="/shop" class="btn btn-primary">Shop Now</a>
+          <a routerLink="/recipe" class="btn btn-secondary">View Recipes</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+<app-footer></app-footer>

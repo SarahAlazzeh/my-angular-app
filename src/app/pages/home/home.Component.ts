@@ -12,8 +12,8 @@ import { AbouthomeComponent } from './home-component/about/about.component';
 @Component({
   selector: 'app-home',
   imports: [NavbarComponent, FooterComponent, MainhomeComponent, AbouthomeComponent, FeedbackComponent, NgIf, RouterLink],
-  templateUrl: './home.component.html',
-  styleUrl: './home.component.css'
+  templateUrl: './home.Component.html',
+  styleUrl: './home.Component.css'
 })
 
 

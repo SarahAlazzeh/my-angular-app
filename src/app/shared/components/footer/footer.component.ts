@@ -9,4 +9,6 @@ import { TranslatePipe } from '../../pipes/translate.pipe';
   templateUrl: './footer.component.html',
   styleUrls: ['./footer.component.css']
 })
-export class FooterComponent {}
+export class FooterComponent {
+  currentYear = new Date().getFullYear();
+}

@@ -81,7 +81,7 @@ export const products: Product[] = [
   },
   {
     id: ++id,
-    img: '/images/recipes/red-velvet-cake.jpg',
+    img: '/images/recipes/red-velvet-cake.png',
     title: 'Red Velvet Cake',
     price: 7.0,
     quantity: "Per 6 piece",

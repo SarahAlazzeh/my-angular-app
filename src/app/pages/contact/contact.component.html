@@ -1,52 +1,115 @@
-<div class="contact-container">
-  <h1>Get in Touch 💌</h1>
-  <p class="subtitle">
-    We’d love to hear from you!
-    Reach us anytime through our social platforms.
-  </p>
+<app-navbar [enableSearch]="false" [activeRoute]="'contact-us'"></app-navbar>
+<div class="contact-page">
+  <!-- Hero Section -->
+  <section class="hero-section">
+    <div class="container">
+      <h1 class="hero-title">Get in Touch 💌</h1>
+      <p class="hero-subtitle">
+        We'd love to hear from you! Reach out to us anytime through any of our channels.
+        Your feedback and questions are always welcome.
+      </p>
+    </div>
+  </section>
 
-  <div class="contact-cards">
+  <!-- Contact Methods Section -->
+  <section class="contact-methods-section">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">Contact Us</h2>
+        <div class="title-underline"></div>
+      </div>
+      <div class="contact-grid">
+        <!-- Email -->
+        <a href="mailto:sarahsbakery@gmail.com" class="contact-card email-card">
+          <div class="card-icon">
+            <i class="fas fa-envelope"></i>
+          </div>
+          <h3>Email Us</h3>
+          <p>sarahsbakery@gmail.com</p>
+          <span class="card-action">Send us an email →</span>
+        </a>
 
-    <!-- Email -->
-    <a href="mailto:sarahsbakery@gmail.com" class="card email">
-      <i class="fa fa-envelope"></i>
-      <h3>Email Us</h3>
-      <p>sarahsbakery@gmail.com</p>
-    </a>
+        <!-- WhatsApp -->
+        <a href="https://wa.me/962791234567" target="_blank" class="contact-card whatsapp-card">
+          <div class="card-icon">
+            <i class="fab fa-whatsapp"></i>
+          </div>
+          <h3>WhatsApp</h3>
+          <p>+962 79 123 4567</p>
+          <span class="card-action">Chat with us →</span>
+        </a>
 
-    <!-- Instagram -->
-    <a href="https://instagram.com/sarahsbakery" target="_blank" class="card instagram">
-      <i class="fa fa-instagram"></i>
-      <h3>Instagram</h3>
-      <p>@sarahsbakery</p>
-    </a>
+        <!-- Instagram -->
+        <a href="https://instagram.com/sarahsbakery" target="_blank" class="contact-card instagram-card">
+          <div class="card-icon">
+            <i class="fab fa-instagram"></i>
+          </div>
+          <h3>Instagram</h3>
+          <p>@sarahsbakery</p>
+          <span class="card-action">Follow us →</span>
+        </a>
 
-    <!-- Facebook -->
-    <a href="https://facebook.com/sarahsbakery" target="_blank" class="card facebook">
-      <i class="fa fa-facebook"></i>
-      <h3>Facebook</h3>
-      <p>Sarah’s Bakery</p>
-    </a>
-<!-- Instagram -->
-    <a href="https://instagram.com/sarahsbakery" target="_blank" class="card instagram">
-      <i class="fa fa-instagram"></i>
-      <h3>Instagram</h3>
-      <p>@sarahsbakery</p>
-    </a>
+        <!-- Facebook -->
+        <a href="https://facebook.com/sarahsbakery" target="_blank" class="contact-card facebook-card">
+          <div class="card-icon">
+            <i class="fab fa-facebook"></i>
+          </div>
+          <h3>Facebook</h3>
+          <p>Sarah's Bakery</p>
+          <span class="card-action">Visit our page →</span>
+        </a>
+      </div>
+    </div>
+  </section>
 
-    <!-- Facebook -->
-    <a href="https://facebook.com/sarahsbakery" target="_blank" class="card facebook">
-      <i class="fa fa-facebook"></i>
-      <h3>Facebook</h3>
-      <p>Sarah’s Bakery</p>
-    </a>
+  <!-- Business Hours Section -->
+  <section class="hours-section">
+    <div class="container">
+      <div class="hours-content">
+        <div class="hours-card">
+          <div class="hours-icon">
+            <i class="fas fa-clock"></i>
+          </div>
+          <h3>Business Hours</h3>
+          <div class="hours-list">
+            <div class="hours-item">
+              <span class="day">Saturday</span>
+              <span class="time">10:00 AM - 6:00 PM</span>
+            </div>
+            <div class="hours-item">
+              <span class="day">Sunday - Thursday</span>
+              <span class="time">9:00 AM - 8:00 PM</span>
+            </div>
+            <div class="hours-item">
+              <span class="day">Friday</span>
+              <span class="time">Closed</span>
+            </div>
+          </div>
+        </div>
+        <div class="location-card">
+          <div class="hours-icon">
+            <i class="fas fa-map-marker-alt"></i>
+          </div>
+          <h3>Visit Us</h3>
+          <p>We're located in the heart of the city, ready to welcome you with fresh baked goods and warm smiles.</p>
+          <p class="location-note">📍 Check our social media for exact location</p>
+        </div>
+      </div>
+    </div>
+  </section>
 
-    <!-- WhatsApp -->
-    <a href="https://wa.me/962799999999" target="_blank" class="card whatsapp">
-      <i class="fa fa-whatsapp"></i>
-      <h3>WhatsApp</h3>
-      <p>Chat with us</p>
-    </a>
-
-  </div>
+  <!-- CTA Section -->
+  <section class="cta-section">
+    <div class="container">
+      <div class="cta-content">
+        <h2>Have a Special Request?</h2>
+        <p>We're here to make your celebrations extra special. Contact us for custom orders and special occasions!</p>
+        <div class="cta-buttons">
+          <a href="mailto:sarahsbakery@gmail.com" class="btn btn-primary">Send Email</a>
+          <a href="https://wa.me/962791234567" target="_blank" class="btn btn-secondary">WhatsApp Us</a>
+        </div>
+      </div>
+    </div>
+  </section>
 </div>
+<app-footer></app-footer>

@@ -771,7 +771,7 @@ export const recipes: Recipe[] = [
       en: 'Elegant red velvet cake with cream cheese frosting. A classic favorite for special occasions!',
       ar: 'كعكة المخمل الأحمر الأنيقة مع صقيل الجبن الكريمي. كلاسيكية مفضلة للمناسبات الخاصة!'
     },
-    image: '/images/recipes/red-velvet-cake.jpg',
+    image: '/images/recipes/red-velvet-cake.png',
     ingredients: {
       en: [
         '2 1/2 cups all-purpose flour',

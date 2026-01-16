@@ -170,6 +170,8 @@ button[type="submit"].submit-valid:hover {
   border: 1px solid #ddd;
   background: #fff;
   cursor: pointer;
+  width: 100%;
+  margin: 0 auto;
 }
 
 .google-btn:hover:not(:disabled) {

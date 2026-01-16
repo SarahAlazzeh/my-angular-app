@@ -4,7 +4,7 @@ export const APP_CONSTANTS = {
     SHOP: '/shop',
     CART: '/cart',
     RECIPE: '/recipe',
-    SHARE_RECIPE: '/share',
+    SHARE_RECIPE: '/share-recipe',
     ABOUT: '/about',
     CONTACT: '/contact',
     NOT_FOUND: '/404'
