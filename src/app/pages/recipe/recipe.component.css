@@ -86,3 +86,60 @@ h1::after{
   background-color: #2d3748;
   color: #e2e8f0;
 }
+
+.recipe-container {
+  padding: 0 20px;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+  .recipe-container {
+    padding: 0 15px;
+  }
+
+  h1 {
+    font-size: 2rem;
+    padding-bottom: 30px;
+    margin-top: 15px;
+    margin-bottom: 20px;
+  }
+
+  h1::after {
+    width: 70px;
+    border-bottom-width: 3px;
+  }
+
+  .select {
+    width: 130px;
+    font-size: 0.9rem;
+    margin: 10px 0px 15px 15px;
+    padding: 4px 6px;
+  }
+}
+
+@media (max-width: 480px) {
+  .recipe-container {
+    padding: 0 10px;
+  }
+
+  h1 {
+    font-size: 1.6rem;
+    padding-bottom: 25px;
+    margin-top: 10px;
+    margin-bottom: 15px;
+  }
+
+  h1::after {
+    width: 60px;
+    border-bottom-width: 2px;
+  }
+
+  .select {
+    width: 120px;
+    font-size: 0.85rem;
+    margin: 8px 0px 12px 10px;
+    padding: 3px 5px;
+  }
+}

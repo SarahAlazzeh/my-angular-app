@@ -23,6 +23,23 @@ export class ProductService {
     this.loadProducts();
   }
 
+  private fixImagePath(imagePath: string): string {
+    if (!imagePath) return '';
+    
+    // Fix incorrect image paths to match actual file names in public/images/recipes
+    const pathMappings: { [key: string]: string } = {
+      '/images/recipes/blueberry-cookies.jpg': '/images/recipes/berryjpg.jpg',
+      '/images/recipes/classic-cookies.jpg': '/images/recipes/cookies.jpg',
+      '/images/recipes/cinnamon-cookies.jpg': '/images/recipes/cinnamon-cookiesjpg.jpg',
+      '/images/recipes/fluffy-pancakes.jpg': '/images/recipes/pancake.jpg',
+      '/images/recipes/chocolate-muffins.jpg': '/images/recipes/muffins.jpg',
+      '/images/recipes/chocolate-donut.jpg': '/images/recipes/donut.jpg',
+      '/images/recipes/cheesecake.jpg': '/images/recipes/chesscake.jpg'
+    };
+
+    return pathMappings[imagePath] || imagePath;
+  }
+
   async loadProducts(): Promise<void> {
     this.loadingSubject.next(true);
     try {
@@ -36,12 +53,13 @@ export class ProductService {
       const firestoreProducts: Product[] = [];
       snapshot.forEach((docSnapshot) => {
         const data = docSnapshot.data();
+        const imagePath = this.fixImagePath(data['img'] || '');
         firestoreProducts.push({
           id: data['id'] || Date.now(),
           title: data['title'] || '',
           price: data['price'] || 0,
           quantity: data['quantity'] || '',
-          img: data['img'] || '',
+          img: imagePath,
           name: data['name'],
           description: data['description'],
           firestoreId: docSnapshot.id // Store Firestore document ID

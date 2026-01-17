@@ -1,13 +1,23 @@
-<app-navbar [enableSearch]="true" [activeRoute]="'recipe'"></app-navbar>
+<app-navbar [enableSearch]="false" [activeRoute]="'recipe'"></app-navbar>
 <div class="recipe-container">
   <h1>{{ 'recipe.title' | translate }}</h1>
-  <!-- <p>{{ 'recipe.subtitle' | translate }}</p>
-  <div class="recipe-content">
-    <p>{{ 'common.loading' | translate }}</p>
-  </div>
-</div> -->
-<recipe-card></recipe-card>
-<br>
-<br>
+  
+  <app-search-bar
+    pageType="recipe"
+    [filterOptions]="filterOptions"
+    placeholder="nav.search.placeholder"
+    (searchChange)="onSearchChange($event)"
+    (sortChange)="onSortChange($event)"
+    (filterChange)="onFilterChange($event)">
+  </app-search-bar>
+
+  <recipe-card
+    [search]="searchValue"
+    [sortOption]="sortOption"
+    [filterOption]="filterOption">
+  </recipe-card>
+  <br>
+  <br>
+</div>
 
 <app-footer></app-footer>

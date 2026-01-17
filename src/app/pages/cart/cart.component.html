@@ -1,9 +1,6 @@
+<app-navbar [enableSearch]="false"></app-navbar>
 <div class="cart-page">
   <div class="cart-container">
-    <a routerLink="/shop" class="back">
-      <i class="material-icons">chevron_left</i>
-    </a>
-
     <div class="cart-header">
       <div class="title">
         <h1>{{ 'cart.title' | translate }}</h1>
@@ -78,4 +75,5 @@
     }
   </div>
 </div>
+<app-footer></app-footer>
 

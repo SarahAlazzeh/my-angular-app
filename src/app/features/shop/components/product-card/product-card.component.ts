@@ -1,28 +1,29 @@
-import { Component, ElementRef, Input, ViewChild, OnInit, OnDestroy } from "@angular/core";
+import { Component, ElementRef, ViewChild, OnInit, OnDestroy, computed, signal, input } from "@angular/core";
 import { Product } from "../../../../core/models/product.interface";
 import { CurrencyPipe } from "@angular/common";
-import { SearchPipe } from "../../../../shared/pipes/search.pipe";
 import { TranslatePipe } from "../../../../shared/pipes/translate.pipe";
 import { UserdataService } from "../../../../core/services/userData.service";
 import { ShopService } from "../../services/shop.service";
 import { Router } from "@angular/router";
 import { FavoritesService } from "../../../../core/services/favorites.service";
 import { Subscription } from "rxjs";
-import { SearchService } from "../../../../core/services/search.service";
+import { SearchService, SortOption } from "../../../../core/services/search.service";
 import { ProductService } from "../../../../core/services/product.service";
 
 @Component({
   selector: 'app-product-card',
   standalone: true,
-  imports:[ CurrencyPipe, SearchPipe, TranslatePipe ],
+  imports:[ CurrencyPipe, TranslatePipe ],
   templateUrl: './product-card.component.html',
   styleUrl:'./product-card.component.css'
 })
 
 export class ProductCardComponent implements OnInit, OnDestroy {
-  products: Product[] = [];
+  products = signal<Product[]>([]);
   isLoading = true;
-  @Input() search : string = "";
+  search = input<string>("");
+  sortOption = input<SortOption>('none');
+  filterOption = input<string>('all');
   @ViewChild ('loginAlert') loginAlert! :ElementRef;
   @ViewChild ('alertCart') alertCart! :ElementRef;
   @ViewChild ('alertFavorite') alertFavorite! :ElementRef;
@@ -50,6 +51,53 @@ export class ProductCardComponent implements OnInit, OnDestroy {
 
   admin : boolean = false;
 
+  filteredAndSortedProducts = computed(() => {
+    let result = [...this.products()];
+    const searchValue = this.search();
+    const sortValue = this.sortOption();
+    const filterValue = this.filterOption();
+    
+    // Apply category filter
+    if (filterValue && filterValue !== 'all' && filterValue !== 'shop.filters.all') {
+      const filterKey = filterValue.replace('shop.filters.', '');
+      result = result.filter(product => {
+        const titleLower = product.title.toLowerCase();
+        
+        switch (filterKey) {
+          case 'cookies':
+            return titleLower.includes('cookie');
+          case 'cakes':
+            return titleLower.includes('cake') || titleLower.includes('cupcake');
+          case 'bread':
+            return titleLower.includes('bread') || titleLower.includes('roll');
+          case 'desserts':
+            return titleLower.includes('muffin') || 
+                   titleLower.includes('pancake') || 
+                   titleLower.includes('donut') ||
+                   titleLower.includes('cheesecake');
+          default:
+            return true;
+        }
+      });
+    }
+    
+    // Apply search filter
+    if (searchValue && searchValue.trim()) {
+      const searchLower = searchValue.toLowerCase();
+      result = result.filter(product =>
+        product.title.toLowerCase().includes(searchLower) ||
+        (product.name && product.name.toLowerCase().includes(searchLower))
+      );
+    }
+
+    // Apply sorting
+    if (sortValue !== 'none') {
+      result = this.sortProducts(result, sortValue);
+    }
+
+    return result;
+  });
+
   ngOnInit(): void {
     // Subscribe to loading state
     this.loadingSubscription = this.productService.loading$.subscribe(loading => {
@@ -58,23 +106,22 @@ export class ProductCardComponent implements OnInit, OnDestroy {
 
     // Load products from service (includes Firestore products)
     this.productsSubscription = this.productService.getAllProducts().subscribe(products => {
-      this.products = products;
+      this.products.set(products);
       
       // Update favorite statuses when products change
-      this.products.forEach(product => {
+      products.forEach((product: Product) => {
         this.favoriteStatuses.set(product.id, this.favoritesService.isFavorite(product.id));
       });
     });
 
     // Subscribe to favorites changes
     this.favoritesSubscription = this.favoritesService.getFavorites().subscribe(favorites => {
-      this.products.forEach(product => {
+      this.products().forEach(product => {
         this.favoriteStatuses.set(product.id, this.favoritesService.isFavorite(product.id));
       });
     });
 
     this.userdataService.isAdmin$.subscribe(value => {
-      console.log('is admin ' , value)
       this.admin= value;
     })
 
@@ -104,7 +151,7 @@ export class ProductCardComponent implements OnInit, OnDestroy {
       setTimeout(() => {
       this.alertCart.nativeElement.style.display='none';
     }, 3500);
-    const selectedProduct = this.products.find(p => p.id === id);
+    const selectedProduct = this.products().find(p => p.id === id);
     if( selectedProduct ){
       this.shopService.addToCart(selectedProduct);
     }
@@ -125,7 +172,7 @@ export class ProductCardComponent implements OnInit, OnDestroy {
     this.loginUser = this.userdataService.isLoggedIn();
 
     if (this.loginUser === true) {
-      const selectedProduct = this.products.find(p => p.id === productId);
+      const selectedProduct = this.products().find(p => p.id === productId);
       if (selectedProduct) {
         this.favoritesService.toggleFavorite(selectedProduct);
         const isFavorite = this.favoritesService.isFavorite(productId);
@@ -177,5 +224,22 @@ export class ProductCardComponent implements OnInit, OnDestroy {
 
   isFromFirestore(product: Product): boolean {
     return !!product.firestoreId;
+  }
+
+  private sortProducts(products: Product[], sortOption: SortOption): Product[] {
+    const sorted = [...products];
+    
+    switch (sortOption) {
+      case 'name-asc':
+        return sorted.sort((a, b) => a.title.localeCompare(b.title));
+      case 'name-desc':
+        return sorted.sort((a, b) => b.title.localeCompare(a.title));
+      case 'price-asc':
+        return sorted.sort((a, b) => a.price - b.price);
+      case 'price-desc':
+        return sorted.sort((a, b) => b.price - a.price);
+      default:
+        return sorted;
+    }
   }
 }

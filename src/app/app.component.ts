@@ -19,6 +19,6 @@ export class App implements OnInit {
   ngOnInit(): void {
     // Firebase is initialized in the service constructor
     // This ensures Firebase is ready when the app starts
-    console.log('Firebase initialized:', this.firebaseService.getApp().name);
+    // console.log('Firebase initialized:', this.firebaseService.getApp().name);
   }
 }

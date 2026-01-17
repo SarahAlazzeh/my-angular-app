@@ -1,10 +1,6 @@
+<app-navbar [enableSearch]="false"></app-navbar>
 @if (recipe) {
   <div class="recipe-details-container">
-  <button class="back-button" (click)="goBack()">
-    <i class="material-icons">arrow_back</i>
-    <span>{{ 'common.back' | translate }}</span>
-  </button>
-
   <div class="recipe-header">
     <img [src]="recipe.image || 'https://via.placeholder.com/600x400'" [alt]="getTitle()" class="recipe-image">
     <div class="recipe-info">
@@ -156,10 +152,7 @@
   <div class="recipe-not-found">
     <h2>{{ 'common.error' | translate }}</h2>
     <p>{{ 'recipe.notFound' | translate }}</p>
-    <button class="back-button" (click)="goBack()">
-      <i class="material-icons">arrow_back</i>
-      <span>{{ 'common.back' | translate }}</span>
-    </button>
   </div>
 }
+<app-footer></app-footer>
 

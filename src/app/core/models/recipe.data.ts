@@ -13,7 +13,7 @@ export const recipes: Recipe[] = [
       en: 'Traditional homemade cookies that are crispy on the outside and soft on the inside. Perfect for tea time!',
       ar: 'بسكويت منزلي تقليدي مقرمش من الخارج وناعم من الداخل. مثالي لوقت الشاي!'
     },
-    image: '/images/recipes/classic-cookies.jpg',
+    image: '/images/recipes/cookies.jpg',
     ingredients: {
       en: [
         '2 cups all-purpose flour',
@@ -145,7 +145,7 @@ export const recipes: Recipe[] = [
       en: 'Delicious cookies bursting with fresh blueberry flavor. Sweet and tangy!',
       ar: 'بسكويت لذيذ مليء بنكهة التوت الأزرق الطازجة. حلو ومنعش!'
     },
-    image: '/images/recipes/blueberry-cookies.jpg',
+    image: '/images/recipes/berryjpg.jpg',
     ingredients: {
       en: [
         '2 cups all-purpose flour',
@@ -277,7 +277,7 @@ export const recipes: Recipe[] = [
       en: 'Warm and spicy cookies with the perfect amount of cinnamon. Comforting and delicious!',
       ar: 'بسكويت دافئ وحار بكمية مثالية من القرفة. مريح ولذيذ!'
     },
-    image: '/images/recipes/cinnamon-cookies.jpg',
+    image: '/images/recipes/cinnamon-cookiesjpg.jpg',
     ingredients: {
       en: [
         '2 cups all-purpose flour',
@@ -343,7 +343,7 @@ export const recipes: Recipe[] = [
       en: 'Light and airy pancakes that are perfect for breakfast. Serve with maple syrup and butter!',
       ar: 'فطائر خفيفة وناعمة مثالية للإفطار. قدمها مع شراب القيقب والزبدة!'
     },
-    image: '/images/recipes/fluffy-pancakes.jpg',
+    image: '/images/recipes/pancake.jpg',
     ingredients: {
       en: [
         '1 1/2 cups all-purpose flour',
@@ -407,7 +407,7 @@ export const recipes: Recipe[] = [
       en: 'Moist and chocolatey muffins that are perfect for breakfast or a snack. Rich and satisfying!',
       ar: 'كعك رطب بالشوكولاتة مثالي للإفطار أو كوجبة خفيفة. غني ومشبع!'
     },
-    image: '/images/recipes/chocolate-muffins.jpg',
+    image: '/images/recipes/muffins.jpg',
     ingredients: {
       en: [
         '2 cups all-purpose flour',
@@ -623,7 +623,7 @@ export const recipes: Recipe[] = [
       en: 'Classic chocolate glazed donuts that are soft and fluffy. A favorite treat for all ages!',
       ar: 'دونات الشوكولاتة المزججة الكلاسيكية الناعمة والرقيقة. حلوى مفضلة لجميع الأعمار!'
     },
-    image: '/images/recipes/chocolate-donut.jpg',
+    image: '/images/recipes/donut.jpg',
     ingredients: {
       en: [
         '2 cups all-purpose flour',
@@ -845,7 +845,7 @@ export const recipes: Recipe[] = [
       en: 'Creamy and smooth cheesecake with a graham cracker crust. A timeless dessert favorite!',
       ar: 'كعكة جبن كريمية وناعمة مع قشرة البسكويت. حلوى مفضلة خالدة!'
     },
-    image: '/images/recipes/cheesecake.jpg',
+    image: '/images/recipes/chesscake.jpg',
     ingredients: {
       en: [
         '1 1/2 cups graham cracker crumbs',

@@ -124,11 +124,6 @@ export class PaymentComponent{
         deliveryTime: deliveryTimeText
       };
 
-      // Debug: Verify userId matches auth.uid
-      console.log('Creating order with userId:', orderData.userId);
-      console.log('Current user UID:', currentUser.uid);
-      console.log('Auth state:', currentUser);
-
       // Only add optional fields if they have values
       if (userData.phone && userData.phone.trim()) {
         orderData.userPhone = userData.phone;

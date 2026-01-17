@@ -57,8 +57,6 @@ export class UserdataService {
 
   private async loadUserDataFromFirestore(uid: string): Promise<void> {
     try {
-      console.log('auth uid:' , uid);
-
       const auth = this.firebaseService.getAuth();
       const currentUser = auth.currentUser;
 
@@ -76,12 +74,8 @@ export class UserdataService {
           isAdmin: userData['isAdmin'] || false
         };
         this.userDataSubject.next(user);
-      console.log('isAdmin from Firestore:', userData['isAdmin']);
-
-
         this.adminLogged = user.isAdmin ?? false;
         this.adminCheck.next(this.adminLogged);
-        console.log('admin statuse set to:', this.adminLogged);
       } else {
         // If user data doesn't exist in Firestore, create basic user object from auth
         if (currentUser) {

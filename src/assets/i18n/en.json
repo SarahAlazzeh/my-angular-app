@@ -74,6 +74,7 @@
   "cart": {
     "title": "Shopping Cart",
     "empty": "Your cart is empty",
+    "emptyDescription": "Looks like you haven't added any items yet. Start shopping to fill your cart!",
     "total": "Total",
     "checkout": "Checkout",
     "continueShopping": "Continue Shopping",
@@ -181,6 +182,20 @@
     "next": "Next",
     "previous": "Previous",
     "minutes": "min"
+  },
+  "search": {
+    "placeholder": "Search for treats...",
+    "clear": "Clear search",
+    "filter": "Filter",
+    "filterAll": "All",
+    "sort": {
+      "label": "Sort by",
+      "none": "Default",
+      "nameAsc": "Name (A-Z)",
+      "nameDesc": "Name (Z-A)",
+      "priceAsc": "Price (Low to High)",
+      "priceDesc": "Price (High to Low)"
+    }
   },
   "notFound": {
     "title": "Page Not Found",

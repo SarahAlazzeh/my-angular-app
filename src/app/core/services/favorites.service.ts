@@ -42,7 +42,12 @@ export class FavoritesService implements OnDestroy {
         this.currentUserId = null;
         // Load from localStorage when logged out
         const localFavorites = this.loadFavoritesFromStorage();
-        this.favoritesSubject.next(localFavorites);
+        const fixedFavorites = this.fixProductImagePaths(localFavorites);
+        this.favoritesSubject.next(fixedFavorites);
+        // Update localStorage with fixed paths if they were changed
+        if (JSON.stringify(localFavorites) !== JSON.stringify(fixedFavorites)) {
+          this.saveFavoritesToStorage(fixedFavorites);
+        }
         if (this.favoritesUnsubscribe) {
           this.favoritesUnsubscribe();
         }
@@ -62,17 +67,47 @@ export class FavoritesService implements OnDestroy {
       if (docSnapshot.exists()) {
         const data = docSnapshot.data();
         const favorites: Product[] = data['items'] || [];
-        this.favoritesSubject.next(favorites);
+        const fixedFavorites = this.fixProductImagePaths(favorites);
+        this.favoritesSubject.next(fixedFavorites);
+        // Update Firestore with fixed paths if they were changed
+        if (JSON.stringify(favorites) !== JSON.stringify(fixedFavorites)) {
+          await this.saveFavoritesToFirestore(uid, fixedFavorites);
+        }
       } else {
         // If favorites don't exist, try to migrate from localStorage
         const localFavorites = this.loadFavoritesFromStorage();
         if (localFavorites.length > 0) {
-          await this.saveFavoritesToFirestore(uid, localFavorites);
+          const fixedFavorites = this.fixProductImagePaths(localFavorites);
+          await this.saveFavoritesToFirestore(uid, fixedFavorites);
         } else {
           this.favoritesSubject.next([]);
         }
       }
     });
+  }
+
+  private fixImagePath(imagePath: string): string {
+    if (!imagePath) return '';
+    
+    // Fix incorrect image paths to match actual file names in public/images/recipes
+    const pathMappings: { [key: string]: string } = {
+      '/images/recipes/blueberry-cookies.jpg': '/images/recipes/berryjpg.jpg',
+      '/images/recipes/classic-cookies.jpg': '/images/recipes/cookies.jpg',
+      '/images/recipes/cinnamon-cookies.jpg': '/images/recipes/cinnamon-cookiesjpg.jpg',
+      '/images/recipes/fluffy-pancakes.jpg': '/images/recipes/pancake.jpg',
+      '/images/recipes/chocolate-muffins.jpg': '/images/recipes/muffins.jpg',
+      '/images/recipes/chocolate-donut.jpg': '/images/recipes/donut.jpg',
+      '/images/recipes/cheesecake.jpg': '/images/recipes/chesscake.jpg'
+    };
+
+    return pathMappings[imagePath] || imagePath;
+  }
+
+  private fixProductImagePaths(products: Product[]): Product[] {
+    return products.map(product => ({
+      ...product,
+      img: this.fixImagePath(product.img)
+    }));
   }
 
   private async loadFavoritesFromFirestore(uid: string): Promise<void> {
@@ -83,14 +118,20 @@ export class FavoritesService implements OnDestroy {
       if (favoritesDoc.exists()) {
         const data = favoritesDoc.data();
         const favorites: Product[] = data['items'] || [];
-        this.favoritesSubject.next(favorites);
+        const fixedFavorites = this.fixProductImagePaths(favorites);
+        this.favoritesSubject.next(fixedFavorites);
+        // Update Firestore with fixed paths if they were changed
+        if (JSON.stringify(favorites) !== JSON.stringify(fixedFavorites)) {
+          await this.saveFavoritesToFirestore(uid, fixedFavorites);
+        }
         // Clear localStorage after successful migration
         this.clearLocalStorage();
       } else {
         // Try to migrate from localStorage
         const localFavorites = this.loadFavoritesFromStorage();
         if (localFavorites.length > 0) {
-          await this.saveFavoritesToFirestore(uid, localFavorites);
+          const fixedFavorites = this.fixProductImagePaths(localFavorites);
+          await this.saveFavoritesToFirestore(uid, fixedFavorites);
           this.clearLocalStorage();
         } else {
           this.favoritesSubject.next([]);
@@ -100,7 +141,8 @@ export class FavoritesService implements OnDestroy {
       console.error('Error loading favorites from Firestore:', error);
       // Fallback to localStorage
       const localFavorites = this.loadFavoritesFromStorage();
-      this.favoritesSubject.next(localFavorites);
+      const fixedFavorites = this.fixProductImagePaths(localFavorites);
+      this.favoritesSubject.next(fixedFavorites);
     }
   }
 

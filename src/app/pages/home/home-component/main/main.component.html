@@ -18,27 +18,21 @@
       <img src="/images/recipes/cookies.jpg" alt="" class="category-image">
       <div class="category-content">
         <h3>cookies</h3>
-        <button>
-          <a class="view">View All</a>
-        </button>
+        <a routerLink="/shop" [queryParams]="{filter: 'cookies'}" class="view-btn">View All</a>
       </div>
     </div>
     <div class="category-card">
       <img src="/images/recipes/muffins.jpg" alt="" class="category-image">
       <div class="category-content">
         <h3>muffins</h3>
-        <button>
-          <a class="view">View All</a>
-        </button>
+        <a routerLink="/shop" [queryParams]="{filter: 'desserts'}" class="view-btn">View All</a>
       </div>
     </div>
     <div class="category-card">
       <img src="/images/recipes/crossan.jpg" alt="" class="category-image">
       <div class="category-content">
         <h3>crassan</h3>
-        <button>
-          <a class="view">View All</a>
-        </button>
+        <a routerLink="/shop" [queryParams]="{filter: 'bread'}" class="view-btn">View All</a>
       </div>
     </div>
   </div>

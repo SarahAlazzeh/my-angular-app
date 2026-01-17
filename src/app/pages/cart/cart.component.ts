@@ -8,12 +8,14 @@ import { PaymentComponent } from "./component/payment/payment.component";
 import { ShopService } from "../../features/shop";
 import { CartService, CartItem } from "../../core/services/cart.service";
 import { Subscription } from "rxjs";
+import { NavbarComponent } from "../../shared/components/navbar/navbar.component";
+import { FooterComponent } from "../../shared/components/footer/footer.component";
 
 @Component({
   selector: 'app-cart',
   standalone: true,
   imports: [TranslatePipe, CheckoutComponent, NgClass,
-    OrderComponent, PaymentComponent, RouterLink],
+    OrderComponent, PaymentComponent, RouterLink, NavbarComponent, FooterComponent],
   templateUrl: './cart.component.html',
   styleUrl: './cart.component.css'
 })

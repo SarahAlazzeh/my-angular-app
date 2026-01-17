@@ -1,0 +1,50 @@
+<div class="search-bar-container">
+  <div class="search-wrapper">
+    <div class="search-input-wrapper">
+      <i class="material-icons search-icon">search</i>
+      <input
+        type="search"
+        class="search-input"
+        [placeholder]="placeholder | translate"
+        [(ngModel)]="searchValue"
+        (input)="onSearchChange()"
+      >
+      @if (searchValue) {
+        <button class="clear-btn" (click)="clearSearch()" type="button" [title]="'search.clear' | translate">
+          <i class="material-icons">close</i>
+        </button>
+      }
+    </div>
+  </div>
+
+  <div class="controls-wrapper">
+    @if (filterOptions.length > 0) {
+      <div class="filter-wrapper">
+        <label class="control-label">{{ 'search.filter' | translate }}</label>
+        <select
+          class="filter-select"
+          [(ngModel)]="selectedFilter"
+          (change)="onFilterChange()"
+        >
+          <option value="all">{{ 'search.filterAll' | translate }}</option>
+          @for (option of filterOptions; track option) {
+            <option [value]="option">{{ option | translate }}</option>
+          }
+        </select>
+      </div>
+    }
+
+    <div class="sort-wrapper">
+      <label class="control-label">{{ 'search.sort.label' | translate }}</label>
+      <select
+        class="sort-select"
+        [(ngModel)]="selectedSort"
+        (change)="onSortChange()"
+      >
+        @for (option of getSortOptions(); track option.value) {
+          <option [value]="option.value">{{ option.label | translate }}</option>
+        }
+      </select>
+    </div>
+  </div>
+</div>

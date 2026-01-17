@@ -4,13 +4,32 @@
     <h1 class="logiTitle">Sarah's Bakery</h1>
   </div>
 
+  <!-- Mobile Menu Toggle -->
+  <button class="mobile-menu-toggle" (click)="toggleMobileMenu()" [attr.aria-expanded]="showMobileMenu" aria-label="Toggle menu">
+    <i class="material-icons">{{ showMobileMenu ? 'close' : 'menu' }}</i>
+  </button>
+
+  <!-- Desktop Navigation -->
   <ul class="navbar-center">
-    <li routerLink="/home" [routerLinkActive]="activeRoute === 'home' ? 'active' : ''"><a>{{ 'nav.home' | translate }}</a></li>
-    <li routerLink="/shop" [routerLinkActive]="activeRoute === 'shop' ? 'active' : ''"><a>{{ 'nav.shop' | translate }}</a></li>
-    <li routerLink="/recipe"><a>{{ 'nav.recipes' | translate }}</a></li>
-    <li routerLink="/about-us"><a>{{ 'nav.about' | translate }}</a></li>
-    <li routerLink="/contact-us"><a>{{ 'nav.contact' | translate }}</a></li>
-    <li routerLink="/share-recipe"><a>{{ 'nav.share' | translate }}</a></li>
+    <li routerLink="/home" routerLinkActive="active" [routerLinkActiveOptions]="{exact: false}"><a (click)="closeMobileMenu()">{{ 'nav.home' | translate }}</a></li>
+    <li routerLink="/shop" routerLinkActive="active" [routerLinkActiveOptions]="{exact: false}"><a (click)="closeMobileMenu()">{{ 'nav.shop' | translate }}</a></li>
+    <li routerLink="/recipe" routerLinkActive="active" [routerLinkActiveOptions]="{exact: false}"><a (click)="closeMobileMenu()">{{ 'nav.recipes' | translate }}</a></li>
+    <li routerLink="/about-us" routerLinkActive="active" [routerLinkActiveOptions]="{exact: false}"><a (click)="closeMobileMenu()">{{ 'nav.about' | translate }}</a></li>
+    <li routerLink="/contact-us" routerLinkActive="active" [routerLinkActiveOptions]="{exact: false}"><a (click)="closeMobileMenu()">{{ 'nav.contact' | translate }}</a></li>
+    <li routerLink="/share-recipe" routerLinkActive="active" [routerLinkActiveOptions]="{exact: false}"><a (click)="closeMobileMenu()">{{ 'nav.share' | translate }}</a></li>
+  </ul>
+
+  <!-- Mobile Navigation Overlay -->
+  <div class="mobile-menu-overlay" [class.active]="showMobileMenu" (click)="closeMobileMenu()"></div>
+  
+  <!-- Mobile Navigation Menu -->
+  <ul class="mobile-nav" [class.active]="showMobileMenu">
+    <li routerLink="/home" routerLinkActive="active" [routerLinkActiveOptions]="{exact: false}"><a (click)="closeMobileMenu()">{{ 'nav.home' | translate }}</a></li>
+    <li routerLink="/shop" routerLinkActive="active" [routerLinkActiveOptions]="{exact: false}"><a (click)="closeMobileMenu()">{{ 'nav.shop' | translate }}</a></li>
+    <li routerLink="/recipe" routerLinkActive="active" [routerLinkActiveOptions]="{exact: false}"><a (click)="closeMobileMenu()">{{ 'nav.recipes' | translate }}</a></li>
+    <li routerLink="/about-us" routerLinkActive="active" [routerLinkActiveOptions]="{exact: false}"><a (click)="closeMobileMenu()">{{ 'nav.about' | translate }}</a></li>
+    <li routerLink="/contact-us" routerLinkActive="active" [routerLinkActiveOptions]="{exact: false}"><a (click)="closeMobileMenu()">{{ 'nav.contact' | translate }}</a></li>
+    <li routerLink="/share-recipe" routerLinkActive="active" [routerLinkActiveOptions]="{exact: false}"><a (click)="closeMobileMenu()">{{ 'nav.share' | translate }}</a></li>
   </ul>
 
   <div class="navbar-right">

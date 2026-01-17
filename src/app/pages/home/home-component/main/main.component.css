@@ -134,7 +134,7 @@ h2::after{
   width: 100%;
   gap: 40px;
   max-width: 1200px;
-  /* margin: 0 auto; */
+  margin: 0 auto;
 }
 
 .category-card {
@@ -171,7 +171,8 @@ h2::after{
   color: var(--dark);
 }
 
-button{
+.view-btn {
+  display: inline-block;
   background-color: var(--accent);
   border-radius: 40px;
   font-weight: 500;
@@ -183,10 +184,15 @@ button{
   cursor: pointer;
   border: 0px;
   outline: none;
+  text-align: center;
+  width: 100%;
+  box-sizing: border-box;
 }
 
-button:hover{
+.view-btn:hover {
   transform: translateY(-10px);
+  background-color: #a33f5b;
+  box-shadow: var(--shadow);
 }
 
 
@@ -298,7 +304,7 @@ button:hover{
 }
 
 /* Buttons inside category cards */
-:host-context(.dark-theme) button {
+:host-context(.dark-theme) .view-btn {
   background-color: var(--accent);
   color: #fff;
   border-radius: 40px;
@@ -311,18 +317,174 @@ button:hover{
   box-shadow: var(--shadow);
 }
 
-:host-context(.dark-theme) button:hover {
+:host-context(.dark-theme) .view-btn:hover {
   background-color: #c44569;
   transform: translateY(-10px);
   box-shadow: 0 10px 25px rgba(196, 69, 105, 0.7);
-}
-/* Links inside buttons if any */
-:host-context(.dark-theme) button a.view {
-  color: #fff;
-  text-decoration: none;
 }
 
 /* General h2 styling fallback */
 :host-context(.dark-theme) h2 {
   color: var(--accent);
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+  .main {
+    height: 70vh;
+    min-height: 500px;
+  }
+
+  .main1 {
+    top: 25%;
+    padding: 0 20px;
+  }
+
+  .main1 h1 {
+    font-size: 2.5rem;
+    padding-bottom: 15px;
+  }
+
+  .main p {
+    font-size: 1.1rem;
+    margin-bottom: 30px;
+    padding: 0 10px;
+  }
+
+  .main a {
+    padding: 12px 30px;
+    font-size: 1rem;
+  }
+
+  .secondary-main {
+    padding: 30px 20px;
+    margin-bottom: 40px;
+  }
+
+  .secondary-main h2 {
+    font-size: 2rem;
+    padding-bottom: 30px;
+    padding-top: 25px;
+  }
+
+  .categories-grid {
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 25px;
+  }
+
+  .category-image {
+    height: 250px;
+  }
+
+  .category-content {
+    padding: 15px;
+  }
+
+  .category-card h3 {
+    font-size: 1.5rem;
+    padding-bottom: 15px;
+    padding-top: 8px;
+  }
+
+  .view-btn {
+    padding: 12px 60px;
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .main {
+    height: 60vh;
+    min-height: 400px;
+  }
+
+  .main1 {
+    top: 20%;
+    padding: 0 15px;
+  }
+
+  .main1 h1 {
+    font-size: 2rem;
+    padding-bottom: 12px;
+  }
+
+  .main p {
+    font-size: 1rem;
+    margin-bottom: 25px;
+    padding: 0 5px;
+  }
+
+  .main a {
+    padding: 10px 25px;
+    font-size: 0.95rem;
+  }
+
+  .secondary-main {
+    padding: 25px 15px;
+    margin-bottom: 30px;
+  }
+
+  .secondary-main h2 {
+    font-size: 1.6rem;
+    padding-bottom: 25px;
+    padding-top: 20px;
+  }
+
+  .secondary-main h2::after {
+    width: 70px;
+    border-bottom-width: 3px;
+  }
+
+  .categories-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .category-image {
+    height: 220px;
+  }
+
+  .category-content {
+    padding: 12px;
+  }
+
+  .category-card h3 {
+    font-size: 1.3rem;
+    padding-bottom: 12px;
+    padding-top: 6px;
+  }
+
+  .view-btn {
+    padding: 10px 40px;
+    font-size: 0.95rem;
+    width: 100%;
+  }
+}
+
+@media (max-width: 360px) {
+  .main1 h1 {
+    font-size: 1.7rem;
+  }
+
+  .main p {
+    font-size: 0.9rem;
+  }
+
+  .main a {
+    padding: 8px 20px;
+    font-size: 0.9rem;
+  }
+
+  .secondary-main h2 {
+    font-size: 1.4rem;
+  }
+
+  .category-card h3 {
+    font-size: 1.2rem;
+  }
+
+  .view-btn {
+    padding: 8px 30px;
+    font-size: 0.9rem;
+  }
 }

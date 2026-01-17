@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, ElementRef, ViewChild } from "@angular/core";
+import { Component, OnInit, OnDestroy, ElementRef, ViewChild, computed, signal, Input } from "@angular/core";
 import { Product } from "../../../../core/models/product.interface";
 import { products } from "../../../../core/models/product.data";
 import { SearchPipe } from "../../../../shared/pipes/search.pipe";
@@ -6,20 +6,23 @@ import { FavoritesService } from "../../../../core/services/favorites.service";
 import { UserdataService } from "../../../../core/services/userData.service";
 import { Router } from "@angular/router";
 import { Subscription } from "rxjs";
-import { SearchService } from "../../../../core/services/search.service";
+import { SearchService, SortOption } from "../../../../core/services/search.service";
 import { NgIf } from "@angular/common";
 
 @Component({
   selector: 'recipe-card',
   standalone: true,
-  imports: [ SearchPipe , NgIf ],
+  imports: [ NgIf ],
   templateUrl: './recipeCard.component.html',
   styleUrls: ['./recipeCard.component.css']
 })
 
 export class RecipecardComponent implements OnInit, OnDestroy {
-  recipeProducts: Product[] = products;
+  recipeProducts = signal<Product[]>(products);
   recipeSearch: string = "";
+  @Input() search: string = "";
+  @Input() sortOption: SortOption = 'none';
+  @Input() filterOption: string = 'all';
   favoriteStatuses: Map<number, boolean> = new Map();
   private favoritesSubscription?: Subscription;
   @ViewChild('loginAlert') loginAlert!: ElementRef;
@@ -36,16 +39,36 @@ export class RecipecardComponent implements OnInit, OnDestroy {
   searchOn: boolean = false ;
   searchValue: string = "";
 
+  filteredAndSortedProducts = computed(() => {
+    let result = [...this.recipeProducts()];
+    
+    // Apply search filter
+    if (this.search && this.search.trim()) {
+      const searchLower = this.search.toLowerCase();
+      result = result.filter(product =>
+        product.title.toLowerCase().includes(searchLower) ||
+        (product.name && product.name.toLowerCase().includes(searchLower))
+      );
+    }
+
+    // Apply sorting
+    if (this.sortOption !== 'none') {
+      result = this.sortProducts(result, this.sortOption);
+    }
+
+    return result;
+  });
+
   ngOnInit(): void {
     // Subscribe to favorites changes
     this.favoritesSubscription = this.favoritesService.getFavorites().subscribe(() => {
-      this.recipeProducts.forEach(product => {
+      this.recipeProducts().forEach(product => {
         this.favoriteStatuses.set(product.id, this.favoritesService.isFavorite(product.id));
       });
     });
     
     // Initialize favorite statuses
-    this.recipeProducts.forEach(product => {
+    this.recipeProducts().forEach(product => {
       this.favoriteStatuses.set(product.id, this.favoritesService.isFavorite(product.id));
     });
 
@@ -53,6 +76,23 @@ export class RecipecardComponent implements OnInit, OnDestroy {
       this.searchValue = value 
       this.searchOn = value.trim().length > 0 
       })
+  }
+
+  private sortProducts(products: Product[], sortOption: SortOption): Product[] {
+    const sorted = [...products];
+    
+    switch (sortOption) {
+      case 'name-asc':
+        return sorted.sort((a, b) => a.title.localeCompare(b.title));
+      case 'name-desc':
+        return sorted.sort((a, b) => b.title.localeCompare(a.title));
+      case 'price-asc':
+        return sorted.sort((a, b) => a.price - b.price);
+      case 'price-desc':
+        return sorted.sort((a, b) => b.price - a.price);
+      default:
+        return sorted;
+    }
   }
 
   ngOnDestroy(): void {
@@ -65,7 +105,7 @@ export class RecipecardComponent implements OnInit, OnDestroy {
     const loginUser = this.userdataService.isLoggedIn();
     
     if (loginUser === true) {
-      const selectedProduct = this.recipeProducts.find(p => p.id === productId);
+      const selectedProduct = this.recipeProducts().find(p => p.id === productId);
       if (selectedProduct) {
         this.favoritesService.toggleFavorite(selectedProduct);
         const isFavorite = this.favoritesService.isFavorite(productId);

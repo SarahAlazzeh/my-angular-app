@@ -28,7 +28,6 @@ export class HomeComponent{
     ngOnInit() {
     this.userdataService.isAdmin$.subscribe(isAdminValue => {
       this.admin = isAdminValue;
-      console.log('isAdmin from subscription:', isAdminValue);
     });
   }
 
@@ -38,7 +37,6 @@ export class HomeComponent{
 
   feedbackWindow(){
     this.feedbackOpen = !this.feedbackOpen;
-    console.log('feedback', this.feedbackOpen);
     this.login = this.userdataService.isLoggedIn();
     // return this.login;
   }

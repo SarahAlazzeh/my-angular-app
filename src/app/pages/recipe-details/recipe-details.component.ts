@@ -6,11 +6,13 @@ import { Recipe } from "../../core/models/recipe.interface";
 import { TranslationService } from "../../core/services/translation.service";
 import { RecipeService } from "../../core/services/recipe.service";
 import { TranslatePipe } from "../../shared/pipes/translate.pipe";
+import { NavbarComponent } from "../../shared/components/navbar/navbar.component";
+import { FooterComponent } from "../../shared/components/footer/footer.component";
 
 @Component({
   selector: 'app-recipedetails',
   standalone: true,
-  imports: [CommonModule, TranslatePipe],
+  imports: [CommonModule, TranslatePipe, NavbarComponent, FooterComponent],
   templateUrl: './recipe-details.component.html',
   styleUrl: './recipe-details.component.css'
 })

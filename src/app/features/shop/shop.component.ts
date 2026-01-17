@@ -1,4 +1,5 @@
-import { Component, ViewChild } from "@angular/core";
+import { Component, ViewChild, OnInit } from "@angular/core";
+import { ActivatedRoute, Router } from "@angular/router";
 import { ProductCardComponent } from "./components/product-card/product-card.component";
 import { products } from "../../core/models/product.data";
 import { AddProductComponent } from "./components/add-product/add-product.component";
@@ -7,36 +8,63 @@ import { FooterComponent } from "../../shared/components/footer/footer.component
 import { TranslatePipe } from "../../shared/pipes/translate.pipe";
 import { UserdataService } from "../../core/services/userData.service";
 import { CommonModule } from "@angular/common";
+import { SearchBarComponent, SortOption } from "../../shared/components/search-bar/search-bar.component";
 
 @Component({
   selector: 'app-shop',
   standalone: true,
   imports:[ ProductCardComponent, AddProductComponent, NavbarComponent,
-    FooterComponent, TranslatePipe, CommonModule ],
+    FooterComponent, TranslatePipe, CommonModule, SearchBarComponent ],
   templateUrl: './shop.component.html',
   styleUrl: './shop.component.css'
 })
 
-export class ShopComponent{
+export class ShopComponent implements OnInit {
   @ViewChild('addProduct') addProductComponent!: AddProductComponent;
   
   showCard : boolean = false;
   productList = products;
-  searchNav: string= "";
+  searchValue: string = "";
+  sortOption: SortOption = 'none';
+  filterOption: string = 'all';
   admin : boolean = false;
 
-  reciveFromNav(msg: string){
-    this.searchNav = msg;
-  }
+  filterOptions: string[] = [
+    'shop.filters.bread',
+    'shop.filters.desserts',
+    'shop.filters.cakes',
+    'shop.filters.cookies'
+  ];
   
-  constructor( private userdataService : UserdataService,){}
+  constructor( 
+    private userdataService : UserdataService,
+    private route: ActivatedRoute,
+    private router: Router
+  ){}
 
   ngOnInit(){
     this.userdataService.isAdmin$.subscribe(value => {
-      console.log('is admin ' , value)
       this.admin= value;
-      console.log( this.admin )
-    })
+    });
+
+    // Read filter from query params
+    this.route.queryParams.subscribe(params => {
+      if (params['filter']) {
+        const filterValue = params['filter'];
+        // Map filter values to the correct filter option format
+        const filterMap: { [key: string]: string } = {
+          'cookies': 'shop.filters.cookies',
+          'desserts': 'shop.filters.desserts',
+          'cakes': 'shop.filters.cakes',
+          'bread': 'shop.filters.bread'
+        };
+        
+        if (filterMap[filterValue]) {
+          this.filterOption = filterMap[filterValue];
+          this.onFilterChange(this.filterOption);
+        }
+      }
+    });
   }
 
   openAddProductModal() {
@@ -52,5 +80,16 @@ export class ShopComponent{
     this.showCard = true; // نظهر الكروت
   }
 
+  onSearchChange(value: string): void {
+    this.searchValue = value;
+  }
+
+  onSortChange(sort: SortOption): void {
+    this.sortOption = sort;
+  }
+
+  onFilterChange(filter: string): void {
+    this.filterOption = filter;
+  }
 }
 

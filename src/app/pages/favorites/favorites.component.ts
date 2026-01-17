@@ -7,11 +7,13 @@ import { Subscription } from "rxjs";
 import { UserdataService } from "../../core/services/userData.service";
 import { ShopService } from "../../features/shop/services/shop.service";
 import { products } from "../../core/models/product.data";
+import { NavbarComponent } from "../../shared/components/navbar/navbar.component";
+import { FooterComponent } from "../../shared/components/footer/footer.component";
 
 @Component({
   selector: 'app-favorites',
   standalone: true,
-  imports: [ RouterLink, CommonModule, CurrencyPipe ],
+  imports: [ RouterLink, CommonModule, CurrencyPipe, NavbarComponent, FooterComponent ],
   templateUrl: './favorites.component.html',
   styleUrl: './favorites.component.css'
 })

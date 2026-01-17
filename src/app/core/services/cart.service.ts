@@ -47,7 +47,12 @@ export class CartService implements OnDestroy {
         this.currentUserId = null;
         // Load from localStorage when logged out
         const localCart = this.loadCartFromStorage();
-        this.cartSubject.next(localCart);
+        const fixedCart = this.fixCartItems(localCart);
+        this.cartSubject.next(fixedCart);
+        // Update localStorage with fixed paths if they were changed
+        if (JSON.stringify(localCart) !== JSON.stringify(fixedCart)) {
+          this.saveCartToStorage(fixedCart);
+        }
         if (this.cartUnsubscribe) {
           this.cartUnsubscribe();
         }
@@ -67,17 +72,50 @@ export class CartService implements OnDestroy {
       if (docSnapshot.exists()) {
         const data = docSnapshot.data();
         const cartItems: CartItem[] = data['items'] || [];
-        this.cartSubject.next(cartItems);
+        const fixedCartItems = this.fixCartItems(cartItems);
+        this.cartSubject.next(fixedCartItems);
+        // Update Firestore with fixed paths if they were changed
+        if (JSON.stringify(cartItems) !== JSON.stringify(fixedCartItems)) {
+          await this.saveCartToFirestore(uid, fixedCartItems);
+        }
       } else {
         // If cart doesn't exist, try to migrate from localStorage
         const localCart = this.loadCartFromStorage();
         if (localCart.length > 0) {
-          await this.saveCartToFirestore(uid, localCart);
+          const fixedCart = this.fixCartItems(localCart);
+          await this.saveCartToFirestore(uid, fixedCart);
         } else {
           this.cartSubject.next([]);
         }
       }
     });
+  }
+
+  private fixImagePath(imagePath: string): string {
+    if (!imagePath) return '';
+    
+    // Fix incorrect image paths to match actual file names in public/images/recipes
+    const pathMappings: { [key: string]: string } = {
+      '/images/recipes/blueberry-cookies.jpg': '/images/recipes/berryjpg.jpg',
+      '/images/recipes/classic-cookies.jpg': '/images/recipes/cookies.jpg',
+      '/images/recipes/cinnamon-cookies.jpg': '/images/recipes/cinnamon-cookiesjpg.jpg',
+      '/images/recipes/fluffy-pancakes.jpg': '/images/recipes/pancake.jpg',
+      '/images/recipes/chocolate-muffins.jpg': '/images/recipes/muffins.jpg',
+      '/images/recipes/chocolate-donut.jpg': '/images/recipes/donut.jpg',
+      '/images/recipes/cheesecake.jpg': '/images/recipes/chesscake.jpg'
+    };
+
+    return pathMappings[imagePath] || imagePath;
+  }
+
+  private fixCartItems(cartItems: CartItem[]): CartItem[] {
+    return cartItems.map(item => ({
+      ...item,
+      product: {
+        ...item.product,
+        img: this.fixImagePath(item.product.img)
+      }
+    }));
   }
 
   private async loadCartFromFirestore(uid: string): Promise<void> {
@@ -88,14 +126,20 @@ export class CartService implements OnDestroy {
       if (cartDoc.exists()) {
         const data = cartDoc.data();
         const cartItems: CartItem[] = data['items'] || [];
-        this.cartSubject.next(cartItems);
+        const fixedCartItems = this.fixCartItems(cartItems);
+        this.cartSubject.next(fixedCartItems);
+        // Update Firestore with fixed paths if they were changed
+        if (JSON.stringify(cartItems) !== JSON.stringify(fixedCartItems)) {
+          await this.saveCartToFirestore(uid, fixedCartItems);
+        }
         // Clear localStorage after successful migration
         this.clearLocalStorage();
       } else {
         // Try to migrate from localStorage
         const localCart = this.loadCartFromStorage();
         if (localCart.length > 0) {
-          await this.saveCartToFirestore(uid, localCart);
+          const fixedCart = this.fixCartItems(localCart);
+          await this.saveCartToFirestore(uid, fixedCart);
           this.clearLocalStorage();
         } else {
           this.cartSubject.next([]);
@@ -105,7 +149,8 @@ export class CartService implements OnDestroy {
       console.error('Error loading cart from Firestore:', error);
       // Fallback to localStorage
       const localCart = this.loadCartFromStorage();
-      this.cartSubject.next(localCart);
+      const fixedCart = this.fixCartItems(localCart);
+      this.cartSubject.next(fixedCart);
     }
   }
 

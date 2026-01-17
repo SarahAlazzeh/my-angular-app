@@ -17,9 +17,9 @@ import { SearchService } from '../../../core/services/search.service';
 @Component({
   selector: 'app-navbar',
   standalone: true,
-  imports: [RouterLink, RouterLinkActive, SignupComponent ,
+  imports: [RouterLink, RouterLinkActive, SignupComponent,
     FormsModule, CommonModule, TranslatePipe, SigninComponent
-  , ForgetPasswordComponent],
+    , ForgetPasswordComponent],
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.css']
 })
@@ -30,7 +30,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
   @Output() sendSearchInput: EventEmitter<string> = new EventEmitter();
   @Output() themeChanged: EventEmitter<string> = new EventEmitter();
   @Output() languageChanged: EventEmitter<string> = new EventEmitter();
-  @ViewChild('loader') loader!:ElementRef;
+  @ViewChild('loader') loader!: ElementRef;
   @ViewChild('check') check!: ElementRef;
   // @ViewChild('signIn') SignIn!: ElementRef;
   // @ViewChild('signUp') signUp!: ElementRef;
@@ -43,6 +43,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
   isLoggedIn: boolean = false;
   userData: any = null;
   showUserMenu: boolean = false;
+  showMobileMenu: boolean = false;
   cartItemCount: number = 0;
   isAdmin: boolean = false;
   private cartSubscription?: Subscription;
@@ -52,10 +53,10 @@ export class NavbarComponent implements OnInit, OnDestroy {
   constructor(
     private themeService: ThemeService,
     private translationService: TranslationService,
-    private userdataService : UserdataService,
-    private cartService: CartService ,
-    private serchService :SearchService,
-  ) {}
+    private userdataService: UserdataService,
+    private cartService: CartService,
+    private serchService: SearchService,
+  ) { }
 
   ngOnInit(): void {
     // Subscribe to theme changes
@@ -68,33 +69,27 @@ export class NavbarComponent implements OnInit, OnDestroy {
       this.currentLanguage = language;
     });
 
-    // Subscribe to user data changes
     this.userdataService.userData$.subscribe(userData => {
       this.userData = userData;
       this.isLoggedIn = this.userdataService.isLoggedIn();
       this.isAdmin = userData?.isAdmin || false;
     });
 
-    // Subscribe to admin status changes
     this.userdataService.isAdmin$.subscribe(isAdmin => {
       this.isAdmin = isAdmin;
     });
 
-    // Check initial login state
     this.isLoggedIn = this.userdataService.isLoggedIn();
     this.userData = this.userdataService.getUserData();
     this.isAdmin = this.userdataService.isLooginAdmin();
 
-    // Close user menu when clicking outside
     document.addEventListener('click', (event) => {
       if (this.showUserMenu && !(event.target as HTMLElement).closest('.user-menu-container')) {
         this.closeUserMenu();
       }
     });
 
-    // Subscribe to cart changes
     this.cartSubscription = this.cartService.getCartItems().subscribe(items => {
-      // Count unique items (same items count as 1)
       this.cartItemCount = items.length;
     });
   }
@@ -105,17 +100,11 @@ export class NavbarComponent implements OnInit, OnDestroy {
     }
   }
 
-  // onSearchKeyPress(): void {
-  //   if (this.enableSearch) {
-  //     this.sendSearchInput.emit(this.inputSearch);
-  //   }
-  // }
-
-  sendProductIdToSearch(){
-    if( this.inputSearch == "" ){
+  sendProductIdToSearch() {
+    if (this.inputSearch == "") {
       this.serchService.sendSearchProduct("")
-    }else this.serchService.sendSearchProduct(this.inputSearch)
-}
+    } else this.serchService.sendSearchProduct(this.inputSearch)
+  }
 
   toggleTheme(): void {
     this.themeService.toggleTheme();
@@ -128,80 +117,59 @@ export class NavbarComponent implements OnInit, OnDestroy {
     this.languageChanged.emit(newLanguage);
   }
 
-activeForm: 'signin' | 'signup' | 'forget' | 'success' | null = null;
+  activeForm: 'signin' | 'signup' | 'forget' | 'success' | null = null;
 
-signin() { this.activeForm = 'signin'; }
-signup() { this.activeForm = 'signup'; }
-forget() { this.activeForm = 'forget'; }
-success() {
-  this.activeForm = 'success'
-  this.loader.nativeElement.style.display= 'flex';
+  signin() { this.activeForm = 'signin'; }
+  signup() { this.activeForm = 'signup'; }
+  forget() { this.activeForm = 'forget'; }
+  success() {
+    this.activeForm = 'success'
+    this.loader.nativeElement.style.display = 'flex';
     setTimeout(() => {
-    this.loader.nativeElement.style.display='none';
+      this.loader.nativeElement.style.display = 'none';
     }, 2000);
 
-  this.check.nativeElement.style.display='flex';
-  setTimeout(()=>{
-    this.check.nativeElement.style.display='none';
-  }, 2000);
-}
-signClose() { this.activeForm = null; }
-
-toggleUserMenu() {
-  this.showUserMenu = !this.showUserMenu;
-}
-
-closeUserMenu() {
-  this.showUserMenu = false;
-}
-
-onFavoritesClick() {
-  this.closeUserMenu();
-}
-
-async signOut() {
-  await this.userdataService.clearUserData();
-  this.showUserMenu = false;
-  this.isLoggedIn = false;
-  this.userData = null;
-
-}
-
-onImageError(event: Event) {
-  const img = event.target as HTMLImageElement;
-  img.style.display = 'none';
-  // Remove photoURL so the icon shows
-  if (this.userData) {
-    this.userData.photoURL = undefined;
+    this.check.nativeElement.style.display = 'flex';
+    setTimeout(() => {
+      this.check.nativeElement.style.display = 'none';
+    }, 2000);
   }
-}
+  signClose() { this.activeForm = null; }
 
+  toggleUserMenu() {
+    this.showUserMenu = !this.showUserMenu;
+  }
 
-//   signin(): void {
-//     this.SignIn.nativeElement.style.display='flex';
-//     // this.SignIn.nativeElement.style.display = 'flex';
-//     this.signUp.nativeElement.style.display= 'none';
-//     this.Forget.nativeElement.style.display= 'none';
+  closeUserMenu() {
+    this.showUserMenu = false;
+  }
 
-//   }
+  onFavoritesClick() {
+    this.closeUserMenu();
+  }
 
-//   signup(){
-//   this.SignIn.nativeElement.style.display = 'none';
-//   this.signUp.nativeElement.style.display= 'flex';
-//   this.Forget.nativeElement.style.display= 'none';
-//   console.log('Signin button clicked');
+  async signOut() {
+    await this.userdataService.clearUserData();
+    this.showUserMenu = false;
+    this.isLoggedIn = false;
+    this.userData = null;
 
-// }
+  }
 
-//   forget(){
-//   this.SignIn.nativeElement.style.display = 'none';
-//   this.signUp.nativeElement.style.display= 'none';
-//   this.Forget.nativeElement.style.display= 'flex';  }
+  onImageError(event: Event) {
+    const img = event.target as HTMLImageElement;
+    img.style.display = 'none';
+    // Remove photoURL so the icon shows
+    if (this.userData) {
+      this.userData.photoURL = undefined;
+    }
+  }
 
-//   signClose(){
-//   this.SignIn.nativeElement.style.display = 'none';
-//   this.signUp.nativeElement.style.display= 'none';
-//   this.Forget.nativeElement.style.display= 'none';
-//   }
+  toggleMobileMenu() {
+    this.showMobileMenu = !this.showMobileMenu;
+  }
 
+  closeMobileMenu() {
+    this.showMobileMenu = false;
+  }
 }

@@ -1,5 +1,15 @@
-<app-navbar [enableSearch]="true" [activeRoute]="'shop'" (sendSearchInput)="reciveFromNav($event)"></app-navbar>
+<app-navbar [enableSearch]="false" [activeRoute]="'shop'"></app-navbar>
 <h1 class="pageTitle">{{ 'shop.title' | translate }}</h1>
+
+<app-search-bar
+  pageType="shop"
+  [filterOptions]="filterOptions"
+  [initialFilter]="filterOption"
+  placeholder="nav.search.placeholder"
+  (searchChange)="onSearchChange($event)"
+  (sortChange)="onSortChange($event)"
+  (filterChange)="onFilterChange($event)">
+</app-search-bar>
 
 @if (admin) {
   <div class="admin-actions">
@@ -13,7 +23,11 @@
   </div>
 }
 
-<app-product-card [search]="searchNav"></app-product-card>
+<app-product-card
+  [search]="searchValue"
+  [sortOption]="sortOption"
+  [filterOption]="filterOption">
+</app-product-card>
 
 <app-add-product 
   (productAdded)="onProductAdded($event)"

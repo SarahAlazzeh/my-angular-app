@@ -19,7 +19,7 @@
 </div>
 
 <section class="container">
-@for (product of recipeProducts |searchPipe: searchValue; track $index) {
+@for (product of filteredAndSortedProducts(); track product.id) {
   <div class="product-card">
     <img [src]="product.img" alt="" class="product-image">
     <div class="product-info">
