@@ -45,11 +45,9 @@ export class CartService implements OnDestroy {
         this.subscribeToCartChanges(user.uid);
       } else {
         this.currentUserId = null;
-        // Load from localStorage when logged out
         const localCart = this.loadCartFromStorage();
         const fixedCart = this.fixCartItems(localCart);
         this.cartSubject.next(fixedCart);
-        // Update localStorage with fixed paths if they were changed
         if (JSON.stringify(localCart) !== JSON.stringify(fixedCart)) {
           this.saveCartToStorage(fixedCart);
         }
@@ -74,12 +72,10 @@ export class CartService implements OnDestroy {
         const cartItems: CartItem[] = data['items'] || [];
         const fixedCartItems = this.fixCartItems(cartItems);
         this.cartSubject.next(fixedCartItems);
-        // Update Firestore with fixed paths if they were changed
         if (JSON.stringify(cartItems) !== JSON.stringify(fixedCartItems)) {
           await this.saveCartToFirestore(uid, fixedCartItems);
         }
       } else {
-        // If cart doesn't exist, try to migrate from localStorage
         const localCart = this.loadCartFromStorage();
         if (localCart.length > 0) {
           const fixedCart = this.fixCartItems(localCart);
@@ -94,7 +90,6 @@ export class CartService implements OnDestroy {
   private fixImagePath(imagePath: string): string {
     if (!imagePath) return '';
     
-    // Fix incorrect image paths to match actual file names in public/images/recipes
     const pathMappings: { [key: string]: string } = {
       '/images/recipes/blueberry-cookies.jpg': '/images/recipes/berryjpg.jpg',
       '/images/recipes/classic-cookies.jpg': '/images/recipes/cookies.jpg',
@@ -128,14 +123,11 @@ export class CartService implements OnDestroy {
         const cartItems: CartItem[] = data['items'] || [];
         const fixedCartItems = this.fixCartItems(cartItems);
         this.cartSubject.next(fixedCartItems);
-        // Update Firestore with fixed paths if they were changed
         if (JSON.stringify(cartItems) !== JSON.stringify(fixedCartItems)) {
           await this.saveCartToFirestore(uid, fixedCartItems);
         }
-        // Clear localStorage after successful migration
         this.clearLocalStorage();
       } else {
-        // Try to migrate from localStorage
         const localCart = this.loadCartFromStorage();
         if (localCart.length > 0) {
           const fixedCart = this.fixCartItems(localCart);
@@ -147,7 +139,6 @@ export class CartService implements OnDestroy {
       }
     } catch (error) {
       console.error('Error loading cart from Firestore:', error);
-      // Fallback to localStorage
       const localCart = this.loadCartFromStorage();
       const fixedCart = this.fixCartItems(localCart);
       this.cartSubject.next(fixedCart);
@@ -163,7 +154,6 @@ export class CartService implements OnDestroy {
       }, { merge: true });
     } catch (error) {
       console.error('Error saving cart to Firestore:', error);
-      // Fallback to localStorage
       this.saveCartToStorage(cart);
     }
   }

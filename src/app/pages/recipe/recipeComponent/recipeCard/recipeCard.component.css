@@ -155,7 +155,6 @@ h2 {
   display: inline-block;
   white-space: nowrap;
   direction: ltr;
-  /* -webkit-font-feature-settings: 'liga'; */
   -webkit-font-smoothing: antialiased;
 }
 
@@ -280,11 +279,6 @@ button {
   padding-bottom: 8px;
 }
 
-/* إضافة تأثير تمرير ناعم للنتائج لو في */
-.search-result::-webkit-scrollbar {
-  width: 6px;
-}
-/* إضافة تأثير تمرير ناعم للنتائج لو في */
 .search-result::-webkit-scrollbar {
   width: 6px;
 }

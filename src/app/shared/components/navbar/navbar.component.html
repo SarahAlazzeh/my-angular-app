@@ -4,12 +4,10 @@
     <h1 class="logiTitle">Sarah's Bakery</h1>
   </div>
 
-  <!-- Mobile Menu Toggle -->
   <button class="mobile-menu-toggle" (click)="toggleMobileMenu()" [attr.aria-expanded]="showMobileMenu" aria-label="Toggle menu">
     <i class="material-icons">{{ showMobileMenu ? 'close' : 'menu' }}</i>
   </button>
 
-  <!-- Desktop Navigation -->
   <ul class="navbar-center">
     <li routerLink="/home" routerLinkActive="active" [routerLinkActiveOptions]="{exact: false}"><a (click)="closeMobileMenu()">{{ 'nav.home' | translate }}</a></li>
     <li routerLink="/shop" routerLinkActive="active" [routerLinkActiveOptions]="{exact: false}"><a (click)="closeMobileMenu()">{{ 'nav.shop' | translate }}</a></li>
@@ -19,10 +17,8 @@
     <li routerLink="/share-recipe" routerLinkActive="active" [routerLinkActiveOptions]="{exact: false}"><a (click)="closeMobileMenu()">{{ 'nav.share' | translate }}</a></li>
   </ul>
 
-  <!-- Mobile Navigation Overlay -->
   <div class="mobile-menu-overlay" [class.active]="showMobileMenu" (click)="closeMobileMenu()"></div>
   
-  <!-- Mobile Navigation Menu -->
   <ul class="mobile-nav" [class.active]="showMobileMenu">
     <li routerLink="/home" routerLinkActive="active" [routerLinkActiveOptions]="{exact: false}"><a (click)="closeMobileMenu()">{{ 'nav.home' | translate }}</a></li>
     <li routerLink="/shop" routerLinkActive="active" [routerLinkActiveOptions]="{exact: false}"><a (click)="closeMobileMenu()">{{ 'nav.shop' | translate }}</a></li>
@@ -51,7 +47,6 @@
           }
         </a>
       </button>
-      <!-- User Menu: Show when logged in -->
       @if (isLoggedIn && userData) {
         <div class="user-menu-container">
           <button class="icon-btn user-profile-btn" (click)="toggleUserMenu()" [title]="userData.name || 'User Profile'">
@@ -118,7 +113,6 @@
       </div>
       }
 
-      <!-- Sign In Button: Show when not logged in -->
       @if (!isLoggedIn) {
         <button class="icon-btn" (click)="signin()" title="Sign In">
           <i class="material-icons user">account_circle</i>
@@ -157,16 +151,6 @@
           </div>
         </div>
       }
-
-      <!-- @if (isActive) {
-        @if (isActive==1){
-        }
-        @if (isActive==2) {
-        }
-        @if (isActive == 3){
-        }
-      } -->
-
 
     </div>
   </div>

@@ -1,28 +1,25 @@
-import { Component, OnInit, OnDestroy, ElementRef, ViewChild, computed, signal, Input } from "@angular/core";
+import { Component, OnInit, OnDestroy, ElementRef, ViewChild, computed, signal, input } from "@angular/core";
 import { Product } from "../../../../core/models/product.interface";
 import { products } from "../../../../core/models/product.data";
-import { SearchPipe } from "../../../../shared/pipes/search.pipe";
 import { FavoritesService } from "../../../../core/services/favorites.service";
 import { UserdataService } from "../../../../core/services/userData.service";
 import { Router } from "@angular/router";
 import { Subscription } from "rxjs";
 import { SearchService, SortOption } from "../../../../core/services/search.service";
-import { NgIf } from "@angular/common";
 
 @Component({
   selector: 'recipe-card',
   standalone: true,
-  imports: [ NgIf ],
+  imports: [],
   templateUrl: './recipeCard.component.html',
   styleUrls: ['./recipeCard.component.css']
 })
 
 export class RecipecardComponent implements OnInit, OnDestroy {
   recipeProducts = signal<Product[]>(products);
-  recipeSearch: string = "";
-  @Input() search: string = "";
-  @Input() sortOption: SortOption = 'none';
-  @Input() filterOption: string = 'all';
+  search = input<string>("");
+  sortOption = input<SortOption>('none');
+  filterOption = input<string>('all');
   favoriteStatuses: Map<number, boolean> = new Map();
   private favoritesSubscription?: Subscription;
   @ViewChild('loginAlert') loginAlert!: ElementRef;
@@ -31,51 +28,39 @@ export class RecipecardComponent implements OnInit, OnDestroy {
   constructor(
     private favoritesService: FavoritesService,
     private userdataService: UserdataService,
-    private router: Router,
-    private searchService : SearchService
-    
+    private router: Router
   ) {}
-
-  searchOn: boolean = false ;
-  searchValue: string = "";
 
   filteredAndSortedProducts = computed(() => {
     let result = [...this.recipeProducts()];
+    const searchValue = this.search();
+    const sortValue = this.sortOption();
     
-    // Apply search filter
-    if (this.search && this.search.trim()) {
-      const searchLower = this.search.toLowerCase();
+    if (searchValue && searchValue.trim()) {
+      const searchLower = searchValue.toLowerCase();
       result = result.filter(product =>
         product.title.toLowerCase().includes(searchLower) ||
         (product.name && product.name.toLowerCase().includes(searchLower))
       );
     }
 
-    // Apply sorting
-    if (this.sortOption !== 'none') {
-      result = this.sortProducts(result, this.sortOption);
+    if (sortValue !== 'none') {
+      result = this.sortProducts(result, sortValue);
     }
 
     return result;
   });
 
   ngOnInit(): void {
-    // Subscribe to favorites changes
     this.favoritesSubscription = this.favoritesService.getFavorites().subscribe(() => {
       this.recipeProducts().forEach(product => {
         this.favoriteStatuses.set(product.id, this.favoritesService.isFavorite(product.id));
       });
     });
     
-    // Initialize favorite statuses
     this.recipeProducts().forEach(product => {
       this.favoriteStatuses.set(product.id, this.favoritesService.isFavorite(product.id));
     });
-
-    this.searchService.getSearchProduct().subscribe(value => {
-      this.searchValue = value 
-      this.searchOn = value.trim().length > 0 
-      })
   }
 
   private sortProducts(products: Product[], sortOption: SortOption): Product[] {
@@ -110,7 +95,6 @@ export class RecipecardComponent implements OnInit, OnDestroy {
         this.favoritesService.toggleFavorite(selectedProduct);
         const isFavorite = this.favoritesService.isFavorite(productId);
         
-        // Show alert
         if (this.favoriteAlert) {
           this.favoriteAlert.nativeElement.style.display = 'flex';
           setTimeout(() => {
@@ -121,7 +105,6 @@ export class RecipecardComponent implements OnInit, OnDestroy {
         }
       }
     } else {
-      // Show login alert
       if (this.loginAlert) {
         this.loginAlert.nativeElement.style.display = 'flex';
         setTimeout(() => {

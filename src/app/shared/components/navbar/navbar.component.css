@@ -593,7 +593,6 @@ select:focus {
   box-shadow: 0 2px 8px rgba(255, 71, 87, 0.5);
 }
 
-/* ===== Overlay Wrapper ===== */
 .sign,
 .forget {
   position: fixed;
@@ -607,13 +606,10 @@ select:focus {
   animation: overlayFade 0.3s ease-in-out;
 }
 
-/* حركة دخول المودال */
 .sign > *,
 .forget > * {
   animation: modalEnter 0.35s ease-in-out;
 }
-
-/* ===== Animations ===== */
 @keyframes overlayFade {
   from { opacity: 0; transform: translateY(-3px); }
   to   { opacity: 1; transform: translateY(0px); }

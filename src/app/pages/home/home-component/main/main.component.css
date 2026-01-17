@@ -195,15 +195,6 @@ h2::after{
   box-shadow: var(--shadow);
 }
 
-
-
-/* .category-content a:hover {
-  background-color: #a33f5b;
-  box-shadow: var(--shadow);
-  transform: translateY(-7px);
-} */
-
-/* Dark Theme Styles */
 :host-context(.dark-theme) {
   --primary: #ff9aa2;
   --secondary: #2d3748;

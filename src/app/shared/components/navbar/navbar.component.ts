@@ -6,7 +6,6 @@ import { ThemeService } from '../../../core/services/theme.service';
 import { TranslationService } from '../../../core/services/translation.service';
 import { TranslatePipe } from '../../pipes/translate.pipe';
 import { SigninComponent } from './login/signIn/sign-in.component';
-// import { LoginswitchComponent } from './login/loginswitch/login-switch.component';
 import { SignupComponent } from "./login/sighUp/sign-up.component";
 import { ForgetPasswordComponent } from './login/forget password/forget-password.component';
 import { UserdataService } from '../../../core/services/userData.service';
@@ -32,10 +31,6 @@ export class NavbarComponent implements OnInit, OnDestroy {
   @Output() languageChanged: EventEmitter<string> = new EventEmitter();
   @ViewChild('loader') loader!: ElementRef;
   @ViewChild('check') check!: ElementRef;
-  // @ViewChild('signIn') SignIn!: ElementRef;
-  // @ViewChild('signUp') signUp!: ElementRef;
-  // @ViewChild('Forget') Forget!: ElementRef;
-
 
   inputSearch: string = "";
   currentTheme: string = 'light';
@@ -47,8 +42,6 @@ export class NavbarComponent implements OnInit, OnDestroy {
   cartItemCount: number = 0;
   isAdmin: boolean = false;
   private cartSubscription?: Subscription;
-  // isInActive: boolean = false;
-  // isActive:number = 0;
 
   constructor(
     private themeService: ThemeService,
@@ -59,12 +52,10 @@ export class NavbarComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit(): void {
-    // Subscribe to theme changes
     this.themeService.getCurrentTheme().subscribe(theme => {
       this.currentTheme = theme;
     });
 
-    // Subscribe to language changes
     this.translationService.getCurrentLanguageObservable().subscribe(language => {
       this.currentLanguage = language;
     });
@@ -159,7 +150,6 @@ export class NavbarComponent implements OnInit, OnDestroy {
   onImageError(event: Event) {
     const img = event.target as HTMLImageElement;
     img.style.display = 'none';
-    // Remove photoURL so the icon shows
     if (this.userData) {
       this.userData.photoURL = undefined;
     }

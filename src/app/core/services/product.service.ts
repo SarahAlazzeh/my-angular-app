@@ -26,7 +26,6 @@ export class ProductService {
   private fixImagePath(imagePath: string): string {
     if (!imagePath) return '';
     
-    // Fix incorrect image paths to match actual file names in public/images/recipes
     const pathMappings: { [key: string]: string } = {
       '/images/recipes/blueberry-cookies.jpg': '/images/recipes/berryjpg.jpg',
       '/images/recipes/classic-cookies.jpg': '/images/recipes/cookies.jpg',
@@ -43,10 +42,8 @@ export class ProductService {
   async loadProducts(): Promise<void> {
     this.loadingSubject.next(true);
     try {
-      // Load static products first
       const staticProducts = [...products];
       
-      // Load products from Firestore
       const productRef = collection(this.firestore, 'product');
       const snapshot = await getDocs(productRef);
       
@@ -62,11 +59,10 @@ export class ProductService {
           img: imagePath,
           name: data['name'],
           description: data['description'],
-          firestoreId: docSnapshot.id // Store Firestore document ID
+          firestoreId: docSnapshot.id
         });
       });
 
-      // Merge static and Firestore products, avoiding duplicates by ID
       const allProducts = [...staticProducts];
       firestoreProducts.forEach(firestoreProduct => {
         const exists = allProducts.some(p => p.id === firestoreProduct.id);
@@ -79,7 +75,6 @@ export class ProductService {
       this.initialized = true;
     } catch (error) {
       console.error('Error loading products:', error);
-      // Fallback to static products if Firestore fails
       this.productsSubject.next([...products]);
       this.initialized = true;
     } finally {
@@ -112,11 +107,9 @@ export class ProductService {
 
   async addProduct(product: Product): Promise<void> {
     try {
-      // Add to Firestore
       const productRef = collection(this.firestore, 'product');
       await addDoc(productRef, product);
       
-      // Add to local state immediately
       const currentProducts = this.productsSubject.value;
       const updatedProducts = [...currentProducts, product];
       this.productsSubject.next(updatedProducts);
@@ -137,13 +130,11 @@ export class ProductService {
 
   async deleteProduct(product: Product): Promise<void> {
     try {
-      // If product has firestoreId, delete from Firestore
       if (product.firestoreId) {
         const productRef = doc(this.firestore, 'product', product.firestoreId);
         await deleteDoc(productRef);
       }
       
-      // Remove from local state
       const currentProducts = this.productsSubject.value;
       this.productsSubject.next(currentProducts.filter(p => p.id !== product.id));
     } catch (error) {

@@ -34,13 +34,11 @@ export class SearchBarComponent implements OnInit, OnDestroy {
   constructor(private searchService: SearchService) {}
 
   ngOnInit(): void {
-    // Set initial filter if provided
     if (this.initialFilter && this.initialFilter !== 'all') {
       this.selectedFilter = this.initialFilter;
       this.onFilterChange();
     }
 
-    // Subscribe to search service to sync with navbar if needed
     this.searchSubscription = this.searchService.getSearchProduct().subscribe(value => {
       if (value) {
         this.searchValue = value;

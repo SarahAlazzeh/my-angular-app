@@ -14,10 +14,4 @@ import { TranslatePipe } from "../../../../shared/pipes/translate.pipe";
 
 export class MainhomeComponent{
   product : Product[]= products;
-  m : number = 0;
-  // for (m ; m < 2; m++) {
-  //   const element = products[m];
-  // }
-
-
 }

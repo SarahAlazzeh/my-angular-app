@@ -40,11 +40,9 @@ export class FavoritesService implements OnDestroy {
         this.subscribeToFavoritesChanges(user.uid);
       } else {
         this.currentUserId = null;
-        // Load from localStorage when logged out
         const localFavorites = this.loadFavoritesFromStorage();
         const fixedFavorites = this.fixProductImagePaths(localFavorites);
         this.favoritesSubject.next(fixedFavorites);
-        // Update localStorage with fixed paths if they were changed
         if (JSON.stringify(localFavorites) !== JSON.stringify(fixedFavorites)) {
           this.saveFavoritesToStorage(fixedFavorites);
         }
@@ -69,12 +67,10 @@ export class FavoritesService implements OnDestroy {
         const favorites: Product[] = data['items'] || [];
         const fixedFavorites = this.fixProductImagePaths(favorites);
         this.favoritesSubject.next(fixedFavorites);
-        // Update Firestore with fixed paths if they were changed
         if (JSON.stringify(favorites) !== JSON.stringify(fixedFavorites)) {
           await this.saveFavoritesToFirestore(uid, fixedFavorites);
         }
       } else {
-        // If favorites don't exist, try to migrate from localStorage
         const localFavorites = this.loadFavoritesFromStorage();
         if (localFavorites.length > 0) {
           const fixedFavorites = this.fixProductImagePaths(localFavorites);
@@ -89,7 +85,6 @@ export class FavoritesService implements OnDestroy {
   private fixImagePath(imagePath: string): string {
     if (!imagePath) return '';
     
-    // Fix incorrect image paths to match actual file names in public/images/recipes
     const pathMappings: { [key: string]: string } = {
       '/images/recipes/blueberry-cookies.jpg': '/images/recipes/berryjpg.jpg',
       '/images/recipes/classic-cookies.jpg': '/images/recipes/cookies.jpg',
@@ -120,14 +115,11 @@ export class FavoritesService implements OnDestroy {
         const favorites: Product[] = data['items'] || [];
         const fixedFavorites = this.fixProductImagePaths(favorites);
         this.favoritesSubject.next(fixedFavorites);
-        // Update Firestore with fixed paths if they were changed
         if (JSON.stringify(favorites) !== JSON.stringify(fixedFavorites)) {
           await this.saveFavoritesToFirestore(uid, fixedFavorites);
         }
-        // Clear localStorage after successful migration
         this.clearLocalStorage();
       } else {
-        // Try to migrate from localStorage
         const localFavorites = this.loadFavoritesFromStorage();
         if (localFavorites.length > 0) {
           const fixedFavorites = this.fixProductImagePaths(localFavorites);
@@ -139,7 +131,6 @@ export class FavoritesService implements OnDestroy {
       }
     } catch (error) {
       console.error('Error loading favorites from Firestore:', error);
-      // Fallback to localStorage
       const localFavorites = this.loadFavoritesFromStorage();
       const fixedFavorites = this.fixProductImagePaths(localFavorites);
       this.favoritesSubject.next(fixedFavorites);
@@ -155,7 +146,6 @@ export class FavoritesService implements OnDestroy {
       }, { merge: true });
     } catch (error) {
       console.error('Error saving favorites to Firestore:', error);
-      // Fallback to localStorage
       this.saveFavoritesToStorage(favorites);
     }
   }

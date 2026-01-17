@@ -47,11 +47,9 @@ export class ShopComponent implements OnInit {
       this.admin= value;
     });
 
-    // Read filter from query params
     this.route.queryParams.subscribe(params => {
       if (params['filter']) {
         const filterValue = params['filter'];
-        // Map filter values to the correct filter option format
         const filterMap: { [key: string]: string } = {
           'cookies': 'shop.filters.cookies',
           'desserts': 'shop.filters.desserts',
@@ -72,12 +70,11 @@ export class ShopComponent implements OnInit {
   }
 
   closeAddProductModal() {
-    // Modal closes itself, this is just for cleanup if needed
   }
 
   onProductAdded(newProduct: any) {
-    this.productList.push(newProduct); // نضيف الكارد
-    this.showCard = true; // نظهر الكروت
+    this.productList.push(newProduct);
+    this.showCard = true;
   }
 
   onSearchChange(value: string): void {
