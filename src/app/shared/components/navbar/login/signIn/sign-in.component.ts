@@ -35,7 +35,6 @@ constructor(
 private async checkAuthState(): Promise<void> {
   const auth = this.firebaseService.getAuth();
   if (auth.currentUser) {
-    // User is already signed in, load their data
     const db = this.firebaseService.getFirestore();
     const userDoc = await getDoc(doc(db, 'users', auth.currentUser.uid));
     if (userDoc.exists()) {
@@ -44,7 +43,9 @@ private async checkAuthState(): Promise<void> {
         name: userData['name'] || '',
         phone: userData['phone'] || '',
         email: userData['email'] || auth.currentUser.email || '',
-        password: ''
+        password: '',
+        photoURL: userData['photoURL'] || auth.currentUser.photoURL || undefined,
+        isAdmin: userData['isAdmin'] || false
       };
       this.userdataService.setUserData(user, auth.currentUser.uid);
     }
@@ -170,18 +171,19 @@ private async checkAuthState(): Promise<void> {
           name: userData['name'] || '',
           phone: userData['phone'] || '',
           email: userData['email'] || email,
-          password: '', // Don't store password
-          photoURL: userData['photoURL'] || userCredential.user.photoURL || undefined
+          password: '',
+          photoURL: userData['photoURL'] || userCredential.user.photoURL || undefined,
+          isAdmin: userData['isAdmin'] || false
         };
         this.userdataService.setUserData(user, userCredential.user.uid);
       } else {
-        // If user data doesn't exist in Firestore, create basic user object
         const user: UserData = {
           name: userCredential.user.displayName || '',
           phone: '',
           email: email,
           password: '',
-          photoURL: userCredential.user.photoURL || undefined
+          photoURL: userCredential.user.photoURL || undefined,
+          isAdmin: false
         };
         this.userdataService.setUserData(user, userCredential.user.uid);
       }
@@ -210,25 +212,25 @@ private async checkAuthState(): Promise<void> {
       const userDoc = await getDoc(doc(db, 'users', userCredential.user.uid));
 
       if (userDoc.exists()) {
-        // User exists, load their data
         const userData = userDoc.data();
         const user: UserData = {
           name: userData['name'] || userCredential.user.displayName || '',
           phone: userData['phone'] || '',
           email: userData['email'] || userCredential.user.email || '',
           password: '',
-          photoURL: userData['photoURL'] || userCredential.user.photoURL || undefined
+          photoURL: userData['photoURL'] || userCredential.user.photoURL || undefined,
+          isAdmin: userData['isAdmin'] || false
         };
         this.userdataService.setUserData(user, userCredential.user.uid);
       } else {
-        // New user, create user document in Firestore
         await setDoc(doc(db, 'users', userCredential.user.uid), {
           name: userCredential.user.displayName || '',
           email: userCredential.user.email || '',
           phone: '',
           photoURL: userCredential.user.photoURL || null,
           createdAt: new Date().toISOString(),
-          provider: 'google'
+          provider: 'google',
+          isAdmin: false
         });
 
         const user: UserData = {
@@ -236,7 +238,8 @@ private async checkAuthState(): Promise<void> {
           phone: '',
           email: userCredential.user.email || '',
           password: '',
-          photoURL: userCredential.user.photoURL || undefined
+          photoURL: userCredential.user.photoURL || undefined,
+          isAdmin: false
         };
         this.userdataService.setUserData(user, userCredential.user.uid);
       }

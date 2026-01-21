@@ -100,21 +100,21 @@ export class SignupComponent{
       const auth = this.firebaseService.getAuth();
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
 
-      // Save additional user data to Firestore
       const db = this.firebaseService.getFirestore();
       await setDoc(doc(db, 'users', userCredential.user.uid), {
         name: name,
         email: email,
         phone: phone,
-        createdAt: new Date().toISOString()
+        createdAt: new Date().toISOString(),
+        isAdmin: false
       });
 
-      // Update local user data service
       const user: UserData = {
         name: name,
         phone: phone,
         email: email,
-        password: '' // Don't store password
+        password: '',
+        isAdmin: false
       };
       this.userdataService.setUserData(user, userCredential.user.uid);
 
@@ -141,25 +141,25 @@ export class SignupComponent{
       const userDoc = await getDoc(doc(db, 'users', userCredential.user.uid));
 
       if (userDoc.exists()) {
-        // User already exists, load their data
         const userData = userDoc.data();
         const user: UserData = {
           name: userData['name'] || userCredential.user.displayName || '',
           phone: userData['phone'] || '',
           email: userData['email'] || userCredential.user.email || '',
           password: '',
-          photoURL: userData['photoURL'] || userCredential.user.photoURL || undefined
+          photoURL: userData['photoURL'] || userCredential.user.photoURL || undefined,
+          isAdmin: userData['isAdmin'] || false
         };
         this.userdataService.setUserData(user, userCredential.user.uid);
       } else {
-        // New user, create user document in Firestore
         await setDoc(doc(db, 'users', userCredential.user.uid), {
           name: userCredential.user.displayName || '',
           email: userCredential.user.email || '',
           phone: '',
           photoURL: userCredential.user.photoURL || null,
           createdAt: new Date().toISOString(),
-          provider: 'google'
+          provider: 'google',
+          isAdmin: false
         });
 
         const user: UserData = {
@@ -167,7 +167,8 @@ export class SignupComponent{
           phone: '',
           email: userCredential.user.email || '',
           password: '',
-          photoURL: userCredential.user.photoURL || undefined
+          photoURL: userCredential.user.photoURL || undefined,
+          isAdmin: false
         };
         this.userdataService.setUserData(user, userCredential.user.uid);
       }

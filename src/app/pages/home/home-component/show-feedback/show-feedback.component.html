@@ -1,12 +1,61 @@
-<h2> All Customer Feedback  </h2>
+<app-navbar [enableSearch]="false" [activeRoute]="'Showfeedback'"></app-navbar>
 
-<div class="card">
-  <div *ngFor="let feedback of feedbackList" class="">
-    <div class="feedback-card">
-      <h4>Customer Name:  <span> {{ feedback.name }} </span> </h4>
-      <p>Customer Feedback: <span> {{ feedback.message }} </span> </p>
+<div class="feedback-page">
+  <div class="feedback-header">
+    <div class="header-content">
+      <div class="header-icon-wrapper">
+        <i class="material-icons header-icon">feedback</i>
+      </div>
+      <div class="header-text">
+        <h1>Customer Feedback</h1>
+        <p class="header-subtitle">View all customer reviews and suggestions</p>
+      </div>
+      @if (feedbackList.length > 0) {
+        <div class="feedback-count-badge">
+          <span class="count-number">{{ feedbackList.length }}</span>
+          <span class="count-label">{{ feedbackList.length === 1 ? 'Feedback' : 'Feedbacks' }}</span>
+        </div>
+      }
     </div>
+  </div>
+
+  <div class="feedback-container">
+    @if (isLoading) {
+      <div class="loading-state">
+        <div class="spinner"></div>
+        <p>Loading feedback...</p>
+      </div>
+    } @else if (feedbackList.length === 0) {
+      <div class="empty-state">
+        <i class="material-icons empty-icon">inbox</i>
+        <h2>No Feedback Yet</h2>
+        <p>Customer feedback will appear here once submitted.</p>
+      </div>
+    } @else {
+      <div class="feedback-grid">
+        @for (feedback of feedbackList; track feedback.id) {
+          <div class="feedback-card">
+            <div class="feedback-card-header">
+              <div class="customer-avatar">
+                <i class="material-icons">person</i>
+              </div>
+              <div class="customer-info">
+                <h3 class="customer-name">{{ feedback.name }}</h3>
+                <span class="customer-label">Customer</span>
+              </div>
+            </div>
+            <div class="feedback-card-body">
+              <p class="feedback-message">{{ feedback.message }}</p>
+            </div>
+            <div class="feedback-card-footer">
+              <i class="material-icons">rate_review</i>
+              <span>Feedback</span>
+            </div>
+          </div>
+        }
+      </div>
+    }
   </div>
 </div>
 
-<button routerLink="/home" > Back To Home </button>
+<app-footer></app-footer>
